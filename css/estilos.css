@@ -1649,5 +1649,28 @@ body .dashboard-section .module-icon {
 
 }
 
+/* =========================================================
+   CENTRAR CABECERA DEL PANEL
+   ========================================================= */
+
+body .welcome-section {
+  text-align: center !important;
+}
+
+body .welcome-section h2 {
+  text-align: center !important;
+}
+
+body .welcome-section p {
+  text-align: center !important;
+}
 
 
+/* =========================================================
+   CENTRAR TÍTULO PANEL DE GESTIÓN
+   ========================================================= */
+
+body .dashboard-section > h2 {
+  text-align: center !important;
+  margin-bottom: 25px !important;
+}
