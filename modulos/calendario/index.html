@@ -356,10 +356,319 @@
 
 <script>
 
-  // El JavaScript específico del calendario irá aquí.
+  // =====================================================
+  // SESIÓN
+  // =====================================================
 
+  if (!comprobarSesion()) {
+
+    throw new Error("Sesión no válida");
+
+  }
+
+
+  const usuario =
+    obtenerUsuario();
+
+
+  document
+    .getElementById("usuarioNombre")
+    .textContent =
+      `${usuario.nombre} · ${usuario.rol}`;
+
+
+  document
+    .getElementById("cerrarSesion")
+    .addEventListener(
+      "click",
+      cerrarSesion
+    );
+
+
+
+  // =====================================================
+  // REFERENCIAS
+  // =====================================================
+
+  const empresaId =
+    document.getElementById("empresaId");
+
+
+
+  // =====================================================
+  // CARGAR EMPRESAS
+  // =====================================================
+
+  async function cargarEmpresas() {
+
+    try {
+
+      const respuesta =
+        await peticionAPI(
+          "/api/empresas"
+        );
+
+
+      const datos =
+        await respuesta.json();
+
+
+      if (!respuesta.ok || !datos.ok) {
+
+        throw new Error(
+          datos.message ||
+          "No se pudieron cargar las empresas"
+        );
+
+      }
+
+
+      const empresas =
+        Array.isArray(datos.empresas)
+          ? datos.empresas
+          : [];
+
+
+      empresaId.innerHTML = `
+        <option value="">
+          Seleccionar empresa
+        </option>
+      `;
+
+
+      empresas.forEach(
+        (empresa) => {
+
+          const option =
+            document.createElement("option");
+
+          option.value =
+            empresa.id;
+
+          option.textContent =
+            empresa.nombre;
+
+          empresaId.appendChild(
+            option
+          );
+
+        }
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Error cargando empresas:",
+        error
+      );
+
+      empresaId.innerHTML = `
+        <option value="">
+          Error cargando empresas
+        </option>
+      `;
+
+    }
+
+  }
+
+
+
+  // =====================================================
+  // PREPARAR EMPRESA SEGÚN ROL
+  // =====================================================
+
+  async function prepararEmpresa() {
+
+
+    // ---------------------------------------------------
+    // SUPERADMIN
+    // ---------------------------------------------------
+
+    if (
+      usuario.rol === "SUPERADMIN"
+    ) {
+
+      empresaId.disabled =
+        false;
+
+      await cargarEmpresas();
+
+      return;
+
+    }
+
+
+    // ---------------------------------------------------
+    // ADMIN
+    // ---------------------------------------------------
+
+    if (
+      usuario.rol === "ADMIN"
+    ) {
+
+      empresaId.innerHTML = "";
+
+      const option =
+        document.createElement("option");
+
+      option.value =
+        usuario.empresaId;
+
+      option.textContent =
+        "Empresa actual";
+
+      option.selected =
+        true;
+
+      empresaId.appendChild(
+        option
+      );
+
+      empresaId.disabled =
+        true;
+
+      return;
+
+    }
+
+
+    // ---------------------------------------------------
+    // DIRECTOR
+    // ---------------------------------------------------
+
+    if (
+      usuario.rol === "DIRECTOR"
+    ) {
+
+      empresaId.innerHTML = "";
+
+      const option =
+        document.createElement("option");
+
+      option.value =
+        usuario.empresaId;
+
+      option.textContent =
+        "Empresa actual";
+
+      option.selected =
+        true;
+
+      empresaId.appendChild(
+        option
+      );
+
+      empresaId.disabled =
+        true;
+
+      return;
+
+    }
+
+
+    // ---------------------------------------------------
+    // TRABAJADOR
+    // ---------------------------------------------------
+
+    if (
+      usuario.rol === "TRABAJADOR"
+    ) {
+
+      empresaId.innerHTML = "";
+
+      const option =
+        document.createElement("option");
+
+      option.value =
+        usuario.empresaId;
+
+      option.textContent =
+        "Empresa actual";
+
+      option.selected =
+        true;
+
+      empresaId.appendChild(
+        option
+      );
+
+      empresaId.disabled =
+        true;
+
+      return;
+
+    }
+
+  }
+
+
+
+  // =====================================================
+  // ABRIR MODAL NUEVO EVENTO
+  // =====================================================
+
+  document
+    .getElementById("btnNuevoEvento")
+    .addEventListener(
+      "click",
+      async () => {
+
+        await prepararEmpresa();
+
+        document
+          .getElementById("modalEvento")
+          .classList.remove("hidden");
+
+      }
+    );
+
+
+
+  // =====================================================
+  // CERRAR MODAL
+  // =====================================================
+
+  function cerrarModalEvento() {
+
+    document
+      .getElementById("modalEvento")
+      .classList.add("hidden");
+
+  }
+
+
+  document
+    .getElementById("cerrarModal")
+    .addEventListener(
+      "click",
+      cerrarModalEvento
+    );
+
+
+  document
+    .getElementById("btnCancelar")
+    .addEventListener(
+      "click",
+      cerrarModalEvento
+    );
+
+
+
+  // =====================================================
+  // CARGA INICIAL
+  // =====================================================
+
+  (async () => {
+
+    await prepararEmpresa();
+
+  })();
 
 </script>
+
+
 
 </body>
 </html>
