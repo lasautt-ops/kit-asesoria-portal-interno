@@ -1,1 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Acceso - Gestión Interna</title>
+
+  <link
+    rel="stylesheet"
+    href="css/estilos.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <main
+    class="portal-container"
+    style="
+      max-width: 480px;
+      margin-top: 80px;
+    
+  >
+
+
+    <!-- =================================================
+         CABECERA
+         ================================================= -->
+
+    <section
+      class="welcome-section"
+      style="text-align: center;"
+    >
+
+      <div
+        style="
+          font-size: 48px;
+          margin-bottom: 15px;
+       
+      >
+        🔐
+      </div>
+
+      <h2>
+        Gestión Interna
+      </h2>
+
+      <p>
+        Accede al panel de gestión de la asesoría.
+      </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FORMULARIO
+         ================================================= -->
+
+    <section
+      style="
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 30px;
+      
+    >
+
+      <h3
+        style="
+          margin-top: 0;
+          margin-bottom: 25px;
+          color: #111827;
+      
+      >
+        Iniciar sesión
+      </h3>
+
+
+      <form id="loginForm">
+
+
+        <!-- EMAIL -->
+
+        <div
+          style="
+            margin-bottom: 20px;
+          "
+        >
+
+          <label
+            for="email"
+            style="
+              display: block;
+              margin-bottom: 7px;
+              font-size: 14px;
+              font-weight: 600;
+              color: #374151;
+           
+          >
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+            style="
+              width: 100%;
+              padding: 12px;
+              border: 1px solid #d1d5db;
+              border-radius: 8px;
+              font-size: 15px;
+              outline: none;
+           
+          >
+
+        </div>
+
+
+
+        <!-- CONTRASEÑA -->
+
+        <div
+          style="
+            margin-bottom: 25px;
+          "
+        >
+
+          <label
+            for="password"
+            style="
+              display: block;
+              margin-bottom: 7px;
+              font-size: 14px;
+              font-weight: 600;
+              color: #374151;
+           
+          >
+            Contraseña
+          </label>
+
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            required
+            style="
+              width: 100%;
+              padding: 12px;
+              border: 1px solid #d1d5db;
+              border-radius: 8px;
+              font-size: 15px;
+              outline: none;
+            "
+          >
+
+        </div>
+
+
+
+        <!-- BOTÓN -->
+
+        <button
+          type="submit"
+          id="loginButton"
+          class="btn btn-primary"
+          style="
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+          
+        >
+          Iniciar sesión
+        </button>
+
+
+        <!-- MENSAJE -->
+
+        <p
+          id="loginMessage"
+          class="message"
+          style="text-align: center;"
+        ></p>
+
+
+      </form>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =================================================
+       JAVASCRIPT COMÚN
+       ================================================= -->
+
+  <script src="js/comun.js"></script>
+
+
+
+  <!-- =================================================
+       LOGIN
+       ================================================= -->
+
+  <script>
+
+    const loginForm =
+      document.getElementById(
+        "loginForm"
+      );
+
+
+    const loginMessage =
+      document.getElementById(
+        "loginMessage"
+      );
+
+
+    const loginButton =
+      document.getElementById(
+        "loginButton"
+      );
+
+
+    loginForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("password")
+            .value;
+
+
+        loginMessage.textContent =
+          "Iniciando sesión...";
+
+
+        loginButton.disabled =
+          true;
+
+        loginButton.textContent =
+          "Accediendo...";
+
+
+        try {
+
+          const respuesta =
+            await fetch(
+              `${API_URL}/api/login`,
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  email,
+                  password
+                })
+              }
+            );
+
+
+          const datos =
+            await respuesta.json();
+
+
+          if (
+            !respuesta.ok ||
+            !datos.ok
+          ) {
+
+            loginMessage.textContent =
+              datos.message ||
+              "Email o contraseña incorrectos";
+
+
+            loginButton.disabled =
+              false;
+
+            loginButton.textContent =
+              "Iniciar sesión";
+
+            return;
+          }
+
+
+          // =============================================
+          // COMPROBAR QUE ES USUARIO INTERNO
+          // =============================================
+
+          const rolesPermitidos = [
+            "SUPERADMIN",
+            "ADMIN",
+            "DIRECTOR",
+            "TRABAJADOR"
+          ];
+
+
+          if (
+            !datos.usuario ||
+            !rolesPermitidos.includes(
+              datos.usuario.rol
+            )
+          ) {
+
+            loginMessage.textContent =
+              "Este usuario no tiene acceso al portal interno.";
+
+
+            loginButton.disabled =
+              false;
+
+            loginButton.textContent =
+              "Iniciar sesión";
+
+            return;
+          }
+
+
+          // =============================================
+          // GUARDAR SESIÓN
+          // =============================================
+
+          localStorage.setItem(
+            "token",
+            datos.token
+          );
+
+
+          localStorage.setItem(
+            "usuario",
+            JSON.stringify(
+              datos.usuario
+            )
+          );
+
+
+          // =============================================
+          // ACCESO AL PORTAL
+          // =============================================
+
+          window.location.href =
+            "index.html";
+
+
+        } catch (error) {
+
+          console.error(
+            "Error en login:",
+            error
+          );
+
+
+          loginMessage.textContent =
+            "No se ha podido conectar con el servidor";
+
+
+          loginButton.disabled =
+            false;
+
+          loginButton.textContent =
+            "Iniciar sesión";
+        }
+
+      }
+    );
+
+  </script>
+
+
+</body>
+
+</html>
