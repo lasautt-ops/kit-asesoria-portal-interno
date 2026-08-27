@@ -1,1 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Empresas - Gestión Interna</title>
+
+  <link
+    rel="stylesheet"
+    href="../../css/estilos.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="portal-header">
+
+    <div class="portal-header-left">
+
+      <h1>
+        Gestión Interna
+      </h1>
+
+      <p id="usuarioCabecera">
+        Cargando...
+      </p>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+      <a
+        href="../../index.html"
+        class="btn"
+      >
+        ← Volver al panel
+      </a>
+
+      <button
+        id="cerrarSesion"
+        class="btn btn-danger"
+        type="button"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+       ===================================================== -->
+
+  <main class="portal-container">
+
+
+    <!-- ===================================================
+         TÍTULO
+         =================================================== -->
+
+    <section class="welcome-section">
+
+      <h2>
+        Empresas
+      </h2>
+
+      <p>
+        Gestiona las empresas registradas en el sistema.
+      </p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ACCIONES
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+      <div>
+
+        <button
+          id="recargarEmpresas"
+          class="btn"
+          type="button"
+        >
+          Recargar empresas
+        </button>
+
+      </div>
+
+
+      <p
+        id="listadoMessage"
+        class="message"
+      ></p>
+
+
+      <!-- =================================================
+           FORMULARIO NUEVA EMPRESA
+           ================================================= -->
+
+      <div id="formularioEmpresa">
+
+        <h3>
+          Nueva empresa
+        </h3>
+
+
+        <form id="crearEmpresaForm">
+
+          <div>
+
+            <label for="nombreEmpresa">
+              Nombre de la empresa
+            </label>
+
+            <input
+              id="nombreEmpresa"
+              type="text"
+              required
+            >
+
+          </div>
+
+
+          <button
+            class="btn"
+            type="submit"
+          >
+            Crear empresa
+          </button>
+
+        </form>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LISTADO DE EMPRESAS
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+      <h2>
+        Empresas registradas
+      </h2>
+
+
+      <div id="empresasContainer">
+
+        Cargando empresas...
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       PIE
+       ===================================================== -->
+
+  <footer class="portal-footer">
+
+    Gestión Interna · Kit Gestión Asesoría
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT COMÚN
+       ===================================================== -->
+
+  <script src="../../js/comun.js"></script>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT DE EMPRESAS
+       ===================================================== -->
+
+  <script>
+
+
+    // =====================================================
+    // COMPROBAR SESIÓN
+    // =====================================================
+
+    if (!comprobarSesion()) {
+
+      throw new Error(
+        "Sesión no válida"
+      );
+
+    }
+
+
+    const usuario =
+      obtenerUsuario();
+
+
+    // =====================================================
+    // MOSTRAR USUARIO
+    // =====================================================
+
+    document
+      .getElementById(
+        "usuarioCabecera"
+      )
+      .textContent =
+        usuario.nombre;
+
+
+
+    // =====================================================
+    // CERRAR SESIÓN
+    // =====================================================
+
+    document
+      .getElementById(
+        "cerrarSesion"
+      )
+      .addEventListener(
+        "click",
+        cerrarSesion
+      );
+
+
+
+    // =====================================================
+    // CARGAR EMPRESAS
+    // =====================================================
+
+    async function cargarEmpresas() {
+
+      const container =
+        document.getElementById(
+          "empresasContainer"
+        );
+
+
+      const message =
+        document.getElementById(
+          "listadoMessage"
+        );
+
+
+      container.innerHTML =
+        "Cargando empresas...";
+
+      message.textContent =
+        "";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/empresas"
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          container.innerHTML =
+            "";
+
+          message.textContent =
+            datos.message ||
+            "No se han podido cargar las empresas.";
+
+          return;
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.empresas
+          ) ||
+          datos.empresas.length === 0
+        ) {
+
+          container.innerHTML =
+            "<p>No hay empresas registradas.</p>";
+
+          return;
+        }
+
+
+        container.innerHTML =
+          "";
+
+
+        datos.empresas.forEach(
+          (empresa) => {
+
+            const article =
+              document.createElement(
+                "article"
+              );
+
+
+            // =================================================
+            // NOMBRE
+            // =================================================
+
+            const titulo =
+              document.createElement(
+                "h3"
+              );
+
+
+            titulo.textContent =
+              empresa.nombre ||
+              "Sin nombre";
+
+
+            // =================================================
+            // ESTADO
+            // =================================================
+
+            const estado =
+              document.createElement(
+                "p"
+              );
+
+
+            estado.textContent =
+              empresa.activo
+                ? "Estado: Activa"
+                : "Estado: Inactiva";
+
+
+            // =================================================
+            // ID
+            // =================================================
+
+            const identificador =
+              document.createElement(
+                "p"
+              );
+
+
+            identificador.textContent =
+              `ID: ${empresa.id}`;
+
+
+            // =================================================
+            // BOTÓN EDITAR
+            // =================================================
+
+            const editar =
+              document.createElement(
+                "button"
+              );
+
+
+            editar.type =
+              "button";
+
+            editar.textContent =
+              "Editar";
+
+
+            editar.addEventListener(
+              "click",
+              () =>
+                editarEmpresa(
+                  empresa
+                )
+            );
+
+
+            // =================================================
+            // BOTÓN DESACTIVAR
+            // =================================================
+
+            const desactivar =
+              document.createElement(
+                "button"
+              );
+
+
+            desactivar.type =
+              "button";
+
+
+            desactivar.textContent =
+              "Desactivar";
+
+
+            desactivar.disabled =
+              !empresa.activo;
+
+
+            desactivar.addEventListener(
+              "click",
+              () =>
+                desactivarEmpresa(
+                  empresa.id
+                )
+            );
+
+
+            // =================================================
+            // CONSTRUIR EMPRESA
+            // =================================================
+
+            article.appendChild(
+              titulo
+            );
+
+
+            article.appendChild(
+              estado
+            );
+
+
+            article.appendChild(
+              identificador
+            );
+
+
+            article.appendChild(
+              editar
+            );
+
+
+            article.appendChild(
+              desactivar
+            );
+
+
+            container.appendChild(
+              article
+            );
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando empresas:",
+          error
+        );
+
+
+        container.innerHTML =
+          "";
+
+
+        message.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // CREAR EMPRESA
+    // =====================================================
+
+    document
+      .getElementById(
+        "crearEmpresaForm"
+      )
+      .addEventListener(
+        "submit",
+        async (event) => {
+
+          event.preventDefault();
+
+
+          const nombre =
+            document
+              .getElementById(
+                "nombreEmpresa"
+              )
+              .value
+              .trim();
+
+
+          if (!nombre) {
+
+            alert(
+              "El nombre de la empresa es obligatorio."
+            );
+
+            return;
+          }
+
+
+          try {
+
+            const respuesta =
+              await peticionAPI(
+                "/api/empresas",
+                {
+                  method: "POST",
+
+                  headers: {
+                    "Content-Type":
+                      "application/json"
+                  },
+
+                  body:
+                    JSON.stringify({
+                      nombre
+                    })
+                }
+              );
+
+
+            const datos =
+              await respuesta.json();
+
+
+            if (
+              !respuesta.ok ||
+              !datos.ok
+            ) {
+
+              alert(
+                datos.message ||
+                "No se ha podido crear la empresa."
+              );
+
+              return;
+            }
+
+
+            document
+              .getElementById(
+                "nombreEmpresa"
+              )
+              .value =
+                "";
+
+
+            await cargarEmpresas();
+
+
+          } catch (error) {
+
+            console.error(
+              "Error creando empresa:",
+              error
+            );
+
+
+            alert(
+              "No se ha podido conectar con el servidor."
+            );
+
+          }
+
+        }
+      );
+
+
+
+    // =====================================================
+    // EDITAR EMPRESA
+    // =====================================================
+
+    async function editarEmpresa(
+      empresa
+    ) {
+
+      const nuevoNombre =
+        prompt(
+          "Nuevo nombre de la empresa:",
+          empresa.nombre
+        );
+
+
+      if (
+        nuevoNombre === null
+      ) {
+
+        return;
+      }
+
+
+      const nombre =
+        nuevoNombre.trim();
+
+
+      if (!nombre) {
+
+        alert(
+          "El nombre de la empresa es obligatorio."
+        );
+
+        return;
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/empresas/${empresa.id}`,
+            {
+              method: "PUT",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+                  nombre
+                })
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          alert(
+            datos.message ||
+            "No se ha podido modificar la empresa."
+          );
+
+          return;
+        }
+
+
+        await cargarEmpresas();
+
+
+      } catch (error) {
+
+        console.error(
+          "Error modificando empresa:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido conectar con el servidor."
+        );
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // DESACTIVAR EMPRESA
+    // =====================================================
+
+    async function desactivarEmpresa(
+      empresaId
+    ) {
+
+      const confirmar =
+        confirm(
+          "¿Seguro que quieres desactivar esta empresa?"
+        );
+
+
+      if (!confirmar) {
+
+        return;
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/empresas/${empresaId}/desactivar`,
+            {
+              method: "PATCH"
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          alert(
+            datos.message ||
+            "No se ha podido desactivar la empresa."
+          );
+
+          return;
+        }
+
+
+        await cargarEmpresas();
+
+
+      } catch (error) {
+
+        console.error(
+          "Error desactivando empresa:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido conectar con el servidor."
+        );
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // RECARGAR
+    // =====================================================
+
+    document
+      .getElementById(
+        "recargarEmpresas"
+      )
+      .addEventListener(
+        "click",
+        cargarEmpresas
+      );
+
+
+
+    // =====================================================
+    // INICIO
+    // =====================================================
+
+    cargarEmpresas();
+
+
+  </script>
+
+
+</body>
+
+</html>
