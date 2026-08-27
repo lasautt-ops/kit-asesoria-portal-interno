@@ -473,7 +473,110 @@
 
   }
 
+  const oficinaId =
+    document.getElementById("oficinaId");
 
+
+  const clienteId =
+    document.getElementById("clienteId");
+
+
+
+  // =====================================================
+  // CARGAR OFICINAS DE UNA EMPRESA
+  // =====================================================
+
+  async function cargarOficinas(empresaIdValor) {
+
+    oficinaId.innerHTML = `
+      <option value="">
+        Sin oficina
+      </option>
+    `;
+
+
+    clienteId.innerHTML = `
+      <option value="">
+        Sin cliente
+      </option>
+    `;
+
+
+    if (!empresaIdValor) {
+
+      return;
+
+    }
+
+
+    try {
+
+      const respuesta =
+        await peticionAPI(
+          `/api/empresas/${empresaIdValor}/oficinas`
+        );
+
+
+      const datos =
+        await respuesta.json();
+
+
+      if (!respuesta.ok || !datos.ok) {
+
+        throw new Error(
+          datos.message ||
+          "No se pudieron cargar las oficinas"
+        );
+
+      }
+
+
+      const oficinas =
+        Array.isArray(datos.oficinas)
+          ? datos.oficinas.filter(
+              (oficina) =>
+                oficina.activo !== false
+            )
+          : [];
+
+
+      oficinas.forEach(
+        (oficina) => {
+
+          const option =
+            document.createElement("option");
+
+          option.value =
+            oficina.id;
+
+          option.textContent =
+            oficina.nombre;
+
+          oficinaId.appendChild(
+            option
+          );
+
+        }
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Error cargando oficinas:",
+        error
+      );
+
+
+      oficinaId.innerHTML = `
+        <option value="">
+          Error cargando oficinas
+        </option>
+      `;
+
+    }
+
+  }
 
   // =====================================================
   // PREPARAR EMPRESA SEGÚN ROL
@@ -603,7 +706,24 @@
 
   }
 
+  // =====================================================
+  // CAMBIO DE EMPRESA
+  // =====================================================
 
+  empresaId.addEventListener(
+    "change",
+    async () => {
+
+      const empresaSeleccionada =
+        empresaId.value;
+
+
+      await cargarOficinas(
+        empresaSeleccionada
+      );
+
+    }
+  );
 
   // =====================================================
   // ABRIR MODAL NUEVO EVENTO
