@@ -1047,7 +1047,320 @@
       }
     );
 
+  // =====================================================
+  // CARGAR EVENTOS DEL CALENDARIO
+  // =====================================================
 
+  async function cargarEventos() {
+
+    try {
+
+      const respuesta =
+        await peticionAPI(
+          "/api/eventos-calendario"
+        );
+
+
+      const datos =
+        await respuesta.json();
+
+
+      if (!respuesta.ok || !datos.ok) {
+
+        throw new Error(
+          datos.message ||
+          "No se pudieron cargar los eventos"
+        );
+
+      }
+
+
+      const eventos =
+        Array.isArray(datos.eventos)
+          ? datos.eventos
+          : [];
+
+
+      mostrarEventos(eventos);
+
+
+    } catch (error) {
+
+      console.error(
+        "Error cargando eventos:",
+        error
+      );
+
+
+      document
+        .getElementById("listaEventos")
+        .innerHTML = `
+          <p>
+            No se pudieron cargar los eventos.
+          </p>
+        `;
+
+    }
+
+  }
+
+
+
+  // =====================================================
+  // MOSTRAR EVENTOS
+  // =====================================================
+
+  function mostrarEventos(eventos) {
+
+    const listaEventos =
+      document.getElementById(
+        "listaEventos"
+      );
+
+
+    listaEventos.innerHTML = "";
+
+
+    if (eventos.length === 0) {
+
+      listaEventos.innerHTML = `
+        <p>
+          No hay eventos próximos.
+        </p>
+      `;
+
+      return;
+
+    }
+
+
+    eventos.forEach(
+      (evento) => {
+
+        const elemento =
+          document.createElement("div");
+
+
+        elemento.className =
+          "event-item";
+
+
+        const inicio =
+          evento.fechaInicio
+            ? new Date(
+                evento.fechaInicio
+              )
+            : null;
+
+
+        const fin =
+          evento.fechaFin
+            ? new Date(
+                evento.fechaFin
+              )
+            : null;
+
+
+        const fechaInicioTexto =
+          inicio &&
+          !Number.isNaN(
+            inicio.getTime()
+          )
+            ? inicio.toLocaleString(
+                "es-ES",
+                {
+                  dateStyle: "short",
+                  timeStyle: "short"
+                }
+              )
+            : "-";
+
+
+        const fechaFinTexto =
+          fin &&
+          !Number.isNaN(
+            fin.getTime()
+          )
+            ? fin.toLocaleString(
+                "es-ES",
+                {
+                  dateStyle: "short",
+                  timeStyle: "short"
+                }
+              )
+            : "-";
+
+
+        const empresa =
+          evento.empresa
+            ? evento.empresa.nombre
+            : "Sin empresa";
+
+
+        const oficina =
+          evento.oficina
+            ? evento.oficina.nombre
+            : "Sin oficina";
+
+
+        const cliente =
+          evento.cliente
+            ? evento.cliente.nombre
+            : "Sin cliente";
+
+
+        elemento.innerHTML = `
+
+          <div>
+
+            <h3>
+              ${escaparHTML(
+                evento.titulo
+              )}
+            </h3>
+
+
+            <p>
+              ${escaparHTML(
+                evento.descripcion ||
+                "Sin descripción"
+              )}
+            </p>
+
+
+            <p>
+              <strong>
+                Inicio:
+              </strong>
+
+              ${escaparHTML(
+                fechaInicioTexto
+              )}
+            </p>
+
+
+            <p>
+              <strong>
+                Fin:
+              </strong>
+
+              ${escaparHTML(
+                fechaFinTexto
+              )}
+            </p>
+
+
+            <p>
+              <strong>
+                Tipo:
+              </strong>
+
+              ${escaparHTML(
+                evento.tipo ||
+                "-"
+              )}
+            </p>
+
+
+            <p>
+              <strong>
+                Estado:
+              </strong>
+
+              ${escaparHTML(
+                evento.estado ||
+                "-"
+              )}
+            </p>
+
+
+            <p>
+              <strong>
+                Empresa:
+              </strong>
+
+              ${escaparHTML(
+                empresa
+              )}
+            </p>
+
+
+            <p>
+              <strong>
+                Oficina:
+              </strong>
+
+              ${escaparHTML(
+                oficina
+              )}
+            </p>
+
+
+            <p>
+              <strong>
+                Cliente:
+              </strong>
+
+              ${escaparHTML(
+                cliente
+              )}
+            </p>
+
+          </div>
+
+        `;
+
+
+        listaEventos.appendChild(
+          elemento
+        );
+
+      }
+    );
+
+  }
+
+
+
+  // =====================================================
+  // ESCAPAR HTML
+  // =====================================================
+
+  function escaparHTML(valor) {
+
+    if (
+      valor === null ||
+      valor === undefined
+    ) {
+
+      return "";
+
+    }
+
+
+    return String(valor)
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
 
   // =====================================================
   // CARGA INICIAL
@@ -1056,6 +1369,8 @@
   (async () => {
 
     await prepararEmpresa();
+
+    await cargarEventos();
 
   })();
 
