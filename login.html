@@ -1,157 +1,329 @@
 
-/* =========================================================
-   LOGIN - PORTAL INTERNO
-   ========================================================= */
+<!DOCTYPE html>
+<html lang="es">
 
-.login-container {
-  width: min(100% - 40px, 480px);
+<head>
 
-  min-height: 100vh;
+  <meta charset="UTF-8">
 
-  margin: 0 auto;
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  <title>Acceso - Gestión Interna</title>
 
+  <link
+    rel="stylesheet"
+    href="css/estilos.css"
+  >
 
-/* =========================================================
-   CABECERA DEL LOGIN
-   ========================================================= */
-
-.login-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.login-icon {
-  font-size: 48px;
-  margin-bottom: 15px;
-}
+</head>
 
 
-/* =========================================================
-   TARJETA DEL LOGIN
-   ========================================================= */
-
-.login-card {
-  background: #ffffff;
-
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-
-  padding: 30px;
-
-  box-shadow:
-    0 4px 12px rgba(15, 23, 42, 0.04);
-}
-
-.login-card h3 {
-  margin-top: 0;
-  margin-bottom: 25px;
-
-  color: #111827;
-}
+<body>
 
 
-/* =========================================================
-   CAMPOS
-   ========================================================= */
-
-.login-field {
-  margin-bottom: 20px;
-}
-
-.login-field label {
-  display: block;
-
-  margin-bottom: 7px;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  color: #374151;
-}
-
-.login-field input {
-  width: 100%;
-
-  padding: 12px;
-
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-
-  font-size: 15px;
-
-  outline: none;
-
-  background: #ffffff;
-  color: #1f2937;
-
-  transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.login-field input:focus {
-  border-color: #2563eb;
-
-  box-shadow:
-    0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-.login-password-field {
-  margin-bottom: 25px;
-}
+  <main class="portal-container login-container">
 
 
-/* =========================================================
-   BOTÓN LOGIN
-   ========================================================= */
+    <!-- =================================================
+         CABECERA
+         ================================================= -->
 
-.login-button {
-  width: 100%;
+    <section class="welcome-section login-header">
 
-  padding: 12px;
+      <div class="login-icon">
+        🔐
+      </div>
 
-  font-size: 15px;
+      <h2>
+        Gestión Interna
+      </h2>
 
-  background: #2563eb;
-  color: #ffffff;
-}
+      <p>
+        Accede al panel de gestión de la asesoría.
+      </p>
 
-.login-button:hover {
-  background: #1d4ed8;
-}
-
-
-/* =========================================================
-   MENSAJE LOGIN
-   ========================================================= */
-
-.login-message {
-  text-align: center;
-}
+    </section>
 
 
-/* =========================================================
-   RESPONSIVE LOGIN
-   ========================================================= */
 
-@media (max-width: 600px) {
+    <!-- =================================================
+         FORMULARIO
+         ================================================= -->
 
-  .login-container {
-    width: min(100% - 30px, 480px);
+    <section class="login-card">
 
-    min-height: 100vh;
+      <h3>
+        Iniciar sesión
+      </h3>
 
-    margin: 0 auto;
-  }
 
-  .login-card {
-    padding: 25px;
-  }
+      <form id="loginForm">
 
-}
+
+        <!-- EMAIL -->
+
+        <div class="login-field">
+
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- CONTRASEÑA -->
+
+        <div class="login-field login-password-field">
+
+          <label for="password">
+            Contraseña
+          </label>
+
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- BOTÓN -->
+
+        <button
+          type="submit"
+          id="loginButton"
+          class="btn btn-primary login-button"
+        >
+          Iniciar sesión
+        </button>
+
+
+        <!-- MENSAJE -->
+
+        <p
+          id="loginMessage"
+          class="message login-message"
+        ></p>
+
+
+      </form>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =================================================
+       JAVASCRIPT COMÚN
+       ================================================= -->
+
+  <script src="js/comun.js"></script>
+
+
+
+  <!-- =================================================
+       LOGIN
+       ================================================= -->
+
+  <script>
+
+    const loginForm =
+      document.getElementById(
+        "loginForm"
+      );
+
+
+    const loginMessage =
+      document.getElementById(
+        "loginMessage"
+      );
+
+
+    const loginButton =
+      document.getElementById(
+        "loginButton"
+      );
+
+
+    loginForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("password")
+            .value;
+
+
+        loginMessage.textContent =
+          "Iniciando sesión...";
+
+
+        loginButton.disabled =
+          true;
+
+        loginButton.textContent =
+          "Accediendo...";
+
+
+        try {
+
+          const respuesta =
+            await fetch(
+              `${API_URL}/api/login`,
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  email,
+                  password
+                })
+              }
+            );
+
+
+          const datos =
+            await respuesta.json();
+
+
+          if (
+            !respuesta.ok ||
+            !datos.ok
+          ) {
+
+            loginMessage.textContent =
+              datos.message ||
+              "Email o contraseña incorrectos";
+
+
+            loginButton.disabled =
+              false;
+
+            loginButton.textContent =
+              "Iniciar sesión";
+
+            return;
+          }
+
+
+          // =============================================
+          // COMPROBAR QUE ES USUARIO INTERNO
+          // =============================================
+
+          const rolesPermitidos = [
+            "SUPERADMIN",
+            "ADMIN",
+            "DIRECTOR",
+            "TRABAJADOR"
+          ];
+
+
+          if (
+            !datos.usuario ||
+            !rolesPermitidos.includes(
+              datos.usuario.rol
+            )
+          ) {
+
+            loginMessage.textContent =
+              "Este usuario no tiene acceso al portal interno.";
+
+
+            loginButton.disabled =
+              false;
+
+            loginButton.textContent =
+              "Iniciar sesión";
+
+            return;
+          }
+
+
+          // =============================================
+          // GUARDAR SESIÓN
+          // =============================================
+
+          localStorage.setItem(
+            "token",
+            datos.token
+          );
+
+
+          localStorage.setItem(
+            "usuario",
+            JSON.stringify(
+              datos.usuario
+            )
+          );
+
+
+          // =============================================
+          // ACCESO AL PORTAL
+          // =============================================
+
+          window.location.href =
+            "index.html";
+
+
+        } catch (error) {
+
+          console.error(
+            "Error en login:",
+            error
+          );
+
+
+          loginMessage.textContent =
+            "No se ha podido conectar con el servidor";
+
+
+          loginButton.disabled =
+            false;
+
+          loginButton.textContent =
+            "Iniciar sesión";
+        }
+
+      }
+    );
+
+  </script>
+
+
+</body>
+
+</html>
 
