@@ -1,1 +1,1078 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Documentos - Gestión Interna</title>
+
+  <link
+    rel="stylesheet"
+    href="../../css/estilos.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="portal-header">
+
+    <div class="portal-header-left">
+
+      <h1>
+        Documentos
+      </h1>
+
+      <p id="usuarioCabecera">
+        Cargando...
+      </p>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+      <a
+        href="../../index.html"
+        class="btn"
+      >
+        ← Volver al portal
+      </a>
+
+
+      <button
+        id="cerrarSesion"
+        class="btn btn-danger"
+        type="button"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       CONTENIDO
+       ===================================================== -->
+
+  <main class="portal-container">
+
+
+    <!-- ===================================================
+         SUBIR DOCUMENTO
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+      <h2>
+        Subir documento
+      </h2>
+
+
+      <form id="formDocumento">
+
+
+        <!-- CLIENTE -->
+
+        <div>
+
+          <label for="clienteId">
+            Cliente
+          </label>
+
+          <select
+            id="clienteId"
+            required
+          >
+
+            <option value="">
+              Cargando clientes...
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- NOMBRE -->
+
+        <div>
+
+          <label for="nombreDocumento">
+            Nombre del documento
+          </label>
+
+          <input
+            type="text"
+            id="nombreDocumento"
+            required
+          >
+
+        </div>
+
+
+        <!-- TIPO -->
+
+        <div>
+
+          <label for="tipoDocumento">
+            Tipo
+          </label>
+
+          <input
+            type="text"
+            id="tipoDocumento"
+            placeholder="Ej.: Factura, contrato, nómina..."
+            required
+          >
+
+        </div>
+
+
+        <!-- ARCHIVO -->
+
+        <div>
+
+          <label for="archivoDocumento">
+            Archivo
+          </label>
+
+          <input
+            type="file"
+            id="archivoDocumento"
+            required
+          >
+
+        </div>
+
+
+        <!-- BOTÓN -->
+
+        <button
+          type="submit"
+          id="subirDocumento"
+          class="btn"
+        >
+          Subir documento
+        </button>
+
+
+        <p id="formMessage"></p>
+
+      </form>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LISTADO
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+      <h2>
+        Documentos
+      </h2>
+
+
+      <button
+        id="recargarDocumentos"
+        class="btn"
+        type="button"
+      >
+        Recargar documentos
+      </button>
+
+
+      <p id="listadoMessage"></p>
+
+
+      <div id="documentosContainer">
+
+        Cargando documentos...
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       PIE
+       ===================================================== -->
+
+  <footer class="portal-footer">
+
+    Kit Gestión Asesoría · Gestión Interna
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT COMÚN
+       ===================================================== -->
+
+  <script src="../../js/comun.js"></script>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT DEL MÓDULO
+       ===================================================== -->
+
+  <script>
+
+
+    // =====================================================
+    // COMPROBAR SESIÓN
+    // =====================================================
+
+    if (!comprobarSesion()) {
+
+      throw new Error(
+        "Sesión no válida"
+      );
+
+    }
+
+
+
+    // =====================================================
+    // USUARIO
+    // =====================================================
+
+    const usuario =
+      obtenerUsuario();
+
+
+    document
+      .getElementById(
+        "usuarioCabecera"
+      )
+      .textContent =
+        `${usuario.nombre} · ${usuario.rol}`;
+
+
+
+    // =====================================================
+    // CERRAR SESIÓN
+    // =====================================================
+
+    document
+      .getElementById(
+        "cerrarSesion"
+      )
+      .addEventListener(
+        "click",
+        cerrarSesion
+      );
+
+
+
+    // =====================================================
+    // CARGAR CLIENTES
+    // =====================================================
+
+    async function cargarClientes() {
+
+      const select =
+        document.getElementById(
+          "clienteId"
+        );
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/clientes",
+            {
+              method: "GET"
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          select.innerHTML =
+            `<option value="">
+              No se han podido cargar los clientes
+            </option>`;
+
+          return;
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.clientes
+          ) ||
+          datos.clientes.length === 0
+        ) {
+
+          select.innerHTML =
+            `<option value="">
+              No hay clientes disponibles
+            </option>`;
+
+          return;
+        }
+
+
+        select.innerHTML =
+          `<option value="">
+            Selecciona un cliente
+          </option>`;
+
+
+        datos.clientes.forEach(
+          (cliente) => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              cliente.id;
+
+
+            option.textContent =
+              `${cliente.nombre} · ${cliente.email}`;
+
+
+            select.appendChild(
+              option
+            );
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando clientes:",
+          error
+        );
+
+
+        select.innerHTML =
+          `<option value="">
+            Error cargando clientes
+          </option>`;
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // CARGAR DOCUMENTOS
+    // =====================================================
+
+    async function cargarDocumentos() {
+
+      const container =
+        document.getElementById(
+          "documentosContainer"
+        );
+
+
+      const message =
+        document.getElementById(
+          "listadoMessage"
+        );
+
+
+      container.innerHTML =
+        "Cargando documentos...";
+
+      message.textContent = "";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/documentos",
+            {
+              method: "GET"
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          container.innerHTML =
+            "";
+
+          message.textContent =
+            datos.message ||
+            "No se han podido cargar los documentos.";
+
+          return;
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.documentos
+          ) ||
+          datos.documentos.length === 0
+        ) {
+
+          container.innerHTML =
+            "<p>No hay documentos disponibles.</p>";
+
+          return;
+        }
+
+
+        container.innerHTML =
+          "";
+
+
+        datos.documentos.forEach(
+          (documento) => {
+
+            const article =
+              document.createElement(
+                "article"
+              );
+
+
+            // =================================================
+            // NOMBRE
+            // =================================================
+
+            const titulo =
+              document.createElement(
+                "h3"
+              );
+
+
+            titulo.textContent =
+              documento.nombre ||
+              "Sin nombre";
+
+
+            // =================================================
+            // CLIENTE
+            // =================================================
+
+            const cliente =
+              document.createElement(
+                "p"
+              );
+
+
+            cliente.textContent =
+              `Cliente: ${
+                documento.cliente?.nombre ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // ARCHIVO
+            // =================================================
+
+            const archivo =
+              document.createElement(
+                "p"
+              );
+
+
+            archivo.textContent =
+              `Archivo: ${
+                documento.nombreArchivo ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // TIPO
+            // =================================================
+
+            const tipo =
+              document.createElement(
+                "p"
+              );
+
+
+            tipo.textContent =
+              `Tipo: ${
+                documento.tipo ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // ESTADO
+            // =================================================
+
+            const estado =
+              document.createElement(
+                "p"
+              );
+
+
+            estado.textContent =
+              `Estado: ${
+                documento.estado ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // FECHA
+            // =================================================
+
+            const fecha =
+              document.createElement(
+                "p"
+              );
+
+
+            fecha.textContent =
+              `Subido: ${
+                formatearFecha(
+                  documento.createdAt
+                )
+              }`;
+
+
+            // =================================================
+            // DESCARGAR
+            // =================================================
+
+            const botonDescargar =
+              document.createElement(
+                "button"
+              );
+
+
+            botonDescargar.type =
+              "button";
+
+            botonDescargar.className =
+              "btn";
+
+            botonDescargar.textContent =
+              "Descargar";
+
+
+            botonDescargar.addEventListener(
+              "click",
+              () =>
+                descargarDocumento(
+                  documento.id,
+                  documento.nombreArchivo
+                )
+            );
+
+
+            // =================================================
+            // ELIMINAR
+            // =================================================
+
+            if (
+              usuario.rol === "SUPERADMIN" ||
+              usuario.rol === "ADMIN" ||
+              usuario.rol === "DIRECTOR"
+            ) {
+
+              const botonEliminar =
+                document.createElement(
+                  "button"
+                );
+
+
+              botonEliminar.type =
+                "button";
+
+              botonEliminar.className =
+                "btn btn-danger";
+
+              botonEliminar.textContent =
+                "Eliminar";
+
+
+              botonEliminar.addEventListener(
+                "click",
+                () =>
+                  eliminarDocumento(
+                    documento.id
+                  )
+              );
+
+
+              article.appendChild(
+                botonEliminar
+              );
+
+            }
+
+
+            // =================================================
+            // CONSTRUIR DOCUMENTO
+            // =================================================
+
+            article.appendChild(
+              titulo
+            );
+
+            article.appendChild(
+              cliente
+            );
+
+            article.appendChild(
+              archivo
+            );
+
+            article.appendChild(
+              tipo
+            );
+
+            article.appendChild(
+              estado
+            );
+
+            article.appendChild(
+              fecha
+            );
+
+            article.appendChild(
+              botonDescargar
+            );
+
+
+            container.appendChild(
+              article
+            );
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando documentos:",
+          error
+        );
+
+
+        container.innerHTML =
+          "";
+
+
+        message.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // SUBIR DOCUMENTO
+    // =====================================================
+
+    document
+      .getElementById(
+        "formDocumento"
+      )
+      .addEventListener(
+        "submit",
+        async (event) => {
+
+          event.preventDefault();
+
+
+          const boton =
+            document.getElementById(
+              "subirDocumento"
+            );
+
+
+          const message =
+            document.getElementById(
+              "formMessage"
+            );
+
+
+          const clienteId =
+            document.getElementById(
+              "clienteId"
+            ).value;
+
+
+          const nombre =
+            document.getElementById(
+              "nombreDocumento"
+            ).value.trim();
+
+
+          const tipo =
+            document.getElementById(
+              "tipoDocumento"
+            ).value.trim();
+
+
+          const archivo =
+            document.getElementById(
+              "archivoDocumento"
+            ).files[0];
+
+
+          if (
+            !clienteId ||
+            !nombre ||
+            !tipo ||
+            !archivo
+          ) {
+
+            message.textContent =
+              "Todos los campos son obligatorios.";
+
+            return;
+          }
+
+
+          const formData =
+            new FormData();
+
+
+          formData.append(
+            "clienteId",
+            clienteId
+          );
+
+
+          formData.append(
+            "nombre",
+            nombre
+          );
+
+
+          formData.append(
+            "tipo",
+            tipo
+          );
+
+
+          formData.append(
+            "archivo",
+            archivo
+          );
+
+
+          boton.disabled =
+            true;
+
+
+          boton.textContent =
+            "Subiendo...";
+
+
+          message.textContent =
+            "";
+
+
+          try {
+
+            const respuesta =
+              await peticionAPI(
+                "/api/documentos",
+                {
+                  method: "POST",
+                  body: formData
+                }
+              );
+
+
+            const datos =
+              await respuesta.json();
+
+
+            if (
+              !respuesta.ok ||
+              !datos.ok
+            ) {
+
+              message.textContent =
+                datos.message ||
+                "No se ha podido subir el documento.";
+
+              return;
+            }
+
+
+            message.textContent =
+              "Documento subido correctamente.";
+
+
+            document
+              .getElementById(
+                "formDocumento"
+              )
+              .reset();
+
+
+            await cargarDocumentos();
+
+          } catch (error) {
+
+            console.error(
+              "Error subiendo documento:",
+              error
+            );
+
+
+            message.textContent =
+              "No se ha podido conectar con el servidor.";
+
+          } finally {
+
+            boton.disabled =
+              false;
+
+            boton.textContent =
+              "Subir documento";
+
+          }
+
+        }
+      );
+
+
+
+    // =====================================================
+    // DESCARGAR DOCUMENTO
+    // =====================================================
+
+    async function descargarDocumento(
+      documentoId,
+      nombreArchivo
+    ) {
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/documentos/${documentoId}/descargar`,
+            {
+              method: "GET"
+            }
+          );
+
+
+        if (!respuesta.ok) {
+
+          const datos =
+            await respuesta.json();
+
+
+          alert(
+            datos.message ||
+            "No se ha podido descargar el documento."
+          );
+
+          return;
+        }
+
+
+        const blob =
+          await respuesta.blob();
+
+
+        const url =
+          window.URL.createObjectURL(
+            blob
+          );
+
+
+        const enlace =
+          document.createElement(
+            "a"
+          );
+
+
+        enlace.href =
+          url;
+
+
+        enlace.download =
+          nombreArchivo ||
+          "documento";
+
+
+        document.body.appendChild(
+          enlace
+        );
+
+
+        enlace.click();
+
+
+        enlace.remove();
+
+
+        window.URL.revokeObjectURL(
+          url
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error descargando documento:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido descargar el documento."
+        );
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // ELIMINAR DOCUMENTO
+    // =====================================================
+
+    async function eliminarDocumento(
+      documentoId
+    ) {
+
+      const confirmar =
+        confirm(
+          "¿Seguro que quieres eliminar este documento?"
+        );
+
+
+      if (!confirmar) {
+        return;
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/documentos/${documentoId}`,
+            {
+              method: "DELETE"
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          alert(
+            datos.message ||
+            "No se ha podido eliminar el documento."
+          );
+
+          return;
+        }
+
+
+        await cargarDocumentos();
+
+      } catch (error) {
+
+        console.error(
+          "Error eliminando documento:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido conectar con el servidor."
+        );
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // RECARGAR
+    // =====================================================
+
+    document
+      .getElementById(
+        "recargarDocumentos"
+      )
+      .addEventListener(
+        "click",
+        () =>
+          cargarDocumentos()
+      );
+
+
+
+    // =====================================================
+    // INICIO
+    // =====================================================
+
+    cargarClientes();
+
+    cargarDocumentos();
+
+
+  </script>
+
+
+</body>
+
+</html>
