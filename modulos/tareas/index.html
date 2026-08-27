@@ -1,1 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Tareas - Kit Gestión Asesoría</title>
+
+  <link
+    rel="stylesheet"
+    href="../../css/estilos.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="portal-header">
+
+    <div class="portal-header-left">
+
+      <a
+        href="../../index.html"
+        class="btn"
+        style="display: inline-block; margin-bottom: 10px;"
+      >
+        ← Volver al panel
+      </a>
+
+      <h1>
+        Tareas
+      </h1>
+
+      <p id="usuarioCabecera">
+        Cargando...
+      </p>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+      <button
+        id="cerrarSesion"
+        class="btn btn-danger"
+        type="button"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       CONTENIDO
+       ===================================================== -->
+
+  <main class="portal-container">
+
+
+    <section class="welcome-section">
+
+      <h2>
+        Gestión de tareas
+      </h2>
+
+      <p>
+        Consulta y gestiona las tareas de la asesoría.
+      </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ACCIONES
+         ===================================================== -->
+
+    <section class="dashboard-section">
+
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 15px;
+          flex-wrap: wrap;
+          margin-bottom: 20px;
+        "
+      >
+
+        <h2>
+          Tareas
+        </h2>
+
+        <button
+          id="btnNuevaTarea"
+          class="btn"
+          type="button"
+        >
+          + Nueva tarea
+        </button>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           FILTROS
+           ===================================================== -->
+
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 15px;
+          margin-bottom: 25px;
+        "
+      >
+
+        <div>
+
+          <label for="filtroEstado">
+            Estado
+          </label>
+
+          <select
+            id="filtroEstado"
+            class="form-control"
+          >
+
+            <option value="">
+              Todos
+            </option>
+
+            <option value="PENDIENTE">
+              Pendiente
+            </option>
+
+            <option value="EN_PROCESO">
+              En proceso
+            </option>
+
+            <option value="COMPLETADA">
+              Completada
+            </option>
+
+            <option value="CANCELADA">
+              Cancelada
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label for="filtroPrioridad">
+            Prioridad
+          </label>
+
+          <select
+            id="filtroPrioridad"
+            class="form-control"
+          >
+
+            <option value="">
+              Todas
+            </option>
+
+            <option value="BAJA">
+              Baja
+            </option>
+
+            <option value="MEDIA">
+              Media
+            </option>
+
+            <option value="ALTA">
+              Alta
+            </option>
+
+            <option value="URGENTE">
+              Urgente
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div id="contenedorFiltroOficina">
+
+          <label for="filtroOficina">
+            Oficina
+          </label>
+
+          <select
+            id="filtroOficina"
+            class="form-control"
+          >
+
+            <option value="">
+              Todas
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div id="contenedorFiltroCliente">
+
+          <label for="filtroCliente">
+            Cliente
+          </label>
+
+          <select
+            id="filtroCliente"
+            class="form-control"
+          >
+
+            <option value="">
+              Todos
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div id="contenedorFiltroAsignado">
+
+          <label for="filtroAsignado">
+            Asignado a
+          </label>
+
+          <select
+            id="filtroAsignado"
+            class="form-control"
+          >
+
+            <option value="">
+              Todos
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           LISTADO DE TAREAS
+           ===================================================== -->
+
+      <div id="mensajeTareas"></div>
+
+      <div
+        id="listaTareas"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        "
+      >
+
+        <!-- Las tareas se cargarán mediante JavaScript -->
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       MODAL NUEVA / EDITAR TAREA
+       ===================================================== -->
+
+  <div
+    id="modalTarea"
+    class="modal"
+    style="display: none;"
+  >
+
+    <div class="modal-content">
+
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        "
+      >
+
+        <h2 id="tituloModalTarea">
+          Nueva tarea
+        </h2>
+
+        <button
+          id="cerrarModalTarea"
+          class="btn"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="formTarea">
+
+        <input
+          type="hidden"
+          id="tareaId"
+        >
+
+
+        <div class="form-group">
+
+          <label for="tituloTarea">
+            Título
+          </label>
+
+          <input
+            type="text"
+            id="tituloTarea"
+            name="titulo"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="descripcionTarea">
+            Descripción
+          </label>
+
+          <textarea
+            id="descripcionTarea"
+            name="descripcion"
+            rows="4"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="prioridadTarea">
+            Prioridad
+          </label>
+
+          <select
+            id="prioridadTarea"
+            name="prioridad"
+          >
+
+            <option value="BAJA">
+              Baja
+            </option>
+
+            <option value="MEDIA" selected>
+              Media
+            </option>
+
+            <option value="ALTA">
+              Alta
+            </option>
+
+            <option value="URGENTE">
+              Urgente
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="estadoTarea">
+            Estado
+          </label>
+
+          <select
+            id="estadoTarea"
+            name="estado"
+          >
+
+            <option value="PENDIENTE">
+              Pendiente
+            </option>
+
+            <option value="EN_PROCESO">
+              En proceso
+            </option>
+
+            <option value="COMPLETADA">
+              Completada
+            </option>
+
+            <option value="CANCELADA">
+              Cancelada
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="fechaLimiteTarea">
+            Fecha límite
+          </label>
+
+          <input
+            type="datetime-local"
+            id="fechaLimiteTarea"
+            name="fechaLimite"
+          >
+
+        </div>
+
+
+        <div
+          class="form-group"
+          id="grupoEmpresaTarea"
+        >
+
+          <label for="empresaTarea">
+            Empresa
+          </label>
+
+          <select
+            id="empresaTarea"
+            name="empresaId"
+          >
+
+            <option value="">
+              Seleccionar empresa
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="oficinaTarea">
+            Oficina
+          </label>
+
+          <select
+            id="oficinaTarea"
+            name="oficinaId"
+          >
+
+            <option value="">
+              Sin oficina
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="clienteTarea">
+            Cliente
+          </label>
+
+          <select
+            id="clienteTarea"
+            name="clienteId"
+          >
+
+            <option value="">
+              Sin cliente
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div
+          class="form-group"
+          id="grupoAsignadoTarea"
+        >
+
+          <label for="asignadoTarea">
+            Asignar a
+          </label>
+
+          <select
+            id="asignadoTarea"
+            name="asignadoAUsuarioId"
+          >
+
+            <option value="">
+              Sin asignar
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div
+          style="
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+          "
+        >
+
+          <button
+            type="button"
+            id="btnCancelarTarea"
+            class="btn"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="btn"
+          >
+            Guardar tarea
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT COMÚN
+       ===================================================== -->
+
+  <script src="../../js/comun.js"></script>
+
+
+  <!-- =====================================================
+       JAVASCRIPT DEL MÓDULO
+       ===================================================== -->
+
+  <script src="./tareas.js"></script>
+
+
+  <!-- =====================================================
+       JAVASCRIPT DEL PORTAL
+       ===================================================== -->
+
+  <script>
+
+    // =====================================================
+    // COMPROBAR SESIÓN
+    // =====================================================
+
+    if (!comprobarSesion()) {
+
+      throw new Error(
+        "Sesión no válida"
+      );
+
+    }
+
+
+    // =====================================================
+    // OBTENER USUARIO
+    // =====================================================
+
+    const usuario =
+      obtenerUsuario();
+
+
+    // =====================================================
+    // MOSTRAR USUARIO
+    // =====================================================
+
+    document
+      .getElementById(
+        "usuarioCabecera"
+      )
+      .textContent =
+        `${usuario.nombre} · ${usuario.rol}`;
+
+
+    // =====================================================
+    // CERRAR SESIÓN
+    // =====================================================
+
+    document
+      .getElementById(
+        "cerrarSesion"
+      )
+      .addEventListener(
+        "click",
+        cerrarSesion
+      );
+
+  </script>
+
+
+</body>
+
+</html>
