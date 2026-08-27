@@ -1372,4 +1372,56 @@ textarea:disabled {
   margin-top: 55px;
 }
 
+```css
+/* =========================================================
+   DISTRIBUCIÓN DEL PANEL INTERNO
+   ========================================================= */
+
+.dashboard-section .modules-grid {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+
+/* =========================================================
+   TARJETAS DEL PANEL
+   ========================================================= */
+
+.dashboard-section .module-card {
+  width: 100%;
+  min-height: 190px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .dashboard-section .modules-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .dashboard-section .modules-grid {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+}
+```
 
