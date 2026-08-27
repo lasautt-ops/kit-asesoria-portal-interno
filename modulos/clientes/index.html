@@ -1,1 +1,1422 @@
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Clientes - Gestión Interna</title>
+
+  <link
+    rel="stylesheet"
+    href="../../css/estilos.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="portal-header">
+
+    <div class="portal-header-left">
+
+      <h1>
+        Clientes
+      </h1>
+
+      <p id="usuarioCabecera">
+        Cargando...
+      </p>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+      <a
+        href="../../index.html"
+        class="btn"
+      >
+        ← Volver al portal
+      </a>
+
+      <button
+        id="cerrarSesion"
+        class="btn btn-danger"
+        type="button"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+       ===================================================== -->
+
+  <main class="portal-container">
+
+
+    <!-- ===================================================
+         CABECERA DEL MÓDULO
+         =================================================== -->
+
+    <section class="welcome-section">
+
+      <h2>
+        Gestión de clientes
+      </h2>
+
+      <p>
+        Gestiona los clientes y su asignación dentro de la asesoría.
+      </p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         CREAR CLIENTE
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+      <h2>
+        Crear cliente
+      </h2>
+
+
+      <div>
+
+        <label for="nombre">
+          Nombre:
+        </label>
+
+        <input
+          id="nombre"
+          type="text"
+          placeholder="Nombre completo"
+        >
+
+      </div>
+
+
+      <div>
+
+        <label for="email">
+          Email:
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="correo@ejemplo.com"
+        >
+
+      </div>
+
+
+      <div>
+
+        <label for="telefono">
+          Teléfono:
+        </label>
+
+        <input
+          id="telefono"
+          type="tel"
+          placeholder="Teléfono"
+        >
+
+      </div>
+
+
+      <div>
+
+        <label for="empresaSelect">
+          Empresa:
+        </label>
+
+        <select id="empresaSelect">
+
+          <option value="">
+            Selecciona una empresa
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div>
+
+        <label for="oficinaSelect">
+          Oficina:
+        </label>
+
+        <select id="oficinaSelect">
+
+          <option value="">
+            Selecciona una oficina
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        id="crearCliente"
+        class="btn"
+        type="button"
+      >
+        Crear cliente
+      </button>
+
+
+      <p
+        id="crearMessage"
+        class="message"
+      ></p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LISTADO DE CLIENTES
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        "
+      >
+
+        <h2>
+          Clientes
+        </h2>
+
+
+        <button
+          id="recargarClientes"
+          class="btn"
+          type="button"
+        >
+          Recargar clientes
+        </button>
+
+      </div>
+
+
+      <p
+        id="listadoMessage"
+        class="message"
+      ></p>
+
+
+      <div id="clientesContainer">
+
+        Cargando clientes...
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       PIE
+       ===================================================== -->
+
+  <footer class="portal-footer">
+
+    Kit Gestión Asesoría · Gestión Interna
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT COMÚN
+       ===================================================== -->
+
+  <script src="../../js/comun.js"></script>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT DEL MÓDULO
+       ===================================================== -->
+
+  <script>
+
+    // =====================================================
+    // SESIÓN
+    // =====================================================
+
+    if (!comprobarSesion()) {
+
+      throw new Error(
+        "Sesión no válida"
+      );
+
+    }
+
+
+    const usuario =
+      obtenerUsuario();
+
+
+    document
+      .getElementById(
+        "usuarioCabecera"
+      )
+      .textContent =
+        `${usuario.nombre} · ${usuario.rol}`;
+
+
+    // =====================================================
+    // CERRAR SESIÓN
+    // =====================================================
+
+    document
+      .getElementById(
+        "cerrarSesion"
+      )
+      .addEventListener(
+        "click",
+        cerrarSesion
+      );
+
+
+    // =====================================================
+    // ELEMENTOS
+    // =====================================================
+
+    const empresaSelect =
+      document.getElementById(
+        "empresaSelect"
+      );
+
+
+    const oficinaSelect =
+      document.getElementById(
+        "oficinaSelect"
+      );
+
+
+    const clientesContainer =
+      document.getElementById(
+        "clientesContainer"
+      );
+
+
+    const crearMessage =
+      document.getElementById(
+        "crearMessage"
+      );
+
+
+    const listadoMessage =
+      document.getElementById(
+        "listadoMessage"
+      );
+
+
+    // =====================================================
+    // CARGAR EMPRESAS
+    // =====================================================
+
+    async function cargarEmpresas() {
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/empresas"
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          crearMessage.textContent =
+            datos.message ||
+            "No se han podido cargar las empresas.";
+
+          return;
+        }
+
+
+        empresaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una empresa
+            </option>
+          `;
+
+
+        datos.empresas.forEach(
+          empresa => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              empresa.id;
+
+
+            option.textContent =
+              empresa.nombre;
+
+
+            empresaSelect.appendChild(
+              option
+            );
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando empresas:",
+          error
+        );
+
+
+        crearMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+      }
+    }
+
+
+
+    // =====================================================
+    // CARGAR OFICINAS
+    // =====================================================
+
+    async function cargarOficinas(
+      empresaId
+    ) {
+
+      oficinaSelect.innerHTML =
+        `
+          <option value="">
+            Cargando oficinas...
+          </option>
+        `;
+
+
+      if (!empresaId) {
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+        return;
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/empresas/${empresaId}/oficinas`
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          oficinaSelect.innerHTML =
+            `
+              <option value="">
+                No se han podido cargar las oficinas
+              </option>
+            `;
+
+          return;
+        }
+
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+
+        datos.oficinas
+          .filter(
+            oficina =>
+              oficina.activo
+          )
+          .forEach(
+            oficina => {
+
+              const option =
+                document.createElement(
+                  "option"
+                );
+
+
+              option.value =
+                oficina.id;
+
+
+              option.textContent =
+                oficina.nombre;
+
+
+              oficinaSelect.appendChild(
+                option
+              );
+
+            }
+          );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando oficinas:",
+          error
+        );
+
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Error cargando oficinas
+            </option>
+          `;
+      }
+    }
+
+
+
+    // =====================================================
+    // CAMBIO DE EMPRESA
+    // =====================================================
+
+    empresaSelect.addEventListener(
+      "change",
+      () => {
+
+        cargarOficinas(
+          empresaSelect.value
+        );
+
+      }
+    );
+
+
+
+    // =====================================================
+    // CARGAR CLIENTES
+    // =====================================================
+
+    async function cargarClientes() {
+
+      clientesContainer.innerHTML =
+        "Cargando clientes...";
+
+
+      listadoMessage.textContent =
+        "";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/clientes"
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          clientesContainer.innerHTML =
+            "";
+
+
+          listadoMessage.textContent =
+            datos.message ||
+            "No se han podido cargar los clientes.";
+
+          return;
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.clientes
+          ) ||
+          datos.clientes.length === 0
+        ) {
+
+          clientesContainer.innerHTML =
+            "<p>No hay clientes disponibles.</p>";
+
+          return;
+        }
+
+
+        clientesContainer.innerHTML =
+          "";
+
+
+        datos.clientes.forEach(
+          cliente => {
+
+            const article =
+              document.createElement(
+                "article"
+              );
+
+
+            // =================================================
+            // NOMBRE
+            // =================================================
+
+            const titulo =
+              document.createElement(
+                "h3"
+              );
+
+
+            titulo.textContent =
+              cliente.nombre ||
+              "-";
+
+
+            // =================================================
+            // EMAIL
+            // =================================================
+
+            const email =
+              document.createElement(
+                "p"
+              );
+
+
+            email.textContent =
+              `Email: ${
+                cliente.email ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // TELÉFONO
+            // =================================================
+
+            const telefono =
+              document.createElement(
+                "p"
+              );
+
+
+            telefono.textContent =
+              `Teléfono: ${
+                cliente.telefono ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // EMPRESA
+            // =================================================
+
+            const empresa =
+              document.createElement(
+                "p"
+              );
+
+
+            empresa.textContent =
+              `Empresa: ${
+                cliente.empresa?.nombre ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // OFICINA
+            // =================================================
+
+            const oficina =
+              document.createElement(
+                "p"
+              );
+
+
+            oficina.textContent =
+              `Oficina: ${
+                cliente.oficina?.nombre ||
+                "-"
+              }`;
+
+
+            // =================================================
+            // TRABAJADOR
+            // =================================================
+
+            const trabajador =
+              document.createElement(
+                "p"
+              );
+
+
+            trabajador.textContent =
+              `Trabajador asignado: ${
+                cliente.trabajador?.usuario?.nombre ||
+                cliente.trabajador?.nombre ||
+                "Sin asignar"
+              }`;
+
+
+            // =================================================
+            // FECHA DE CREACIÓN
+            // =================================================
+
+            const creado =
+              document.createElement(
+                "p"
+              );
+
+
+            creado.textContent =
+              `Creado: ${
+                formatearFecha(
+                  cliente.createdAt
+                )
+              }`;
+
+
+            // =================================================
+            // EDITAR
+            // =================================================
+
+            const botonEditar =
+              document.createElement(
+                "button"
+              );
+
+
+            botonEditar.type =
+              "button";
+
+
+            botonEditar.textContent =
+              "Editar cliente";
+
+
+            botonEditar.className =
+              "btn";
+
+
+            botonEditar.addEventListener(
+              "click",
+              () =>
+                editarCliente(
+                  cliente
+                )
+            );
+
+
+            // =================================================
+            // ASIGNAR TRABAJADOR
+            // =================================================
+
+            const botonAsignar =
+              document.createElement(
+                "button"
+              );
+
+
+            botonAsignar.type =
+              "button";
+
+
+            botonAsignar.textContent =
+              "Asignar trabajador";
+
+
+            botonAsignar.className =
+              "btn";
+
+
+            botonAsignar.addEventListener(
+              "click",
+              () =>
+                asignarTrabajador(
+                  cliente
+                )
+            );
+
+
+            // =================================================
+            // CONSTRUIR CLIENTE
+            // =================================================
+
+            article.appendChild(
+              titulo
+            );
+
+
+            article.appendChild(
+              email
+            );
+
+
+            article.appendChild(
+              telefono
+            );
+
+
+            article.appendChild(
+              empresa
+            );
+
+
+            article.appendChild(
+              oficina
+            );
+
+
+            article.appendChild(
+              trabajador
+            );
+
+
+            article.appendChild(
+              creado
+            );
+
+
+            article.appendChild(
+              botonEditar
+            );
+
+
+            article.appendChild(
+              botonAsignar
+            );
+
+
+            clientesContainer.appendChild(
+              article
+            );
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando clientes:",
+          error
+        );
+
+
+        clientesContainer.innerHTML =
+          "";
+
+
+        listadoMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+      }
+    }
+
+
+
+    // =====================================================
+    // CREAR CLIENTE
+    // =====================================================
+
+    document
+      .getElementById(
+        "crearCliente"
+      )
+      .addEventListener(
+        "click",
+        crearCliente
+      );
+
+
+    async function crearCliente() {
+
+      const nombre =
+        document
+          .getElementById("nombre")
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
+
+      const telefono =
+        document
+          .getElementById("telefono")
+          .value
+          .trim();
+
+
+      const empresaId =
+        empresaSelect.value;
+
+
+      const oficinaId =
+        oficinaSelect.value;
+
+
+      crearMessage.textContent =
+        "";
+
+
+      if (
+        !nombre ||
+        !email ||
+        !empresaId ||
+        !oficinaId
+      ) {
+
+        crearMessage.textContent =
+          "Nombre, email, empresa y oficina son obligatorios.";
+
+        return;
+      }
+
+
+      const boton =
+        document.getElementById(
+          "crearCliente"
+        );
+
+
+      boton.disabled =
+        true;
+
+
+      boton.textContent =
+        "Creando...";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/clientes",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                nombre,
+                email,
+                telefono,
+                empresaId,
+                oficinaId
+              })
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          crearMessage.textContent =
+            datos.message ||
+            "No se ha podido crear el cliente.";
+
+          return;
+        }
+
+
+        document
+          .getElementById(
+            "nombre"
+          )
+          .value =
+          "";
+
+
+        document
+          .getElementById(
+            "email"
+          )
+          .value =
+          "";
+
+
+        document
+          .getElementById(
+            "telefono"
+          )
+          .value =
+          "";
+
+
+        empresaSelect.value =
+          "";
+
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+
+        crearMessage.textContent =
+          "Cliente creado correctamente.";
+
+
+        await cargarClientes();
+
+      } catch (error) {
+
+        console.error(
+          "Error creando cliente:",
+          error
+        );
+
+
+        crearMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      } finally {
+
+        boton.disabled =
+          false;
+
+
+        boton.textContent =
+          "Crear cliente";
+      }
+    }
+
+
+
+    // =====================================================
+    // EDITAR CLIENTE
+    // =====================================================
+
+    async function editarCliente(
+      cliente
+    ) {
+
+      const nuevoNombre =
+        prompt(
+          "Nombre:",
+          cliente.nombre ||
+          ""
+        );
+
+
+      if (
+        nuevoNombre === null
+      ) {
+
+        return;
+      }
+
+
+      const nuevoEmail =
+        prompt(
+          "Email:",
+          cliente.email ||
+          ""
+        );
+
+
+      if (
+        nuevoEmail === null
+      ) {
+
+        return;
+      }
+
+
+      const nuevoTelefono =
+        prompt(
+          "Teléfono:",
+          cliente.telefono ||
+          ""
+        );
+
+
+      if (
+        nuevoTelefono === null
+      ) {
+
+        return;
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/clientes/${cliente.id}`,
+            {
+              method: "PATCH",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                nombre:
+                  nuevoNombre.trim(),
+
+                email:
+                  nuevoEmail.trim(),
+
+                telefono:
+                  nuevoTelefono.trim()
+              })
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          alert(
+            datos.message ||
+            "No se ha podido modificar el cliente."
+          );
+
+          return;
+        }
+
+
+        await cargarClientes();
+
+      } catch (error) {
+
+        console.error(
+          "Error modificando cliente:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido conectar con el servidor."
+        );
+      }
+    }
+
+
+
+    // =====================================================
+    // ASIGNAR TRABAJADOR
+    // =====================================================
+
+    async function asignarTrabajador(
+      cliente
+    ) {
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/trabajadores"
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          alert(
+            datos.message ||
+            "No se han podido cargar los trabajadores."
+          );
+
+          return;
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.trabajadores
+          ) ||
+          datos.trabajadores.length === 0
+        ) {
+
+          alert(
+            "No hay trabajadores disponibles."
+          );
+
+          return;
+        }
+
+
+        const trabajadores =
+          datos.trabajadores
+            .filter(
+              trabajador =>
+                trabajador.usuario?.activo !== false
+            );
+
+
+        if (
+          trabajadores.length === 0
+        ) {
+
+          alert(
+            "No hay trabajadores activos disponibles."
+          );
+
+          return;
+        }
+
+
+        let mensaje =
+          "Selecciona el trabajador mediante su número:\n\n";
+
+
+        trabajadores.forEach(
+          (
+            trabajador,
+            indice
+          ) => {
+
+            mensaje +=
+              `${indice + 1}. ${
+                trabajador.usuario?.nombre ||
+                trabajador.nombre ||
+                "-"
+              }\n`;
+
+          }
+        );
+
+
+        const seleccion =
+          prompt(
+            mensaje
+          );
+
+
+        if (
+          seleccion === null
+        ) {
+
+          return;
+        }
+
+
+        const indice =
+          Number(
+            seleccion
+          ) - 1;
+
+
+        if (
+          !Number.isInteger(
+            indice
+          ) ||
+          indice < 0 ||
+          indice >= trabajadores.length
+        ) {
+
+          alert(
+            "Selección no válida."
+          );
+
+          return;
+        }
+
+
+        const trabajadorSeleccionado =
+          trabajadores[
+            indice
+          ];
+
+
+        const confirmar =
+          confirm(
+            `¿Asignar el cliente "${cliente.nombre}" a "${trabajadorSeleccionado.usuario?.nombre || trabajadorSeleccionado.nombre}"?`
+          );
+
+
+        if (!confirmar) {
+
+          return;
+        }
+
+
+        const respuestaAsignacion =
+          await peticionAPI(
+            `/api/clientes/${cliente.id}/asignar-trabajador`,
+            {
+              method: "PATCH",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                trabajadorId:
+                  trabajadorSeleccionado.id
+              })
+            }
+          );
+
+
+        const datosAsignacion =
+          await respuestaAsignacion.json();
+
+
+        if (
+          !respuestaAsignacion.ok ||
+          !datosAsignacion.ok
+        ) {
+
+          alert(
+            datosAsignacion.message ||
+            "No se ha podido asignar el trabajador."
+          );
+
+          return;
+        }
+
+
+        alert(
+          "Trabajador asignado correctamente."
+        );
+
+
+        await cargarClientes();
+
+      } catch (error) {
+
+        console.error(
+          "Error asignando trabajador:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido conectar con el servidor."
+        );
+      }
+    }
+
+
+
+    // =====================================================
+    // RECARGAR
+    // =====================================================
+
+    document
+      .getElementById(
+        "recargarClientes"
+      )
+      .addEventListener(
+        "click",
+        cargarClientes
+      );
+
+
+
+    // =====================================================
+    // INICIO
+    // =====================================================
+
+    cargarEmpresas();
+
+    cargarClientes();
+
+  </script>
+
+
+</body>
+
+</html>
+
