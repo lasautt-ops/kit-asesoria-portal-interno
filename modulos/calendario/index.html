@@ -1362,6 +1362,416 @@
 
   }
 
+    // =====================================================
+  // CALENDARIO VISUAL
+  // =====================================================
+
+  let fechaCalendario =
+    new Date();
+
+
+  // =====================================================
+  // RENDERIZAR CALENDARIO
+  // =====================================================
+
+  function renderizarCalendario(
+    eventos = []
+  ) {
+
+    const calendario =
+      document.getElementById(
+        "calendario"
+      );
+
+    const mesActual =
+      document.getElementById(
+        "mesActual"
+      );
+
+
+    calendario.innerHTML = "";
+
+
+    const año =
+      fechaCalendario.getFullYear();
+
+    const mes =
+      fechaCalendario.getMonth();
+
+
+    const nombresMeses = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ];
+
+
+    mesActual.textContent =
+      `${nombresMeses[mes]} ${año}`;
+
+
+    // Primer día del mes
+    const primerDia =
+      new Date(
+        año,
+        mes,
+        1
+      );
+
+
+    // Último día del mes
+    const ultimoDia =
+      new Date(
+        año,
+        mes + 1,
+        0
+      );
+
+
+    /*
+     * JavaScript:
+     * Domingo = 0
+     * Lunes = 1
+     *
+     * Nosotros queremos:
+     * Lunes = 0
+     * Domingo = 6
+     */
+
+    let diaSemana =
+      primerDia.getDay();
+
+
+    if (diaSemana === 0) {
+
+      diaSemana = 6;
+
+    } else {
+
+      diaSemana--;
+
+    }
+
+
+    // Días del mes anterior
+    const diasMesAnterior =
+      new Date(
+        año,
+        mes,
+        0
+      ).getDate();
+
+
+    for (
+      let i = diaSemana - 1;
+      i >= 0;
+      i--
+    ) {
+
+      const numeroDia =
+        diasMesAnterior - i;
+
+
+      const fecha =
+        new Date(
+          año,
+          mes - 1,
+          numeroDia
+        );
+
+
+      crearCeldaDia(
+        fecha,
+        true,
+        eventos
+      );
+
+    }
+
+
+    // Días del mes actual
+    for (
+      let dia = 1;
+      dia <= ultimoDia.getDate();
+      dia++
+    ) {
+
+      const fecha =
+        new Date(
+          año,
+          mes,
+          dia
+        );
+
+
+      crearCeldaDia(
+        fecha,
+        false,
+        eventos
+      );
+
+    }
+
+
+    // Días del siguiente mes
+    const totalCeldas =
+      calendario.children.length;
+
+
+    const celdasRestantes =
+      totalCeldas % 7 === 0
+        ? 0
+        : 7 -
+          (
+            totalCeldas % 7
+          );
+
+
+    for (
+      let dia = 1;
+      dia <= celdasRestantes;
+      dia++
+    ) {
+
+      const fecha =
+        new Date(
+          año,
+          mes + 1,
+          dia
+        );
+
+
+      crearCeldaDia(
+        fecha,
+        true,
+        eventos
+      );
+
+    }
+
+  }
+
+
+
+  // =====================================================
+  // CREAR CELDA DE DÍA
+  // =====================================================
+
+  function crearCeldaDia(
+    fecha,
+    otroMes,
+    eventos
+  ) {
+
+    const calendario =
+      document.getElementById(
+        "calendario"
+      );
+
+
+    const celda =
+      document.createElement(
+        "div"
+      );
+
+
+    celda.className =
+      "calendar-day";
+
+
+    if (otroMes) {
+
+      celda.classList.add(
+        "other-month"
+      );
+
+    }
+
+
+    const numeroDia =
+      document.createElement(
+        "div"
+      );
+
+
+    numeroDia.className =
+      "calendar-day-number";
+
+
+    numeroDia.textContent =
+      fecha.getDate();
+
+
+    celda.appendChild(
+      numeroDia
+    );
+
+
+    // Comprobar si es hoy
+
+    const hoy =
+      new Date();
+
+
+    if (
+      fecha.getDate() ===
+        hoy.getDate() &&
+      fecha.getMonth() ===
+        hoy.getMonth() &&
+      fecha.getFullYear() ===
+        hoy.getFullYear()
+    ) {
+
+      celda.classList.add(
+        "today"
+      );
+
+    }
+
+
+    // Eventos de ese día
+
+    const eventosDelDia =
+      eventos.filter(
+        (evento) => {
+
+          if (
+            !evento.fechaInicio
+          ) {
+
+            return false;
+
+          }
+
+
+          const fechaEvento =
+            new Date(
+              evento.fechaInicio
+            );
+
+
+          return (
+            fechaEvento.getDate() ===
+              fecha.getDate() &&
+            fechaEvento.getMonth() ===
+              fecha.getMonth() &&
+            fechaEvento.getFullYear() ===
+              fecha.getFullYear()
+          );
+
+        }
+      );
+
+
+    eventosDelDia.forEach(
+      (evento) => {
+
+        const eventoElemento =
+          document.createElement(
+            "div"
+          );
+
+
+        eventoElemento.className =
+          "calendar-event";
+
+
+        const fechaEvento =
+          new Date(
+            evento.fechaInicio
+          );
+
+
+        const hora =
+          fechaEvento.toLocaleTimeString(
+            "es-ES",
+            {
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          );
+
+
+        eventoElemento.innerHTML = `
+          <strong>
+            ${escaparHTML(
+              hora
+            )}
+          </strong>
+
+          ${escaparHTML(
+            evento.titulo
+          )}
+        `;
+
+
+        eventoElemento.title =
+          evento.descripcion ||
+          evento.titulo;
+
+
+        celda.appendChild(
+          eventoElemento
+        );
+
+      }
+    );
+
+
+    calendario.appendChild(
+      celda
+    );
+
+  }
+
+
+
+  // =====================================================
+  // CAMBIAR MES
+  // =====================================================
+
+  document
+    .getElementById("btnAnterior")
+    .addEventListener(
+      "click",
+      () => {
+
+        fechaCalendario.setMonth(
+          fechaCalendario.getMonth() - 1
+        );
+
+
+        cargarEventos();
+
+      }
+    );
+
+
+  document
+    .getElementById("btnSiguiente")
+    .addEventListener(
+      "click",
+      () => {
+
+        fechaCalendario.setMonth(
+          fechaCalendario.getMonth() + 1
+        );
+
+
+        cargarEventos();
+
+      }
+    );
+
   // =====================================================
   // CARGA INICIAL
   // =====================================================
