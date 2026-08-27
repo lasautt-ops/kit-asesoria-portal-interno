@@ -657,6 +657,279 @@
 
 
   // =====================================================
+  // GUARDAR EVENTO
+  // =====================================================
+
+  document
+    .getElementById("formEvento")
+    .addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        const titulo =
+          document
+            .getElementById("titulo")
+            .value
+            .trim();
+
+
+        const descripcion =
+          document
+            .getElementById("descripcion")
+            .value
+            .trim();
+
+
+        const tipo =
+          document
+            .getElementById("tipo")
+            .value;
+
+
+        const estado =
+          document
+            .getElementById("estado")
+            .value;
+
+
+        const fechaInicio =
+          document
+            .getElementById("fechaInicio")
+            .value;
+
+
+        const fechaFin =
+          document
+            .getElementById("fechaFin")
+            .value;
+
+
+        const ubicacion =
+          document
+            .getElementById("ubicacion")
+            .value
+            .trim();
+
+
+        const empresaIdValor =
+          document
+            .getElementById("empresaId")
+            .value;
+
+
+        const oficinaId =
+          document
+            .getElementById("oficinaId")
+            .value;
+
+
+        const clienteId =
+          document
+            .getElementById("clienteId")
+            .value;
+
+
+        // -----------------------------------------------
+        // COMPROBAR DATOS OBLIGATORIOS
+        // -----------------------------------------------
+
+        if (!titulo) {
+
+          alert(
+            "El título es obligatorio"
+          );
+
+          return;
+
+        }
+
+
+        if (!fechaInicio) {
+
+          alert(
+            "La fecha y hora de inicio son obligatorias"
+          );
+
+          return;
+
+        }
+
+
+        if (!fechaFin) {
+
+          alert(
+            "La fecha y hora de fin son obligatorias"
+          );
+
+          return;
+
+        }
+
+
+        if (!empresaIdValor) {
+
+          alert(
+            "Debes seleccionar una empresa"
+          );
+
+          return;
+
+        }
+
+
+        // -----------------------------------------------
+        // COMPROBAR FECHAS
+        // -----------------------------------------------
+
+        const inicio =
+          new Date(fechaInicio);
+
+
+        const fin =
+          new Date(fechaFin);
+
+
+        if (
+          Number.isNaN(
+            inicio.getTime()
+          ) ||
+          Number.isNaN(
+            fin.getTime()
+          )
+        ) {
+
+          alert(
+            "Las fechas introducidas no son válidas"
+          );
+
+          return;
+
+        }
+
+
+        if (fin < inicio) {
+
+          alert(
+            "La fecha de fin no puede ser anterior a la fecha de inicio"
+          );
+
+          return;
+
+        }
+
+
+        // -----------------------------------------------
+        // DATOS A ENVIAR
+        // -----------------------------------------------
+
+        const datosEnviar = {
+
+          titulo,
+
+          descripcion:
+            descripcion || null,
+
+          tipo,
+
+          fechaInicio,
+
+          fechaFin,
+
+          todoElDia:
+            false,
+
+          ubicacion:
+            ubicacion || null,
+
+          estado,
+
+          empresaId:
+            empresaIdValor,
+
+          oficinaId:
+            oficinaId || null,
+
+          clienteId:
+            clienteId || null
+
+        };
+
+
+        try {
+
+          const respuesta =
+            await peticionAPI(
+              "/api/eventos-calendario",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                  JSON.stringify(
+                    datosEnviar
+                  )
+              }
+            );
+
+
+          const datos =
+            await respuesta.json();
+
+
+          if (
+            !respuesta.ok ||
+            !datos.ok
+          ) {
+
+            throw new Error(
+              datos.message ||
+              "No se pudo crear el evento"
+            );
+
+          }
+
+
+          alert(
+            "Evento creado correctamente"
+          );
+
+
+          cerrarModalEvento();
+
+
+          document
+            .getElementById("formEvento")
+            .reset();
+
+
+        } catch (error) {
+
+          console.error(
+            "Error creando evento:",
+            error
+          );
+
+
+          alert(
+            error.message ||
+            "No se pudo crear el evento"
+          );
+
+        }
+
+      }
+    );
+
+
+
+  // =====================================================
   // CARGA INICIAL
   // =====================================================
 
