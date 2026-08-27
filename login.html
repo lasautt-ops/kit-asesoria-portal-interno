@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,30 +24,16 @@
 <body>
 
 
-  <main
-    class="portal-container"
-    style="
-      max-width: 480px;
-      margin-top: 80px;
-    "
-  >
+  <main class="portal-container login-container">
 
 
     <!-- =================================================
          CABECERA
          ================================================= -->
 
-    <section
-      class="welcome-section"
-      style="text-align: center;"
-    >
+    <section class="welcome-section login-header">
 
-      <div
-        style="
-          font-size: 48px;
-          margin-bottom: 15px;
-        "
-      >
+      <div class="login-icon">
         🔐
       </div>
 
@@ -66,22 +53,9 @@
          FORMULARIO
          ================================================= -->
 
-    <section
-      style="
-        background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 30px;
-      "
-    >
+    <section class="login-card">
 
-      <h3
-        style="
-          margin-top: 0;
-          margin-bottom: 25px;
-          color: #111827;
-        "
-      >
+      <h3>
         Iniciar sesión
       </h3>
 
@@ -91,22 +65,9 @@
 
         <!-- EMAIL -->
 
-        <div
-          style="
-            margin-bottom: 20px;
-          "
-        >
+        <div class="login-field">
 
-          <label
-            for="email"
-            style="
-              display: block;
-              margin-bottom: 7px;
-              font-size: 14px;
-              font-weight: 600;
-              color: #374151;
-            "
-          >
+          <label for="email">
             Email
           </label>
 
@@ -116,14 +77,6 @@
             name="email"
             autocomplete="email"
             required
-            style="
-              width: 100%;
-              padding: 12px;
-              border: 1px solid #d1d5db;
-              border-radius: 8px;
-              font-size: 15px;
-              outline: none;
-            "
           >
 
         </div>
@@ -132,22 +85,9 @@
 
         <!-- CONTRASEÑA -->
 
-        <div
-          style="
-            margin-bottom: 25px;
-          "
-        >
+        <div class="login-field login-password-field">
 
-          <label
-            for="password"
-            style="
-              display: block;
-              margin-bottom: 7px;
-              font-size: 14px;
-              font-weight: 600;
-              color: #374151;
-            "
-          >
+          <label for="password">
             Contraseña
           </label>
 
@@ -157,14 +97,6 @@
             name="password"
             autocomplete="current-password"
             required
-            style="
-              width: 100%;
-              padding: 12px;
-              border: 1px solid #d1d5db;
-              border-radius: 8px;
-              font-size: 15px;
-              outline: none;
-            "
           >
 
         </div>
@@ -176,12 +108,7 @@
         <button
           type="submit"
           id="loginButton"
-          class="btn btn-primary"
-          style="
-            width: 100%;
-            padding: 12px;
-            font-size: 15px;
-          "
+          class="btn btn-primary login-button"
         >
           Iniciar sesión
         </button>
@@ -191,8 +118,7 @@
 
         <p
           id="loginMessage"
-          class="message"
-          style="text-align: center;"
+          class="message login-message"
         ></p>
 
 
@@ -400,3 +326,4 @@
 </body>
 
 </html>
+
