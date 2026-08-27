@@ -1,1 +1,978 @@
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Oficinas - Gestión Interna</title>
+
+  <link
+    rel="stylesheet"
+    href="../../css/estilos.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="portal-header">
+
+    <div class="portal-header-left">
+
+      <h1>
+        Oficinas
+      </h1>
+
+      <p id="usuarioCabecera">
+        Cargando...
+      </p>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+      <a
+        href="../../index.html"
+        class="btn"
+      >
+        ← Volver al portal
+      </a>
+
+      <button
+        id="cerrarSesion"
+        class="btn btn-danger"
+        type="button"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+       ===================================================== -->
+
+  <main class="portal-container">
+
+
+    <!-- ===================================================
+         CABECERA DEL MÓDULO
+         =================================================== -->
+
+    <section class="welcome-section">
+
+      <h2 id="bienvenida">
+        Gestión de oficinas
+      </h2>
+
+      <p>
+        Gestiona las oficinas asociadas a cada empresa.
+      </p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         SELECCIÓN DE EMPRESA
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+      <h2>
+        Empresa
+      </h2>
+
+
+      <div>
+
+        <label
+          for="empresaSelect"
+        >
+          Selecciona una empresa:
+        </label>
+
+
+        <select
+          id="empresaSelect"
+        >
+
+          <option value="">
+            Selecciona una empresa
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <p
+        id="empresaMessage"
+        class="message"
+      ></p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         CREAR OFICINA
+         =================================================== -->
+
+    <section
+      id="crearOficinaSection"
+      class="dashboard-section"
+      style="display: none;"
+    >
+
+      <h2>
+        Crear oficina
+      </h2>
+
+
+      <div>
+
+        <label
+          for="nombreOficina"
+        >
+          Nombre de la oficina:
+        </label>
+
+
+        <input
+          id="nombreOficina"
+          type="text"
+          placeholder="Nombre de la oficina"
+        >
+
+
+        <button
+          id="crearOficina"
+          class="btn"
+          type="button"
+        >
+          Crear oficina
+        </button>
+
+      </div>
+
+
+      <p
+        id="crearMessage"
+        class="message"
+      ></p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LISTADO DE OFICINAS
+         =================================================== -->
+
+    <section
+      id="oficinasSection"
+      class="dashboard-section"
+      style="display: none;"
+    >
+
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        "
+      >
+
+        <h2>
+          Oficinas
+        </h2>
+
+
+        <button
+          id="recargarOficinas"
+          class="btn"
+          type="button"
+        >
+          Recargar oficinas
+        </button>
+
+      </div>
+
+
+      <p
+        id="listadoMessage"
+        class="message"
+      ></p>
+
+
+      <div id="oficinasContainer">
+
+        Selecciona una empresa para ver sus oficinas.
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       PIE
+       ===================================================== -->
+
+  <footer class="portal-footer">
+
+    Kit Gestión Asesoría · Gestión Interna
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT COMÚN
+       ===================================================== -->
+
+  <script src="../../js/comun.js"></script>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT DEL MÓDULO
+       ===================================================== -->
+
+  <script>
+
+    // =====================================================
+    // COMPROBAR SESIÓN
+    // =====================================================
+
+    if (!comprobarSesion()) {
+
+      throw new Error(
+        "Sesión no válida"
+      );
+
+    }
+
+
+    // =====================================================
+    // USUARIO
+    // =====================================================
+
+    const usuario =
+      obtenerUsuario();
+
+
+    document
+      .getElementById(
+        "usuarioCabecera"
+      )
+      .textContent =
+        `${usuario.nombre} · ${usuario.rol}`;
+
+
+    // =====================================================
+    // BIENVENIDA
+    // =====================================================
+
+    document
+      .getElementById(
+        "bienvenida"
+      )
+      .textContent =
+        `Gestión de oficinas`;
+
+
+    // =====================================================
+    // CERRAR SESIÓN
+    // =====================================================
+
+    document
+      .getElementById(
+        "cerrarSesion"
+      )
+      .addEventListener(
+        "click",
+        cerrarSesion
+      );
+
+
+    // =====================================================
+    // ELEMENTOS
+    // =====================================================
+
+    const empresaSelect =
+      document.getElementById(
+        "empresaSelect"
+      );
+
+
+    const nombreOficina =
+      document.getElementById(
+        "nombreOficina"
+      );
+
+
+    const crearOficinaSection =
+      document.getElementById(
+        "crearOficinaSection"
+      );
+
+
+    const oficinasSection =
+      document.getElementById(
+        "oficinasSection"
+      );
+
+
+    const oficinasContainer =
+      document.getElementById(
+        "oficinasContainer"
+      );
+
+
+    const empresaMessage =
+      document.getElementById(
+        "empresaMessage"
+      );
+
+
+    const crearMessage =
+      document.getElementById(
+        "crearMessage"
+      );
+
+
+    const listadoMessage =
+      document.getElementById(
+        "listadoMessage"
+      );
+
+
+    // =====================================================
+    // CARGAR EMPRESAS
+    // =====================================================
+
+    async function cargarEmpresas() {
+
+      empresaMessage.textContent =
+        "Cargando empresas...";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/empresas"
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          empresaMessage.textContent =
+            datos.message ||
+            "No se han podido cargar las empresas.";
+
+          return;
+        }
+
+
+        empresaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una empresa
+            </option>
+          `;
+
+
+        if (
+          !Array.isArray(
+            datos.empresas
+          ) ||
+          datos.empresas.length === 0
+        ) {
+
+          empresaMessage.textContent =
+            "No hay empresas disponibles.";
+
+          return;
+        }
+
+
+        datos.empresas.forEach(
+          empresa => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              empresa.id;
+
+
+            option.textContent =
+              empresa.nombre;
+
+
+            empresaSelect.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+        empresaMessage.textContent =
+          "";
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando empresas:",
+          error
+        );
+
+
+        empresaMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+      }
+    }
+
+
+
+    // =====================================================
+    // CAMBIO DE EMPRESA
+    // =====================================================
+
+    empresaSelect.addEventListener(
+      "change",
+      () => {
+
+        const empresaId =
+          empresaSelect.value;
+
+
+        if (!empresaId) {
+
+          crearOficinaSection.style.display =
+            "none";
+
+
+          oficinasSection.style.display =
+            "none";
+
+
+          oficinasContainer.innerHTML =
+            "Selecciona una empresa para ver sus oficinas.";
+
+
+          return;
+        }
+
+
+        crearOficinaSection.style.display =
+          "block";
+
+
+        oficinasSection.style.display =
+          "block";
+
+
+        cargarOficinas(
+          empresaId
+        );
+
+      }
+    );
+
+
+
+    // =====================================================
+    // CARGAR OFICINAS
+    // =====================================================
+
+    async function cargarOficinas(
+      empresaId
+    ) {
+
+      oficinasContainer.innerHTML =
+        "Cargando oficinas...";
+
+
+      listadoMessage.textContent =
+        "";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/empresas/${empresaId}/oficinas`
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          oficinasContainer.innerHTML =
+            "";
+
+
+          listadoMessage.textContent =
+            datos.message ||
+            "No se han podido cargar las oficinas.";
+
+          return;
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.oficinas
+          ) ||
+          datos.oficinas.length === 0
+        ) {
+
+          oficinasContainer.innerHTML =
+            "<p>No hay oficinas para esta empresa.</p>";
+
+          return;
+        }
+
+
+        oficinasContainer.innerHTML =
+          "";
+
+
+        datos.oficinas.forEach(
+          oficina => {
+
+            const article =
+              document.createElement(
+                "article"
+              );
+
+
+            // =================================================
+            // NOMBRE
+            // =================================================
+
+            const titulo =
+              document.createElement(
+                "h3"
+              );
+
+
+            titulo.textContent =
+              oficina.nombre;
+
+
+            // =================================================
+            // ESTADO
+            // =================================================
+
+            const estado =
+              document.createElement(
+                "p"
+              );
+
+
+            estado.textContent =
+              oficina.activo
+                ? "Estado: Activa"
+                : "Estado: Inactiva";
+
+
+            // =================================================
+            // FECHA CREACIÓN
+            // =================================================
+
+            const fecha =
+              document.createElement(
+                "p"
+              );
+
+
+            fecha.textContent =
+              `Creada: ${
+                formatearFecha(
+                  oficina.createdAt
+                )
+              }`;
+
+
+            // =================================================
+            // BOTÓN ESTADO
+            // =================================================
+
+            const botonEstado =
+              document.createElement(
+                "button"
+              );
+
+
+            botonEstado.type =
+              "button";
+
+
+            if (oficina.activo) {
+
+              botonEstado.textContent =
+                "Desactivar oficina";
+
+              botonEstado.addEventListener(
+                "click",
+                () =>
+                  cambiarEstadoOficina(
+                    oficina.id,
+                    false
+                  )
+              );
+
+            } else {
+
+              botonEstado.textContent =
+                "Activar oficina";
+
+              botonEstado.addEventListener(
+                "click",
+                () =>
+                  cambiarEstadoOficina(
+                    oficina.id,
+                    true
+                  )
+              );
+
+            }
+
+
+            // =================================================
+            // CONSTRUIR OFICINA
+            // =================================================
+
+            article.appendChild(
+              titulo
+            );
+
+
+            article.appendChild(
+              estado
+            );
+
+
+            article.appendChild(
+              fecha
+            );
+
+
+            article.appendChild(
+              botonEstado
+            );
+
+
+            oficinasContainer.appendChild(
+              article
+            );
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando oficinas:",
+          error
+        );
+
+
+        oficinasContainer.innerHTML =
+          "";
+
+
+        listadoMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+      }
+    }
+
+
+
+    // =====================================================
+    // CREAR OFICINA
+    // =====================================================
+
+    document
+      .getElementById(
+        "crearOficina"
+      )
+      .addEventListener(
+        "click",
+        crearNuevaOficina
+      );
+
+
+    async function crearNuevaOficina() {
+
+      const empresaId =
+        empresaSelect.value;
+
+
+      const nombre =
+        nombreOficina.value.trim();
+
+
+      crearMessage.textContent =
+        "";
+
+
+      if (!empresaId) {
+
+        crearMessage.textContent =
+          "Selecciona una empresa.";
+
+        return;
+      }
+
+
+      if (!nombre) {
+
+        crearMessage.textContent =
+          "El nombre de la oficina es obligatorio.";
+
+        return;
+      }
+
+
+      const boton =
+        document.getElementById(
+          "crearOficina"
+        );
+
+
+      boton.disabled =
+        true;
+
+
+      boton.textContent =
+        "Creando...";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/oficinas",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                nombre,
+                empresaId
+              })
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          crearMessage.textContent =
+            datos.message ||
+            "No se ha podido crear la oficina.";
+
+          return;
+        }
+
+
+        nombreOficina.value =
+          "";
+
+
+        crearMessage.textContent =
+          "Oficina creada correctamente.";
+
+
+        await cargarOficinas(
+          empresaId
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error creando oficina:",
+          error
+        );
+
+
+        crearMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      } finally {
+
+        boton.disabled =
+          false;
+
+
+        boton.textContent =
+          "Crear oficina";
+      }
+    }
+
+
+
+    // =====================================================
+    // CAMBIAR ESTADO DE OFICINA
+    // =====================================================
+
+    async function cambiarEstadoOficina(
+      oficinaId,
+      activar
+    ) {
+
+      const accion =
+        activar
+          ? "activar"
+          : "desactivar";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/oficinas/${oficinaId}/${accion}`,
+            {
+              method: "PATCH"
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          alert(
+            datos.message ||
+            "No se ha podido cambiar el estado de la oficina."
+          );
+
+          return;
+        }
+
+
+        await cargarOficinas(
+          empresaSelect.value
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cambiando estado de oficina:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido conectar con el servidor."
+        );
+      }
+    }
+
+
+
+    // =====================================================
+    // RECARGAR OFICINAS
+    // =====================================================
+
+    document
+      .getElementById(
+        "recargarOficinas"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          const empresaId =
+            empresaSelect.value;
+
+
+          if (!empresaId) {
+
+            return;
+          }
+
+
+          cargarOficinas(
+            empresaId
+          );
+
+        }
+      );
+
+
+
+    // =====================================================
+    // INICIO
+    // =====================================================
+
+    cargarEmpresas();
+
+  </script>
+
+
+</body>
+
+</html>
+
