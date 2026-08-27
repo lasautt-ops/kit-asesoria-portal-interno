@@ -89,7 +89,7 @@
 
 
     <!-- =====================================================
-         TAREAS
+         ACCIONES
          ===================================================== -->
 
     <section class="dashboard-section">
@@ -197,10 +197,6 @@
               Alta
             </option>
 
-            <option value="URGENTE">
-              Urgente
-            </option>
-
           </select>
 
         </div>
@@ -269,8 +265,17 @@
 
 
 
+      <!-- =====================================================
+           MENSAJES
+           ===================================================== -->
+
       <div id="mensajeTareas"></div>
 
+
+
+      <!-- =====================================================
+           LISTADO
+           ===================================================== -->
 
       <div
         id="listaTareas"
@@ -279,7 +284,9 @@
           flex-direction: column;
           gap: 15px;
         "
-      ></div>
+      >
+
+      </div>
 
     </section>
 
@@ -331,6 +338,8 @@
         >
 
 
+        <!-- TÍTULO -->
+
         <div class="form-group">
 
           <label for="tituloTarea">
@@ -340,11 +349,14 @@
           <input
             type="text"
             id="tituloTarea"
+            name="titulo"
             required
           >
 
         </div>
 
+
+        <!-- DESCRIPCIÓN -->
 
         <div class="form-group">
 
@@ -354,11 +366,14 @@
 
           <textarea
             id="descripcionTarea"
+            name="descripcion"
             rows="4"
           ></textarea>
 
         </div>
 
+
+        <!-- PRIORIDAD -->
 
         <div class="form-group">
 
@@ -366,7 +381,10 @@
             Prioridad
           </label>
 
-          <select id="prioridadTarea">
+          <select
+            id="prioridadTarea"
+            name="prioridad"
+          >
 
             <option value="BAJA">
               Baja
@@ -380,22 +398,26 @@
               Alta
             </option>
 
-            <option value="URGENTE">
-              Urgente
-            </option>
-
           </select>
 
         </div>
 
 
-        <div class="form-group">
+        <!-- ESTADO -->
+
+        <div
+          class="form-group"
+          id="grupoEstadoTarea"
+        >
 
           <label for="estadoTarea">
             Estado
           </label>
 
-          <select id="estadoTarea">
+          <select
+            id="estadoTarea"
+            name="estado"
+          >
 
             <option value="PENDIENTE">
               Pendiente
@@ -418,6 +440,8 @@
         </div>
 
 
+        <!-- FECHA LÍMITE -->
+
         <div class="form-group">
 
           <label for="fechaLimiteTarea">
@@ -427,10 +451,13 @@
           <input
             type="datetime-local"
             id="fechaLimiteTarea"
+            name="fechaLimite"
           >
 
         </div>
 
+
+        <!-- EMPRESA -->
 
         <div
           class="form-group"
@@ -443,6 +470,7 @@
 
           <select
             id="empresaTarea"
+            name="empresaId"
           >
 
             <option value="">
@@ -454,13 +482,21 @@
         </div>
 
 
-        <div class="form-group">
+        <!-- OFICINA -->
+
+        <div
+          class="form-group"
+          id="grupoOficinaTarea"
+        >
 
           <label for="oficinaTarea">
             Oficina
           </label>
 
-          <select id="oficinaTarea">
+          <select
+            id="oficinaTarea"
+            name="oficinaId"
+          >
 
             <option value="">
               Sin oficina
@@ -471,13 +507,21 @@
         </div>
 
 
-        <div class="form-group">
+        <!-- CLIENTE -->
+
+        <div
+          class="form-group"
+          id="grupoClienteTarea"
+        >
 
           <label for="clienteTarea">
             Cliente
           </label>
 
-          <select id="clienteTarea">
+          <select
+            id="clienteTarea"
+            name="clienteId"
+          >
 
             <option value="">
               Sin cliente
@@ -488,6 +532,8 @@
         </div>
 
 
+        <!-- ASIGNADO -->
+
         <div
           class="form-group"
           id="grupoAsignadoTarea"
@@ -497,7 +543,10 @@
             Asignar a
           </label>
 
-          <select id="asignadoTarea">
+          <select
+            id="asignadoTarea"
+            name="asignadoAUsuarioId"
+          >
 
             <option value="">
               Sin asignar
@@ -508,11 +557,7 @@
         </div>
 
 
-        <div
-          id="mensajeFormularioTarea"
-          style="margin-top: 15px;"
-        ></div>
-
+        <!-- BOTONES -->
 
         <div
           style="
@@ -592,7 +637,7 @@
 
 
     // =====================================================
-    // ELEMENTOS
+    // REFERENCIAS
     // =====================================================
 
     const listaTareas =
@@ -607,6 +652,9 @@
     const formTarea =
       document.getElementById("formTarea");
 
+    const btnNuevaTarea =
+      document.getElementById("btnNuevaTarea");
+
     const empresaTarea =
       document.getElementById("empresaTarea");
 
@@ -619,13 +667,32 @@
     const asignadoTarea =
       document.getElementById("asignadoTarea");
 
+    const filtroEstado =
+      document.getElementById("filtroEstado");
 
+    const filtroPrioridad =
+      document.getElementById("filtroPrioridad");
+
+    const filtroOficina =
+      document.getElementById("filtroOficina");
+
+    const filtroCliente =
+      document.getElementById("filtroCliente");
+
+    const filtroAsignado =
+      document.getElementById("filtroAsignado");
+
+
+
+    let tareas = [];
 
     let empresas = [];
+
     let oficinas = [];
+
     let clientes = [];
-    let trabajadores = [];
-    let tareas = [];
+
+    let usuarios = [];
 
 
 
@@ -633,17 +700,26 @@
     // MENSAJES
     // =====================================================
 
-    function mostrarMensaje(elemento, texto, tipo = "info") {
+    function mostrarMensaje(
+      mensaje,
+      tipo = "error"
+    ) {
 
-      elemento.innerHTML = `
+      mensajeTareas.innerHTML = `
         <div
           style="
             padding: 12px;
             margin-bottom: 15px;
             border-radius: 6px;
+            background: ${tipo === "ok"
+              ? "#d4edda"
+              : "#f8d7da"};
+            color: ${tipo === "ok"
+              ? "#155724"
+              : "#721c24"};
           "
         >
-          ${texto}
+          ${mensaje}
         </div>
       `;
 
@@ -652,97 +728,76 @@
 
 
     // =====================================================
-    // CARGAR EMPRESAS
+    // ESCAPAR HTML
     // =====================================================
 
-    async function cargarEmpresas() {
+    function escaparHTML(valor) {
+
+      if (
+        valor === null ||
+        valor === undefined
+      ) {
+
+        return "";
+
+      }
+
+      return String(valor)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+
+    // =====================================================
+    // CARGAR TAREAS
+    // =====================================================
+
+    async function cargarTareas() {
 
       try {
 
         const respuesta =
-          await peticionAPI("/api/empresas");
+          await peticionAPI(
+            "/api/tareas"
+          );
 
-        if (!respuesta.ok) {
+        const datos =
+          await respuesta.json();
+
+
+        if (!respuesta.ok || !datos.ok) {
 
           throw new Error(
-            respuesta.message ||
-            "No se pudieron cargar las empresas"
+            datos.message ||
+            "No se pudieron cargar las tareas"
           );
 
         }
 
-        empresas =
-          respuesta.empresas || [];
 
-        empresaTarea.innerHTML = `
-          <option value="">
-            Seleccionar empresa
-          </option>
-        `;
+        tareas =
+          Array.isArray(datos.tareas)
+            ? datos.tareas
+            : [];
 
-        empresas.forEach(empresa => {
 
-          const option =
-            document.createElement("option");
-
-          option.value =
-            empresa.id;
-
-          option.textContent =
-            empresa.nombre;
-
-          empresaTarea.appendChild(option);
-
-        });
-
-        // ADMIN trabaja únicamente con su empresa
-        if (
-          usuario.rol === "ADMIN" &&
-          usuario.empresaId
-        ) {
-
-          empresaTarea.value =
-            usuario.empresaId;
-
-          empresaTarea.disabled = true;
-
-          await cargarDatosEmpresa(
-            usuario.empresaId
-          );
-
-        }
-
-        // DIRECTOR y TRABAJADOR también tienen
-        // una empresa determinada
-        if (
-          (
-            usuario.rol === "DIRECTOR" ||
-            usuario.rol === "TRABAJADOR"
-          ) &&
-          usuario.empresaId
-        ) {
-
-          empresaTarea.value =
-            usuario.empresaId;
-
-          empresaTarea.disabled = true;
-
-          await cargarDatosEmpresa(
-            usuario.empresaId
-          );
-
-        }
+        renderizarTareas();
 
       } catch (error) {
 
         console.error(
-          "Error cargando empresas:",
+          "Error cargando tareas:",
           error
         );
 
         mostrarMensaje(
-          mensajeTareas,
-          "No se pudieron cargar las empresas."
+          error.message ||
+          "No se pudieron cargar las tareas"
         );
 
       }
@@ -752,16 +807,88 @@
 
 
     // =====================================================
-    // CARGAR DATOS DE EMPRESA
+    // CARGAR EMPRESAS
+    // Solo SUPERADMIN necesita seleccionarlas.
     // =====================================================
 
-    async function cargarDatosEmpresa(empresaId) {
+    async function cargarEmpresas() {
 
-      await Promise.all([
-        cargarOficinas(empresaId),
-        cargarClientes(empresaId),
-        cargarTrabajadores(empresaId)
-      ]);
+      if (
+        usuario.rol !== "SUPERADMIN"
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/empresas"
+          );
+
+        const datos =
+          await respuesta.json();
+
+
+        if (!respuesta.ok || !datos.ok) {
+
+          throw new Error(
+            datos.message ||
+            "No se pudieron cargar las empresas"
+          );
+
+        }
+
+
+        empresas =
+          Array.isArray(datos.empresas)
+            ? datos.empresas
+            : [];
+
+
+        empresaTarea.innerHTML = `
+          <option value="">
+            Seleccionar empresa
+          </option>
+        `;
+
+
+        empresas.forEach(
+          (empresa) => {
+
+            const option =
+              document.createElement("option");
+
+            option.value =
+              empresa.id;
+
+            option.textContent =
+              empresa.nombre;
+
+            empresaTarea.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando empresas:",
+          error
+        );
+
+        mostrarMensaje(
+          error.message ||
+          "No se pudieron cargar las empresas"
+        );
+
+      }
 
     }
 
@@ -771,7 +898,27 @@
     // CARGAR OFICINAS
     // =====================================================
 
-    async function cargarOficinas(empresaId) {
+    async function cargarOficinas(
+      empresaId,
+      oficinaSeleccionada = ""
+    ) {
+
+      oficinaTarea.innerHTML = `
+        <option value="">
+          Sin oficina
+        </option>
+      `;
+
+
+      oficinas = [];
+
+
+      if (!empresaId) {
+
+        return;
+
+      }
+
 
       try {
 
@@ -780,61 +927,67 @@
             `/api/empresas/${empresaId}/oficinas`
           );
 
-        if (!respuesta.ok) {
+        const datos =
+          await respuesta.json();
+
+
+        if (!respuesta.ok || !datos.ok) {
 
           throw new Error(
-            respuesta.message ||
+            datos.message ||
             "No se pudieron cargar las oficinas"
           );
 
         }
 
+
         oficinas =
-          respuesta.oficinas || [];
+          Array.isArray(datos.oficinas)
+            ? datos.oficinas.filter(
+                (oficina) =>
+                  oficina.activo !== false
+              )
+            : [];
 
-        oficinaTarea.innerHTML = `
-          <option value="">
-            Sin oficina
-          </option>
-        `;
 
-        oficinas.forEach(oficina => {
+        oficinas.forEach(
+          (oficina) => {
 
-          const option =
-            document.createElement("option");
+            const option =
+              document.createElement("option");
 
-          option.value =
-            oficina.id;
+            option.value =
+              oficina.id;
 
-          option.textContent =
-            oficina.nombre;
+            option.textContent =
+              oficina.nombre;
 
-          oficinaTarea.appendChild(option);
+            oficinaTarea.appendChild(
+              option
+            );
 
-        });
+          }
+        );
 
-        // DIRECTOR / TRABAJADOR únicamente pueden
-        // trabajar con su oficina
-        if (
-          (
-            usuario.rol === "DIRECTOR" ||
-            usuario.rol === "TRABAJADOR"
-          ) &&
-          usuario.oficinaId
-        ) {
+
+        if (oficinaSeleccionada) {
 
           oficinaTarea.value =
-            usuario.oficinaId;
-
-          oficinaTarea.disabled = true;
+            oficinaSeleccionada;
 
         }
+
 
       } catch (error) {
 
         console.error(
           "Error cargando oficinas:",
           error
+        );
+
+        mostrarMensaje(
+          error.message ||
+          "No se pudieron cargar las oficinas"
         );
 
       }
@@ -847,28 +1000,87 @@
     // CARGAR CLIENTES
     // =====================================================
 
-    async function cargarClientes(empresaId) {
+    async function cargarClientes(
+      empresaId
+    ) {
+
+      clienteTarea.innerHTML = `
+        <option value="">
+          Sin cliente
+        </option>
+      `;
+
+
+      clientes = [];
+
+
+      if (!empresaId) {
+
+        return;
+
+      }
+
 
       try {
 
         const respuesta =
           await peticionAPI(
-            `/api/clientes?empresaId=${encodeURIComponent(empresaId)}`
+            "/api/clientes"
           );
 
-        if (!respuesta.ok) {
+        const datos =
+          await respuesta.json();
+
+
+        if (!respuesta.ok || !datos.ok) {
 
           throw new Error(
-            respuesta.message ||
+            datos.message ||
             "No se pudieron cargar los clientes"
           );
 
         }
 
-        clientes =
-          respuesta.clientes || [];
 
-        actualizarClientes();
+        let lista =
+          Array.isArray(datos.clientes)
+            ? datos.clientes
+            : [];
+
+
+        lista =
+          lista.filter(
+            (cliente) =>
+              cliente.empresaId === empresaId
+          );
+
+
+        // TRABAJADOR:
+        // el backend ya limita /api/clientes
+        // a sus clientes asignados.
+
+        clientes = lista;
+
+
+        clientes.forEach(
+          (cliente) => {
+
+            const option =
+              document.createElement("option");
+
+            option.value =
+              cliente.id;
+
+            option.textContent =
+              cliente.nombre;
+
+            clienteTarea.appendChild(
+              option
+            );
+
+          }
+        );
+
 
       } catch (error) {
 
@@ -877,44 +1089,9 @@
           error
         );
 
-      }
-
-    }
-
-
-
-    // =====================================================
-    // CARGAR TRABAJADORES
-    // =====================================================
-
-    async function cargarTrabajadores(empresaId) {
-
-      try {
-
-        const respuesta =
-          await peticionAPI(
-            `/api/trabajadores?empresaId=${encodeURIComponent(empresaId)}`
-          );
-
-        if (!respuesta.ok) {
-
-          throw new Error(
-            respuesta.message ||
-            "No se pudieron cargar los trabajadores"
-          );
-
-        }
-
-        trabajadores =
-          respuesta.trabajadores || [];
-
-        actualizarAsignados();
-
-      } catch (error) {
-
-        console.error(
-          "Error cargando trabajadores:",
-          error
+        mostrarMensaje(
+          error.message ||
+          "No se pudieron cargar los clientes"
         );
 
       }
@@ -924,57 +1101,12 @@
 
 
     // =====================================================
-    // ACTUALIZAR CLIENTES SEGÚN OFICINA
+    // CARGAR USUARIOS / TRABAJADORES
     // =====================================================
 
-    function actualizarClientes() {
-
-      const oficinaId =
-        oficinaTarea.value;
-
-      clienteTarea.innerHTML = `
-        <option value="">
-          Sin cliente
-        </option>
-      `;
-
-      clientes
-        .filter(cliente => {
-
-          if (!oficinaId) {
-            return true;
-          }
-
-          return cliente.oficinaId === oficinaId;
-
-        })
-        .forEach(cliente => {
-
-          const option =
-            document.createElement("option");
-
-          option.value =
-            cliente.id;
-
-          option.textContent =
-            cliente.nombre;
-
-          clienteTarea.appendChild(option);
-
-        });
-
-    }
-
-
-
-    // =====================================================
-    // ACTUALIZAR ASIGNADOS
-    // =====================================================
-
-    function actualizarAsignados() {
-
-      const oficinaId =
-        oficinaTarea.value;
+    async function cargarUsuariosAsignables(
+      empresaId
+    ) {
 
       asignadoTarea.innerHTML = `
         <option value="">
@@ -982,35 +1114,365 @@
         </option>
       `;
 
-      trabajadores
-        .filter(trabajador => {
 
-          if (!oficinaId) {
-            return true;
-          }
+      usuarios = [];
 
-          return trabajador.oficinaId === oficinaId;
 
-        })
-        .forEach(trabajador => {
+      if (!empresaId) {
 
-          const option =
-            document.createElement("option");
+        return;
 
-          option.value =
-            trabajador.usuarioId ||
-            trabajador.usuario?.id;
+      }
 
-          option.textContent =
-            trabajador.nombre ||
-            trabajador.usuario?.nombre ||
-            "Trabajador";
 
-          asignadoTarea.appendChild(option);
+      /*
+       * El backend que tenemos actualmente no dispone
+       * de una ruta específica de usuarios asignables
+       * para tareas dentro del bloque revisado.
+       *
+       * Por tanto, no hacemos una llamada inventada.
+       *
+       * Más adelante, si se crea esa ruta, podremos
+       * conectarla aquí.
+       */
 
-        });
 
     }
+
+
+
+    // =====================================================
+    // PREPARAR SELECTORES SEGÚN ROL
+    // =====================================================
+
+    async function prepararFormulario() {
+
+      const grupoEmpresa =
+        document.getElementById(
+          "grupoEmpresaTarea"
+        );
+
+      const grupoOficina =
+        document.getElementById(
+          "grupoOficinaTarea"
+        );
+
+      const grupoCliente =
+        document.getElementById(
+          "grupoClienteTarea"
+        );
+
+
+      // ---------------------------------------------------
+      // SUPERADMIN
+      // ---------------------------------------------------
+
+      if (
+        usuario.rol === "SUPERADMIN"
+      ) {
+
+        grupoEmpresa.style.display =
+          "block";
+
+        grupoOficina.style.display =
+          "block";
+
+        grupoCliente.style.display =
+          "block";
+
+        empresaTarea.disabled =
+          false;
+
+        oficinaTarea.disabled =
+          false;
+
+        clienteTarea.disabled =
+          false;
+
+        await cargarEmpresas();
+
+        return;
+
+      }
+
+
+      // ---------------------------------------------------
+      // ADMIN
+      // ---------------------------------------------------
+
+      if (
+        usuario.rol === "ADMIN"
+      ) {
+
+        grupoEmpresa.style.display =
+          "block";
+
+        grupoOficina.style.display =
+          "block";
+
+        grupoCliente.style.display =
+          "block";
+
+        /*
+         * Para ADMIN NO se utiliza /api/empresas.
+         *
+         * Su empresa viene directamente de:
+         *
+         * usuario.empresaId
+         *
+         * y el backend obliga a que coincida.
+         */
+
+        empresaTarea.innerHTML = "";
+
+        const option =
+          document.createElement("option");
+
+        option.value =
+          usuario.empresaId;
+
+        option.textContent =
+          "Empresa actual";
+
+        option.selected =
+          true;
+
+        empresaTarea.appendChild(
+          option
+        );
+
+        empresaTarea.disabled =
+          true;
+
+
+        await cargarOficinas(
+          usuario.empresaId
+        );
+
+        await cargarClientes(
+          usuario.empresaId
+        );
+
+        await cargarUsuariosAsignables(
+          usuario.empresaId
+        );
+
+        return;
+
+      }
+
+
+      // ---------------------------------------------------
+      // DIRECTOR
+      // ---------------------------------------------------
+
+      if (
+        usuario.rol === "DIRECTOR"
+      ) {
+
+        grupoEmpresa.style.display =
+          "block";
+
+        grupoOficina.style.display =
+          "block";
+
+        grupoCliente.style.display =
+          "block";
+
+
+        empresaTarea.innerHTML = "";
+
+        const empresaOption =
+          document.createElement("option");
+
+        empresaOption.value =
+          usuario.empresaId;
+
+        empresaOption.textContent =
+          "Empresa actual";
+
+        empresaOption.selected =
+          true;
+
+        empresaTarea.appendChild(
+          empresaOption
+        );
+
+        empresaTarea.disabled =
+          true;
+
+
+        oficinaTarea.innerHTML = "";
+
+        const oficinaOption =
+          document.createElement("option");
+
+        oficinaOption.value =
+          usuario.oficinaId;
+
+        oficinaOption.textContent =
+          "Oficina actual";
+
+        oficinaOption.selected =
+          true;
+
+        oficinaTarea.appendChild(
+          oficinaOption
+        );
+
+        oficinaTarea.disabled =
+          true;
+
+
+        await cargarClientes(
+          usuario.empresaId
+        );
+
+        return;
+
+      }
+
+
+      // ---------------------------------------------------
+      // TRABAJADOR
+      // ---------------------------------------------------
+
+      if (
+        usuario.rol === "TRABAJADOR"
+      ) {
+
+        grupoEmpresa.style.display =
+          "block";
+
+        grupoOficina.style.display =
+          "block";
+
+        grupoCliente.style.display =
+          "block";
+
+
+        empresaTarea.innerHTML = "";
+
+        const empresaOption =
+          document.createElement("option");
+
+        empresaOption.value =
+          usuario.empresaId;
+
+        empresaOption.textContent =
+          "Empresa actual";
+
+        empresaOption.selected =
+          true;
+
+        empresaTarea.appendChild(
+          empresaOption
+        );
+
+        empresaTarea.disabled =
+          true;
+
+
+        oficinaTarea.innerHTML = "";
+
+        const oficinaOption =
+          document.createElement("option");
+
+        oficinaOption.value =
+          usuario.oficinaId;
+
+        oficinaOption.textContent =
+          "Oficina actual";
+
+        oficinaOption.selected =
+          true;
+
+        oficinaTarea.appendChild(
+          oficinaOption
+        );
+
+        oficinaTarea.disabled =
+          true;
+
+
+        await cargarClientes(
+          usuario.empresaId
+        );
+
+        return;
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // ABRIR MODAL
+    // =====================================================
+
+    async function abrirModalNuevaTarea() {
+
+      formTarea.reset();
+
+
+      document
+        .getElementById("tareaId")
+        .value = "";
+
+
+      document
+        .getElementById("tituloModalTarea")
+        .textContent =
+          "Nueva tarea";
+
+
+      empresaTarea.disabled =
+        false;
+
+      oficinaTarea.disabled =
+        false;
+
+      clienteTarea.disabled =
+        false;
+
+
+      await prepararFormulario();
+
+
+      modalTarea.style.display =
+        "block";
+
+    }
+
+
+
+    // =====================================================
+    // CERRAR MODAL
+    // =====================================================
+
+    function cerrarModalTarea() {
+
+      modalTarea.style.display =
+        "none";
+
+    }
+
+
+    document
+      .getElementById("cerrarModalTarea")
+      .addEventListener(
+        "click",
+        cerrarModalTarea
+      );
+
+
+    document
+      .getElementById("btnCancelarTarea")
+      .addEventListener(
+        "click",
+        cerrarModalTarea
+      );
 
 
 
@@ -1025,33 +1487,16 @@
         const empresaId =
           empresaTarea.value;
 
-        oficinaTarea.innerHTML = `
-          <option value="">
-            Sin oficina
-          </option>
-        `;
 
-        clienteTarea.innerHTML = `
-          <option value="">
-            Sin cliente
-          </option>
-        `;
+        await cargarOficinas(
+          empresaId
+        );
 
-        asignadoTarea.innerHTML = `
-          <option value="">
-            Sin asignar
-          </option>
-        `;
+        await cargarClientes(
+          empresaId
+        );
 
-        oficinas = [];
-        clientes = [];
-        trabajadores = [];
-
-        if (!empresaId) {
-          return;
-        }
-
-        await cargarDatosEmpresa(
+        await cargarUsuariosAsignables(
           empresaId
         );
 
@@ -1066,372 +1511,103 @@
 
     oficinaTarea.addEventListener(
       "change",
-      () => {
+      async () => {
 
-        actualizarClientes();
-        actualizarAsignados();
-
-      }
-    );
+        const oficinaId =
+          oficinaTarea.value;
 
 
+        if (!oficinaId) {
 
-    // =====================================================
-    // CARGAR TAREAS
-    // =====================================================
+          return;
 
-    async function cargarTareas() {
+        }
 
-      try {
 
-        mensajeTareas.innerHTML = "";
+        const empresaId =
+          empresaTarea.value;
 
-        const respuesta =
-          await peticionAPI("/api/tareas");
 
-        if (!respuesta.ok) {
+        if (!empresaId) {
 
-          throw new Error(
-            respuesta.message ||
-            "No se pudieron cargar las tareas"
+          return;
+
+        }
+
+
+        try {
+
+          const respuesta =
+            await peticionAPI(
+              "/api/clientes"
+            );
+
+          const datos =
+            await respuesta.json();
+
+
+          if (!respuesta.ok || !datos.ok) {
+
+            throw new Error(
+              datos.message ||
+              "No se pudieron cargar los clientes"
+            );
+
+          }
+
+
+          clienteTarea.innerHTML = `
+            <option value="">
+              Sin cliente
+            </option>
+          `;
+
+
+          const lista =
+            (datos.clientes || [])
+              .filter(
+                (cliente) =>
+                  cliente.empresaId === empresaId &&
+                  cliente.oficinaId === oficinaId
+              );
+
+
+          lista.forEach(
+            (cliente) => {
+
+              const option =
+                document.createElement("option");
+
+              option.value =
+                cliente.id;
+
+              option.textContent =
+                cliente.nombre;
+
+              clienteTarea.appendChild(
+                option
+              );
+
+            }
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Error filtrando clientes:",
+            error
+          );
+
+          mostrarMensaje(
+            error.message ||
+            "No se pudieron cargar los clientes"
           );
 
         }
 
-        tareas =
-          respuesta.tareas || [];
-
-        renderizarTareas();
-
-      } catch (error) {
-
-        console.error(
-          "Error cargando tareas:",
-          error
-        );
-
-        mostrarMensaje(
-          mensajeTareas,
-          "No se pudieron cargar las tareas."
-        );
-
       }
-
-    }
-
-
-
-    // =====================================================
-    // RENDERIZAR TAREAS
-    // =====================================================
-
-    function renderizarTareas() {
-
-      const filtroEstado =
-        document.getElementById(
-          "filtroEstado"
-        ).value;
-
-      const filtroPrioridad =
-        document.getElementById(
-          "filtroPrioridad"
-        ).value;
-
-      const filtroOficina =
-        document.getElementById(
-          "filtroOficina"
-        ).value;
-
-      const filtroCliente =
-        document.getElementById(
-          "filtroCliente"
-        ).value;
-
-      const filtroAsignado =
-        document.getElementById(
-          "filtroAsignado"
-        ).value;
-
-
-      const tareasFiltradas =
-        tareas.filter(tarea => {
-
-          if (
-            filtroEstado &&
-            tarea.estado !== filtroEstado
-          ) {
-            return false;
-          }
-
-          if (
-            filtroPrioridad &&
-            tarea.prioridad !== filtroPrioridad
-          ) {
-            return false;
-          }
-
-          if (
-            filtroOficina &&
-            tarea.oficinaId !== filtroOficina
-          ) {
-            return false;
-          }
-
-          if (
-            filtroCliente &&
-            tarea.clienteId !== filtroCliente
-          ) {
-            return false;
-          }
-
-          if (
-            filtroAsignado &&
-            tarea.asignadoAUsuarioId !== filtroAsignado
-          ) {
-            return false;
-          }
-
-          return true;
-
-        });
-
-
-      listaTareas.innerHTML = "";
-
-
-      if (!tareasFiltradas.length) {
-
-        listaTareas.innerHTML = `
-          <div class="module-card">
-            <p>
-              No hay tareas que coincidan con los filtros.
-            </p>
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      tareasFiltradas.forEach(tarea => {
-
-        const tarjeta =
-          document.createElement("div");
-
-        tarjeta.className =
-          "module-card";
-
-
-        tarjeta.innerHTML = `
-
-          <div>
-
-            <h3>
-              ${escapeHTML(tarea.titulo)}
-            </h3>
-
-            <p>
-              ${escapeHTML(
-                tarea.descripcion ||
-                "Sin descripción"
-              )}
-            </p>
-
-            <p>
-              <strong>Estado:</strong>
-              ${formatearEstado(tarea.estado)}
-            </p>
-
-            <p>
-              <strong>Prioridad:</strong>
-              ${formatearPrioridad(tarea.prioridad)}
-            </p>
-
-            <p>
-              <strong>Empresa:</strong>
-              ${escapeHTML(
-                tarea.empresa?.nombre ||
-                "Sin empresa"
-              )}
-            </p>
-
-            <p>
-              <strong>Oficina:</strong>
-              ${escapeHTML(
-                tarea.oficina?.nombre ||
-                "Sin oficina"
-              )}
-            </p>
-
-            <p>
-              <strong>Cliente:</strong>
-              ${escapeHTML(
-                tarea.cliente?.nombre ||
-                "Sin cliente"
-              )}
-            </p>
-
-            <p>
-              <strong>Asignado a:</strong>
-              ${escapeHTML(
-                tarea.asignadoAUsuario?.nombre ||
-                "Sin asignar"
-              )}
-            </p>
-
-            <p>
-              <strong>Fecha límite:</strong>
-              ${
-                tarea.fechaLimite
-                  ? formatearFecha(tarea.fechaLimite)
-                  : "Sin fecha límite"
-              }
-            </p>
-
-            <div
-              style="
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-                margin-top: 15px;
-              "
-            >
-
-              ${
-                usuario.rol !== "CLIENTE"
-                  ? `
-                    <button
-                      class="btn"
-                      type="button"
-                      onclick="editarTarea('${tarea.id}')"
-                    >
-                      Editar
-                    </button>
-                  `
-                  : ""
-              }
-
-              ${
-                (
-                  usuario.rol === "SUPERADMIN" ||
-                  usuario.rol === "ADMIN" ||
-                  usuario.rol === "DIRECTOR"
-                )
-                  ? `
-                    <button
-                      class="btn btn-danger"
-                      type="button"
-                      onclick="eliminarTarea('${tarea.id}')"
-                    >
-                      Eliminar
-                    </button>
-                  `
-                  : ""
-              }
-
-            </div>
-
-          </div>
-
-        `;
-
-
-        listaTareas.appendChild(tarjeta);
-
-      });
-
-    }
-
-
-
-    // =====================================================
-    // NUEVA TAREA
-    // =====================================================
-
-    document
-      .getElementById("btnNuevaTarea")
-      .addEventListener(
-        "click",
-        () => {
-
-          formTarea.reset();
-
-          document
-            .getElementById("tareaId")
-            .value = "";
-
-          document
-            .getElementById("tituloModalTarea")
-            .textContent =
-              "Nueva tarea";
-
-          document
-            .getElementById("mensajeFormularioTarea")
-            .innerHTML = "";
-
-          oficinaTarea.disabled = false;
-          empresaTarea.disabled =
-            (
-              usuario.rol === "ADMIN" ||
-              usuario.rol === "DIRECTOR" ||
-              usuario.rol === "TRABAJADOR"
-            );
-
-          if (usuario.empresaId) {
-
-            empresaTarea.value =
-              usuario.empresaId;
-
-            cargarDatosEmpresa(
-              usuario.empresaId
-            );
-
-          }
-
-          if (usuario.oficinaId) {
-
-            oficinaTarea.value =
-              usuario.oficinaId;
-
-            oficinaTarea.disabled = true;
-
-          }
-
-          modalTarea.style.display =
-            "flex";
-
-        }
-      );
-
-
-
-    // =====================================================
-    // CERRAR MODAL
-    // =====================================================
-
-    function cerrarModal() {
-
-      modalTarea.style.display =
-        "none";
-
-    }
-
-
-    document
-      .getElementById("cerrarModalTarea")
-      .addEventListener(
-        "click",
-        cerrarModal
-      );
-
-
-    document
-      .getElementById("btnCancelarTarea")
-      .addEventListener(
-        "click",
-        cerrarModal
-      );
+    );
 
 
 
@@ -1446,135 +1622,162 @@
         event.preventDefault();
 
 
-        const mensaje =
-          document.getElementById(
-            "mensajeFormularioTarea"
+        const titulo =
+          document
+            .getElementById("tituloTarea")
+            .value
+            .trim();
+
+
+        const descripcion =
+          document
+            .getElementById("descripcionTarea")
+            .value
+            .trim();
+
+
+        const prioridad =
+          document
+            .getElementById("prioridadTarea")
+            .value;
+
+
+        const estado =
+          document
+            .getElementById("estadoTarea")
+            .value;
+
+
+        const fechaLimite =
+          document
+            .getElementById("fechaLimiteTarea")
+            .value;
+
+
+        /*
+         * Para ADMIN / DIRECTOR / TRABAJADOR,
+         * empresaTarea está deshabilitado, pero su
+         * value sigue disponible en JavaScript.
+         */
+
+        const empresaId =
+          empresaTarea.value;
+
+
+        const oficinaId =
+          oficinaTarea.value;
+
+
+        const clienteId =
+          clienteTarea.value;
+
+
+        const asignadoAUsuarioId =
+          asignadoTarea.value;
+
+
+        if (!titulo) {
+
+          mostrarMensaje(
+            "El título es obligatorio"
           );
+
+          return;
+
+        }
+
+
+        if (!empresaId) {
+
+          mostrarMensaje(
+            "Debes seleccionar una empresa"
+          );
+
+          return;
+
+        }
+
+
+        const datosEnviar = {
+
+          titulo,
+
+          descripcion:
+            descripcion || null,
+
+          prioridad,
+
+          fechaLimite:
+            fechaLimite || null,
+
+          empresaId,
+
+          oficinaId:
+            oficinaId || null,
+
+          clienteId:
+            clienteId || null,
+
+          asignadoAUsuarioId:
+            asignadoAUsuarioId || null
+
+        };
 
 
         try {
 
-          mensaje.innerHTML = "";
-
-
-          const tareaId =
-            document
-              .getElementById("tareaId")
-              .value;
-
-
-          const empresaId =
-            empresaTarea.value;
-
-
-          if (!empresaId) {
-
-            mostrarMensaje(
-              mensaje,
-              "Debes seleccionar una empresa."
+          const respuesta =
+            await peticionAPI(
+              "/api/tareas",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+                body:
+                  JSON.stringify(
+                    datosEnviar
+                  )
+              }
             );
 
-            return;
 
-          }
-
-
-          const datos = {
-
-            titulo:
-              document
-                .getElementById("tituloTarea")
-                .value
-                .trim(),
-
-            descripcion:
-              document
-                .getElementById("descripcionTarea")
-                .value
-                .trim(),
-
-            prioridad:
-              document
-                .getElementById("prioridadTarea")
-                .value,
-
-            estado:
-              document
-                .getElementById("estadoTarea")
-                .value,
-
-            fechaLimite:
-              document
-                .getElementById("fechaLimiteTarea")
-                .value || null,
-
-            empresaId,
-
-            oficinaId:
-              oficinaTarea.value || null,
-
-            clienteId:
-              clienteTarea.value || null,
-
-            asignadoAUsuarioId:
-              asignadoTarea.value || null
-
-          };
+          const datos =
+            await respuesta.json();
 
 
-          let respuesta;
-
-
-          if (tareaId) {
-
-            respuesta =
-              await peticionAPI(
-                `/api/tareas/${tareaId}`,
-                {
-                  method: "PATCH",
-                  body: JSON.stringify(datos)
-                }
-              );
-
-          } else {
-
-            respuesta =
-              await peticionAPI(
-                "/api/tareas",
-                {
-                  method: "POST",
-                  body: JSON.stringify(datos)
-                }
-              );
-
-          }
-
-
-          if (!respuesta.ok) {
+          if (!respuesta.ok || !datos.ok) {
 
             throw new Error(
-              respuesta.message ||
-              "No se pudo guardar la tarea"
+              datos.message ||
+              "No se pudo crear la tarea"
             );
 
           }
 
 
-          cerrarModal();
+          cerrarModalTarea();
+
+          mostrarMensaje(
+            "Tarea creada correctamente",
+            "ok"
+          );
+
 
           await cargarTareas();
+
 
         } catch (error) {
 
           console.error(
-            "Error guardando tarea:",
+            "Error creando tarea:",
             error
           );
 
           mostrarMensaje(
-            mensaje,
             error.message ||
-            "No se pudo guardar la tarea."
+            "No se pudo crear la tarea"
           );
 
         }
@@ -1585,10 +1788,376 @@
 
 
     // =====================================================
+    // RENDERIZAR TAREAS
+    // =====================================================
+
+    function renderizarTareas() {
+
+      const estadoFiltro =
+        filtroEstado.value;
+
+      const prioridadFiltro =
+        filtroPrioridad.value;
+
+      const oficinaFiltro =
+        filtroOficina.value;
+
+      const clienteFiltro =
+        filtroCliente.value;
+
+      const asignadoFiltro =
+        filtroAsignado.value;
+
+
+      const filtradas =
+        tareas.filter(
+          (tarea) => {
+
+            if (
+              estadoFiltro &&
+              tarea.estado !== estadoFiltro
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              prioridadFiltro &&
+              tarea.prioridad !== prioridadFiltro
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              oficinaFiltro &&
+              tarea.oficinaId !== oficinaFiltro
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              clienteFiltro &&
+              tarea.clienteId !== clienteFiltro
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              asignadoFiltro &&
+              tarea.asignadoAUsuarioId !== asignadoFiltro
+            ) {
+
+              return false;
+
+            }
+
+
+            return true;
+
+          }
+        );
+
+
+      listaTareas.innerHTML = "";
+
+
+      if (
+        filtradas.length === 0
+      ) {
+
+        listaTareas.innerHTML = `
+          <div
+            style="
+              padding: 25px;
+              text-align: center;
+              border: 1px solid #ddd;
+              border-radius: 8px;
+            "
+          >
+            No hay tareas que mostrar.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      filtradas.forEach(
+        (tarea) => {
+
+          const tarjeta =
+            document.createElement("div");
+
+
+          tarjeta.style.cssText = `
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 18px;
+            background: #fff;
+          `;
+
+
+          const fecha =
+            tarea.fechaLimite
+              ? formatearFecha(
+                  tarea.fechaLimite
+                )
+              : "-";
+
+
+          const oficina =
+            tarea.oficina
+              ? tarea.oficina.nombre
+              : "Sin oficina";
+
+
+          const cliente =
+            tarea.cliente
+              ? tarea.cliente.nombre
+              : "Sin cliente";
+
+
+          const asignado =
+            tarea.asignadoAUsuario
+              ? tarea.asignadoAUsuario.nombre
+              : "Sin asignar";
+
+
+          const empresa =
+            tarea.empresa
+              ? tarea.empresa.nombre
+              : "Sin empresa";
+
+
+          const creador =
+            tarea.creadoPorUsuario
+              ? tarea.creadoPorUsuario.nombre
+              : "-";
+
+
+          tarjeta.innerHTML = `
+
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                gap: 15px;
+                flex-wrap: wrap;
+              "
+            >
+
+              <div>
+
+                <h3 style="margin-top: 0;">
+                  ${escaparHTML(
+                    tarea.titulo
+                  )}
+                </h3>
+
+                <p>
+                  ${escaparHTML(
+                    tarea.descripcion ||
+                    "Sin descripción"
+                  )}
+                </p>
+
+              </div>
+
+
+              <div>
+
+                <strong>
+                  ${escaparHTML(
+                    tarea.estado
+                  )}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns:
+                  repeat(auto-fit, minmax(180px, 1fr));
+                gap: 10px;
+                margin-top: 15px;
+              "
+            >
+
+              <div>
+                <strong>Prioridad:</strong>
+                ${escaparHTML(
+                  tarea.prioridad
+                )}
+              </div>
+
+              <div>
+                <strong>Fecha límite:</strong>
+                ${escaparHTML(
+                  fecha
+                )}
+              </div>
+
+              <div>
+                <strong>Empresa:</strong>
+                ${escaparHTML(
+                  empresa
+                )}
+              </div>
+
+              <div>
+                <strong>Oficina:</strong>
+                ${escaparHTML(
+                  oficina
+                )}
+              </div>
+
+              <div>
+                <strong>Cliente:</strong>
+                ${escaparHTML(
+                  cliente
+                )}
+              </div>
+
+              <div>
+                <strong>Asignado a:</strong>
+                ${escaparHTML(
+                  asignado
+                )}
+              </div>
+
+              <div>
+                <strong>Creada por:</strong>
+                ${escaparHTML(
+                  creador
+                )}
+              </div>
+
+            </div>
+
+
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                margin-top: 18px;
+                flex-wrap: wrap;
+              "
+            >
+
+              <button
+                type="button"
+                class="btn btn-editar-tarea"
+                data-id="${escaparHTML(
+                  tarea.id
+                )}"
+              >
+                Editar
+              </button>
+
+
+              ${
+                (
+                  usuario.rol === "SUPERADMIN" ||
+                  usuario.rol === "ADMIN" ||
+                  usuario.rol === "DIRECTOR"
+                )
+                ? `
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-eliminar-tarea"
+                    data-id="${escaparHTML(
+                      tarea.id
+                    )}"
+                  >
+                    Eliminar
+                  </button>
+                `
+                : ""
+              }
+
+            </div>
+
+          `;
+
+
+          listaTareas.appendChild(
+            tarjeta
+          );
+
+        }
+      );
+
+
+      document
+        .querySelectorAll(
+          ".btn-editar-tarea"
+        )
+        .forEach(
+          (boton) => {
+
+            boton.addEventListener(
+              "click",
+              () => {
+
+                abrirEdicionTarea(
+                  boton.dataset.id
+                );
+
+              }
+            );
+
+          }
+        );
+
+
+      document
+        .querySelectorAll(
+          ".btn-eliminar-tarea"
+        )
+        .forEach(
+          (boton) => {
+
+            boton.addEventListener(
+              "click",
+              () => {
+
+                eliminarTarea(
+                  boton.dataset.id
+                );
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+
+    // =====================================================
     // EDITAR TAREA
     // =====================================================
 
-    async function editarTarea(id) {
+    async function abrirEdicionTarea(
+      id
+    ) {
 
       try {
 
@@ -1597,114 +2166,29 @@
             `/api/tareas/${id}`
           );
 
-        if (!respuesta.ok) {
+
+        const datos =
+          await respuesta.json();
+
+
+        if (!respuesta.ok || !datos.ok) {
 
           throw new Error(
-            respuesta.message ||
-            "No se pudo cargar la tarea"
+            datos.message ||
+            "No se pudo obtener la tarea"
           );
 
         }
 
+
         const tarea =
-          respuesta.tarea;
+          datos.tarea;
 
 
         document
           .getElementById("tareaId")
           .value =
             tarea.id;
-
-        document
-          .getElementById("tituloTarea")
-          .value =
-            tarea.titulo || "";
-
-        document
-          .getElementById("descripcionTarea")
-          .value =
-            tarea.descripcion || "";
-
-        document
-          .getElementById("prioridadTarea")
-          .value =
-            tarea.prioridad || "MEDIA";
-
-        document
-          .getElementById("estadoTarea")
-          .value =
-            tarea.estado || "PENDIENTE";
-
-        document
-          .getElementById("fechaLimiteTarea")
-          .value =
-            convertirFechaLocal(
-              tarea.fechaLimite
-            );
-
-
-        empresaTarea.value =
-          tarea.empresaId;
-
-
-        await cargarDatosEmpresa(
-          tarea.empresaId
-        );
-
-
-        oficinaTarea.disabled = false;
-
-
-        if (tarea.oficinaId) {
-
-          oficinaTarea.value =
-            tarea.oficinaId;
-
-        }
-
-
-        actualizarClientes();
-        actualizarAsignados();
-
-
-        if (tarea.clienteId) {
-
-          clienteTarea.value =
-            tarea.clienteId;
-
-        }
-
-
-        if (tarea.asignadoAUsuarioId) {
-
-          asignadoTarea.value =
-            tarea.asignadoAUsuarioId;
-
-        }
-
-
-        if (
-          usuario.rol === "ADMIN" ||
-          usuario.rol === "DIRECTOR" ||
-          usuario.rol === "TRABAJADOR"
-        ) {
-
-          empresaTarea.disabled = true;
-
-        }
-
-
-        if (
-          (
-            usuario.rol === "DIRECTOR" ||
-            usuario.rol === "TRABAJADOR"
-          ) &&
-          usuario.oficinaId
-        ) {
-
-          oficinaTarea.disabled = true;
-
-        }
 
 
         document
@@ -1713,19 +2197,126 @@
             "Editar tarea";
 
 
+        document
+          .getElementById("tituloTarea")
+          .value =
+            tarea.titulo || "";
+
+
+        document
+          .getElementById("descripcionTarea")
+          .value =
+            tarea.descripcion || "";
+
+
+        document
+          .getElementById("prioridadTarea")
+          .value =
+            tarea.prioridad || "MEDIA";
+
+
+        document
+          .getElementById("estadoTarea")
+          .value =
+            tarea.estado || "PENDIENTE";
+
+
+        if (tarea.fechaLimite) {
+
+          const fecha =
+            new Date(
+              tarea.fechaLimite
+            );
+
+
+          const pad =
+            (numero) =>
+              String(numero)
+                .padStart(2, "0");
+
+
+          const fechaLocal =
+            `${fecha.getFullYear()}-${pad(
+              fecha.getMonth() + 1
+            )}-${pad(
+              fecha.getDate()
+            )}T${pad(
+              fecha.getHours()
+            )}:${pad(
+              fecha.getMinutes()
+            )}`;
+
+
+          document
+            .getElementById(
+              "fechaLimiteTarea"
+            )
+            .value =
+              fechaLocal;
+
+        } else {
+
+          document
+            .getElementById(
+              "fechaLimiteTarea"
+            )
+            .value = "";
+
+        }
+
+
+        empresaTarea.disabled =
+          false;
+
+        oficinaTarea.disabled =
+          false;
+
+        clienteTarea.disabled =
+          false;
+
+
+        if (
+          usuario.rol === "SUPERADMIN"
+        ) {
+
+          await cargarEmpresas();
+
+          empresaTarea.value =
+            tarea.empresaId;
+
+          await cargarOficinas(
+            tarea.empresaId,
+            tarea.oficinaId || ""
+          );
+
+          await cargarClientes(
+            tarea.empresaId
+          );
+
+          clienteTarea.value =
+            tarea.clienteId || "";
+
+        } else {
+
+          await prepararFormulario();
+
+        }
+
+
         modalTarea.style.display =
-          "flex";
+          "block";
+
 
       } catch (error) {
 
         console.error(
-          "Error editando tarea:",
+          "Error abriendo tarea:",
           error
         );
 
-        alert(
+        mostrarMensaje(
           error.message ||
-          "No se pudo cargar la tarea."
+          "No se pudo abrir la tarea"
         );
 
       }
@@ -1738,13 +2329,17 @@
     // ELIMINAR TAREA
     // =====================================================
 
-    async function eliminarTarea(id) {
+    async function eliminarTarea(
+      id
+    ) {
 
-      if (
-        !confirm(
+      const confirmar =
+        window.confirm(
           "¿Seguro que quieres eliminar esta tarea?"
-        )
-      ) {
+        );
+
+
+      if (!confirmar) {
 
         return;
 
@@ -1762,17 +2357,28 @@
           );
 
 
-        if (!respuesta.ok) {
+        const datos =
+          await respuesta.json();
+
+
+        if (!respuesta.ok || !datos.ok) {
 
           throw new Error(
-            respuesta.message ||
+            datos.message ||
             "No se pudo eliminar la tarea"
           );
 
         }
 
 
+        mostrarMensaje(
+          "Tarea eliminada correctamente",
+          "ok"
+        );
+
+
         await cargarTareas();
+
 
       } catch (error) {
 
@@ -1781,9 +2387,9 @@
           error
         );
 
-        alert(
+        mostrarMensaje(
           error.message ||
-          "No se pudo eliminar la tarea."
+          "No se pudo eliminar la tarea"
         );
 
       }
@@ -1796,231 +2402,100 @@
     // FILTROS
     // =====================================================
 
-    [
-      "filtroEstado",
-      "filtroPrioridad",
-      "filtroOficina",
-      "filtroCliente",
-      "filtroAsignado"
-    ]
-      .forEach(id => {
-
-        document
-          .getElementById(id)
-          .addEventListener(
-            "change",
-            renderizarTareas
-          );
-
-      });
+    filtroEstado.addEventListener(
+      "change",
+      renderizarTareas
+    );
 
 
-
-    // =====================================================
-    // PREPARAR FILTROS
-    // =====================================================
-
-    function prepararFiltros() {
-
-      const filtroOficina =
-        document.getElementById(
-          "filtroOficina"
-        );
-
-      const filtroCliente =
-        document.getElementById(
-          "filtroCliente"
-        );
-
-      const filtroAsignado =
-        document.getElementById(
-          "filtroAsignado"
-        );
+    filtroPrioridad.addEventListener(
+      "change",
+      renderizarTareas
+    );
 
 
-      filtroOficina.innerHTML = `
-        <option value="">
-          Todas
-        </option>
-      `;
-
-      filtroCliente.innerHTML = `
-        <option value="">
-          Todos
-        </option>
-      `;
-
-      filtroAsignado.innerHTML = `
-        <option value="">
-          Todos
-        </option>
-      `;
+    filtroOficina.addEventListener(
+      "change",
+      renderizarTareas
+    );
 
 
-      oficinas.forEach(oficina => {
-
-        const option =
-          document.createElement("option");
-
-        option.value =
-          oficina.id;
-
-        option.textContent =
-          oficina.nombre;
-
-        filtroOficina.appendChild(option);
-
-      });
+    filtroCliente.addEventListener(
+      "change",
+      renderizarTareas
+    );
 
 
-      clientes.forEach(cliente => {
-
-        const option =
-          document.createElement("option");
-
-        option.value =
-          cliente.id;
-
-        option.textContent =
-          cliente.nombre;
-
-        filtroCliente.appendChild(option);
-
-      });
-
-
-      trabajadores.forEach(trabajador => {
-
-        const option =
-          document.createElement("option");
-
-        option.value =
-          trabajador.usuarioId ||
-          trabajador.usuario?.id;
-
-        option.textContent =
-          trabajador.nombre ||
-          trabajador.usuario?.nombre ||
-          "Trabajador";
-
-        filtroAsignado.appendChild(option);
-
-      });
-
-    }
+    filtroAsignado.addEventListener(
+      "change",
+      renderizarTareas
+    );
 
 
 
     // =====================================================
-    // UTILIDADES
+    // BOTÓN NUEVA TAREA
     // =====================================================
 
-    function formatearEstado(estado) {
-
-      const estados = {
-
-        PENDIENTE: "Pendiente",
-
-        EN_PROCESO: "En proceso",
-
-        COMPLETADA: "Completada",
-
-        CANCELADA: "Cancelada"
-
-      };
-
-      return estados[estado] || estado || "";
-
-    }
+    btnNuevaTarea.addEventListener(
+      "click",
+      abrirModalNuevaTarea
+    );
 
 
-    function formatearPrioridad(prioridad) {
 
-      const prioridades = {
+    // =====================================================
+    // OCULTAR CREACIÓN PARA CLIENTE
+    // =====================================================
 
-        BAJA: "Baja",
+    if (
+      usuario.rol === "CLIENTE"
+    ) {
 
-        MEDIA: "Media",
+      btnNuevaTarea.style.display =
+        "none";
 
-        ALTA: "Alta",
-
-        URGENTE: "Urgente"
-
-      };
-
-      return prioridades[prioridad] ||
-        prioridad ||
-        "";
-
-    }
-
-
-    function convertirFechaLocal(fecha) {
-
-      if (!fecha) {
-        return "";
-      }
-
-      const date =
-        new Date(fecha);
-
-      if (
-        Number.isNaN(
-          date.getTime()
+      document
+        .getElementById(
+          "grupoEmpresaTarea"
         )
-      ) {
-        return "";
-      }
+        .style.display =
+          "none";
 
-      const offset =
-        date.getTimezoneOffset();
+      document
+        .getElementById(
+          "grupoOficinaTarea"
+        )
+        .style.display =
+          "none";
 
-      const localDate =
-        new Date(
-          date.getTime() -
-          offset * 60000
-        );
+      document
+        .getElementById(
+          "grupoClienteTarea"
+        )
+        .style.display =
+          "none";
 
-      return localDate
-        .toISOString()
-        .slice(0, 16);
-
-    }
-
-
-    function escapeHTML(texto) {
-
-      return String(texto)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+      document
+        .getElementById(
+          "grupoAsignadoTarea"
+        )
+        .style.display =
+          "none";
 
     }
 
 
 
     // =====================================================
-    // INICIALIZACIÓN
+    // CARGA INICIAL
     // =====================================================
 
-    async function iniciarModulo() {
+    (async () => {
 
-      // Cargar tareas directamente.
       await cargarTareas();
 
-      // Cargar empresas y datos relacionados.
-      await cargarEmpresas();
-
-      // Preparar filtros después de cargar
-      // los datos auxiliares.
-      prepararFiltros();
-
-    }
-
-
-    iniciarModulo();
+    })();
 
   </script>
 
