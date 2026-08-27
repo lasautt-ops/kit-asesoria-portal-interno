@@ -1102,13 +1102,21 @@ textarea:disabled {
 
 }
 
+
 /* =========================================================
    LOGIN - PORTAL INTERNO
    ========================================================= */
 
 .login-container {
-  max-width: 480px;
-  margin-top: 80px;
+  width: min(100% - 40px, 480px);
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 
@@ -1138,6 +1146,9 @@ textarea:disabled {
   border-radius: 12px;
 
   padding: 30px;
+
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.04);
 }
 
 .login-card h3 {
@@ -1209,14 +1220,13 @@ textarea:disabled {
   padding: 12px;
 
   font-size: 15px;
+
+  background: #2563eb;
+  color: #ffffff;
 }
 
-.login-button:disabled {
-  opacity: 0.7;
-
-  cursor: not-allowed;
-
-  transform: none;
+.login-button:hover {
+  background: #1d4ed8;
 }
 
 
@@ -1238,7 +1248,9 @@ textarea:disabled {
   .login-container {
     width: min(100% - 30px, 480px);
 
-    margin-top: 40px;
+    min-height: 100vh;
+
+    margin: 0 auto;
   }
 
   .login-card {
@@ -1246,5 +1258,6 @@ textarea:disabled {
   }
 
 }
+
 
 
