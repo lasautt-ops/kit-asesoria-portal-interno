@@ -1168,105 +1168,214 @@
 
 
     // =====================================================
-    // CREAR EMPRESA
-    // =====================================================
+// CREAR EMPRESA
+// =====================================================
 
-    document
-      .getElementById(
-        "crearEmpresaForm"
-      )
-      .addEventListener(
-        "submit",
-        async (event) => {
+document
+  .getElementById(
+    "crearEmpresaForm"
+  )
+  .addEventListener(
+    "submit",
+    async (event) => {
 
-          event.preventDefault();
-
-
-          const nombre =
-            document
-              .getElementById(
-                "nombreEmpresa"
-              )
-              .value
-              .trim();
+      event.preventDefault();
 
 
-          if (!nombre) {
-
-            alert(
-              "El nombre de la empresa es obligatorio."
-            );
-
-            return;
-          }
-
-
-          try {
-
-            const respuesta =
-              await peticionAPI(
-                "/api/empresas",
-                {
-                  method: "POST",
-
-                  headers: {
-                    "Content-Type":
-                      "application/json"
-                  },
-
-                  body:
-                    JSON.stringify({
-                      nombre
-                    })
-                }
-              );
+      const nombre =
+        document
+          .getElementById(
+            "nombreEmpresa"
+          )
+          .value
+          .trim();
 
 
-            const datos =
-              await respuesta.json();
+      const cif =
+        document
+          .getElementById(
+            "cifEmpresa"
+          )
+          .value
+          .trim();
 
 
-            if (
-              !respuesta.ok ||
-              !datos.ok
-            ) {
+      const direccion =
+        document
+          .getElementById(
+            "direccionEmpresa"
+          )
+          .value
+          .trim();
 
-              alert(
-                datos.message ||
-                "No se ha podido crear la empresa."
-              );
 
-              return;
+      const codigoPostal =
+        document
+          .getElementById(
+            "codigoPostalEmpresa"
+          )
+          .value
+          .trim();
+
+
+      const poblacion =
+        document
+          .getElementById(
+            "poblacionEmpresa"
+          )
+          .value
+          .trim();
+
+
+      const provincia =
+        document
+          .getElementById(
+            "provinciaEmpresa"
+          )
+          .value
+          .trim();
+
+
+      const nombreAdministrador =
+        document
+          .getElementById(
+            "nombreAdministradorEmpresa"
+          )
+          .value
+          .trim();
+
+
+      const emailAdministrador =
+        document
+          .getElementById(
+            "emailAdministradorEmpresa"
+          )
+          .value
+          .trim();
+
+
+      const telefonoAdministrador =
+        document
+          .getElementById(
+            "telefonoAdministradorEmpresa"
+          )
+          .value
+          .trim();
+
+
+      const web =
+        document
+          .getElementById(
+            "webEmpresa"
+          )
+          .value
+          .trim();
+
+
+      const notas =
+        document
+          .getElementById(
+            "notasEmpresa"
+          )
+          .value
+          .trim();
+
+
+      if (!nombre) {
+
+        alert(
+          "El nombre de la empresa es obligatorio."
+        );
+
+        return;
+      }
+
+
+      if (!cif) {
+
+        alert(
+          "El CIF de la empresa es obligatorio."
+        );
+
+        return;
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/empresas",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+                  nombre,
+                  cif,
+                  direccion,
+                  codigoPostal,
+                  poblacion,
+                  provincia,
+                  nombreAdministrador,
+                  emailAdministrador,
+                  telefonoAdministrador,
+                  web,
+                  notas
+                })
             }
+          );
 
 
-            document
-              .getElementById(
-                "nombreEmpresa"
-              )
-              .value =
-                "";
+        const datos =
+          await respuesta.json();
 
 
-            await cargarEmpresas();
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
 
+          alert(
+            datos.message ||
+            "No se ha podido crear la empresa."
+          );
 
-          } catch (error) {
-
-            console.error(
-              "Error creando empresa:",
-              error
-            );
-
-
-            alert(
-              "No se ha podido conectar con el servidor."
-            );
-
-          }
-
+          return;
         }
-      );
+
+
+        document
+          .getElementById(
+            "crearEmpresaForm"
+          )
+          .reset();
+
+
+        await cargarEmpresas();
+
+
+      } catch (error) {
+
+        console.error(
+          "Error creando empresa:",
+          error
+        );
+
+
+        alert(
+          "No se ha podido conectar con el servidor."
+        );
+
+      }
+
+    }
+  );
 
 
 
