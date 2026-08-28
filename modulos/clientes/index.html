@@ -768,7 +768,7 @@
 
 
 
-    <!-- ===================================================
+        <!-- ===================================================
          EDITAR CLIENTE
          =================================================== -->
 
@@ -778,199 +778,228 @@
       style="display: none;"
     >
 
-      <h2>
-        Editar cliente
-      </h2>
+      <div class="form-card">
 
+        <div class="editar-cliente-header">
 
-      <input
-        id="editarClienteId"
-        type="hidden"
-      >
+          <div>
 
+            <h3>
+              Editar cliente
+            </h3>
 
-      <!-- NOMBRE -->
+            <p>
+              Modifica los datos y la asignación del cliente.
+            </p>
 
-      <div>
+          </div>
 
-        <label for="editarNombre">
-          Nombre:
-        </label>
+        </div>
+
 
         <input
-          id="editarNombre"
-          type="text"
-          placeholder="Nombre completo"
+          id="editarClienteId"
+          type="hidden"
         >
 
+
+        <div class="cliente-form-completo">
+
+          <!-- DATOS DEL CLIENTE -->
+
+          <div class="cliente-form-section-title">
+            Datos del cliente
+          </div>
+
+
+          <div class="cliente-form-grid">
+
+            <div class="cliente-form-field">
+
+              <label for="editarNombre">
+                Nombre:
+              </label>
+
+              <input
+                id="editarNombre"
+                type="text"
+                placeholder="Nombre completo"
+              >
+
+            </div>
+
+
+            <div class="cliente-form-field">
+
+              <label for="editarCif">
+                CIF:
+              </label>
+
+              <input
+                id="editarCif"
+                type="text"
+                placeholder="CIF"
+              >
+
+            </div>
+
+
+            <div class="cliente-form-field">
+
+              <label for="editarDireccionFiscal">
+                Dirección Fiscal:
+              </label>
+
+              <input
+                id="editarDireccionFiscal"
+                type="text"
+                placeholder="Dirección fiscal"
+              >
+
+            </div>
+
+
+            <div class="cliente-form-field">
+
+              <label for="editarAdministrador">
+                Administrador:
+              </label>
+
+              <input
+                id="editarAdministrador"
+                type="text"
+                placeholder="Nombre del administrador"
+              >
+
+            </div>
+
+
+            <div class="cliente-form-field">
+
+              <label for="editarDniAdministrador">
+                DNI Administrador:
+              </label>
+
+              <input
+                id="editarDniAdministrador"
+                type="text"
+                placeholder="DNI del administrador"
+              >
+
+            </div>
+
+
+            <div class="cliente-form-field">
+
+              <label for="editarEmail">
+                Email:
+              </label>
+
+              <input
+                id="editarEmail"
+                type="email"
+                placeholder="correo@ejemplo.com"
+              >
+
+            </div>
+
+
+            <div class="cliente-form-field">
+
+              <label for="editarTelefono">
+                Teléfono:
+              </label>
+
+              <input
+                id="editarTelefono"
+                type="tel"
+                placeholder="Teléfono"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- ASIGNACIÓN -->
+
+          <div class="cliente-form-section-title">
+            Asignación
+          </div>
+
+
+          <div class="cliente-form-grid">
+
+            <div class="cliente-form-field">
+
+              <label for="editarEmpresaSelect">
+                Empresa:
+              </label>
+
+              <select id="editarEmpresaSelect">
+
+                <option value="">
+                  Selecciona una empresa
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="cliente-form-field">
+
+              <label for="editarOficinaSelect">
+                Oficina:
+              </label>
+
+              <select id="editarOficinaSelect">
+
+                <option value="">
+                  Selecciona una oficina
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACCIONES -->
+
+          <div class="cliente-form-actions">
+
+            <button
+              id="guardarCambiosCliente"
+              class="btn"
+              type="button"
+            >
+              Guardar cambios
+            </button>
+
+
+            <button
+              id="cancelarEdicionCliente"
+              class="btn btn-secondary"
+              type="button"
+            >
+              Cancelar
+            </button>
+
+          </div>
+
+
+          <p
+            id="editarMessage"
+            class="message"
+          ></p>
+
+        </div>
+
       </div>
-
-
-      <!-- CIF -->
-
-      <div>
-
-        <label for="editarCif">
-          CIF:
-        </label>
-
-        <input
-          id="editarCif"
-          type="text"
-          placeholder="CIF"
-        >
-
-      </div>
-
-
-      <!-- DIRECCIÓN FISCAL -->
-
-      <div>
-
-        <label for="editarDireccionFiscal">
-          Dirección Fiscal:
-        </label>
-
-        <input
-          id="editarDireccionFiscal"
-          type="text"
-          placeholder="Dirección fiscal"
-        >
-
-      </div>
-
-
-      <!-- ADMINISTRADOR -->
-
-      <div>
-
-        <label for="editarAdministrador">
-          Administrador:
-        </label>
-
-        <input
-          id="editarAdministrador"
-          type="text"
-          placeholder="Nombre del administrador"
-        >
-
-      </div>
-
-
-      <!-- DNI ADMINISTRADOR -->
-
-      <div>
-
-        <label for="editarDniAdministrador">
-          DNI Administrador:
-        </label>
-
-        <input
-          id="editarDniAdministrador"
-          type="text"
-          placeholder="DNI del administrador"
-        >
-
-      </div>
-
-
-      <!-- EMAIL -->
-
-      <div>
-
-        <label for="editarEmail">
-          Email:
-        </label>
-
-        <input
-          id="editarEmail"
-          type="email"
-          placeholder="correo@ejemplo.com"
-        >
-
-      </div>
-
-
-      <!-- TELÉFONO -->
-
-      <div>
-
-        <label for="editarTelefono">
-          Teléfono:
-        </label>
-
-        <input
-          id="editarTelefono"
-          type="tel"
-          placeholder="Teléfono"
-        >
-
-      </div>
-
-
-      <!-- EMPRESA -->
-
-      <div>
-
-        <label for="editarEmpresaSelect">
-          Empresa:
-        </label>
-
-        <select id="editarEmpresaSelect">
-
-          <option value="">
-            Selecciona una empresa
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- OFICINA -->
-
-      <div>
-
-        <label for="editarOficinaSelect">
-          Oficina:
-        </label>
-
-        <select id="editarOficinaSelect">
-
-          <option value="">
-            Selecciona una oficina
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <button
-        id="guardarCambiosCliente"
-        class="btn"
-        type="button"
-      >
-        Guardar cambios
-      </button>
-
-
-      <button
-        id="cancelarEdicionCliente"
-        class="btn"
-        type="button"
-      >
-        Cancelar
-      </button>
-
-
-      <p
-        id="editarMessage"
-        class="message"
-      ></p>
 
     </section>
-
 
 
     <!-- ===================================================
