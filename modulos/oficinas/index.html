@@ -1115,7 +1115,245 @@ botonEditar.addEventListener(
       }
     }
 
+// =====================================================
+// MOSTRAR FORMULARIO DE EDICIÓN
+// =====================================================
 
+function mostrarFormularioEdicion(
+  oficina
+) {
+
+  oficinaEditandoId =
+    oficina.id;
+
+  editarNombreOficina.value =
+    oficina.nombre || "";
+
+  editarDireccionOficina.value =
+    oficina.direccion || "";
+
+  editarCodigoPostalOficina.value =
+    oficina.codigoPostal || "";
+
+  editarPoblacionOficina.value =
+    oficina.poblacion || "";
+
+  editarProvinciaOficina.value =
+    oficina.provincia || "";
+
+  editarTelefonoOficina.value =
+    oficina.telefono || "";
+
+  editarEmailOficina.value =
+    oficina.email || "";
+
+  editarResponsableOficina.value =
+    oficina.responsable || "";
+
+  editarNotasOficina.value =
+    oficina.notas || "";
+
+  editarMessage.textContent =
+    "";
+
+  editarOficinaSection.style.display =
+    "block";
+
+  editarOficinaSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+
+
+// =====================================================
+// CANCELAR EDICIÓN
+// =====================================================
+
+document
+  .getElementById(
+    "cancelarEdicionOficina"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      oficinaEditandoId =
+        null;
+
+      editarOficinaSection.style.display =
+        "none";
+
+      editarMessage.textContent =
+        "";
+
+    }
+  );
+
+
+
+// =====================================================
+// GUARDAR EDICIÓN
+// =====================================================
+
+document
+  .getElementById(
+    "guardarEdicionOficina"
+  )
+  .addEventListener(
+    "click",
+    guardarEdicionOficina
+  );
+
+
+async function guardarEdicionOficina() {
+
+  if (!oficinaEditandoId) {
+
+    editarMessage.textContent =
+      "No se ha seleccionado ninguna oficina.";
+
+    return;
+  }
+
+
+  const nombre =
+    editarNombreOficina.value.trim();
+
+
+  if (!nombre) {
+
+    editarMessage.textContent =
+      "El nombre de la oficina es obligatorio.";
+
+    return;
+  }
+
+
+  const boton =
+    document.getElementById(
+      "guardarEdicionOficina"
+    );
+
+
+  boton.disabled =
+    true;
+
+  boton.textContent =
+    "Guardando...";
+
+
+  editarMessage.textContent =
+    "";
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        `/api/oficinas/${oficinaEditandoId}`,
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+
+            nombre,
+
+            direccion:
+              editarDireccionOficina.value.trim(),
+
+            codigoPostal:
+              editarCodigoPostalOficina.value.trim(),
+
+            poblacion:
+              editarPoblacionOficina.value.trim(),
+
+            provincia:
+              editarProvinciaOficina.value.trim(),
+
+            telefono:
+              editarTelefonoOficina.value.trim(),
+
+            email:
+              editarEmailOficina.value.trim(),
+
+            responsable:
+              editarResponsableOficina.value.trim(),
+
+            notas:
+              editarNotasOficina.value.trim()
+
+          })
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      editarMessage.textContent =
+        datos.message ||
+        "No se ha podido modificar la oficina.";
+
+      return;
+    }
+
+
+    editarMessage.textContent =
+      "Oficina modificada correctamente.";
+
+
+    await cargarOficinas(
+      empresaSelect.value
+    );
+
+
+    setTimeout(
+      () => {
+
+        editarOficinaSection.style.display =
+          "none";
+
+        oficinaEditandoId =
+          null;
+
+      },
+      800
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Error modificando oficina:",
+      error
+    );
+
+
+    editarMessage.textContent =
+      "No se ha podido conectar con el servidor.";
+
+  } finally {
+
+    boton.disabled =
+      false;
+
+    boton.textContent =
+      "Guardar cambios";
+  }
+}
 
     // =====================================================
     // CAMBIAR ESTADO DE OFICINA
