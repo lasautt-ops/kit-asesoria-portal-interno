@@ -1513,6 +1513,9 @@
                 "article"
               );
 
+            article.className =
+              "cliente-card";
+
 
             // =================================================
             // NOMBRE
@@ -1523,15 +1526,13 @@
                 "h3"
               );
 
-
             titulo.textContent =
               cliente.nombre ||
               "-";
 
 
-
             // =================================================
-            // CIF
+            // INFORMACIÓN CLIENTE
             // =================================================
 
             const cif =
@@ -1539,6 +1540,8 @@
                 "p"
               );
 
+            cif.className =
+              "cliente-info";
 
             cif.textContent =
               `CIF: ${
@@ -1547,16 +1550,13 @@
               }`;
 
 
-
-            // =================================================
-            // DIRECCIÓN FISCAL
-            // =================================================
-
             const direccionFiscal =
               document.createElement(
                 "p"
               );
 
+            direccionFiscal.className =
+              "cliente-info";
 
             direccionFiscal.textContent =
               `Dirección Fiscal: ${
@@ -1565,16 +1565,13 @@
               }`;
 
 
-
-            // =================================================
-            // ADMINISTRADOR
-            // =================================================
-
             const administrador =
               document.createElement(
                 "p"
               );
 
+            administrador.className =
+              "cliente-info";
 
             administrador.textContent =
               `Administrador: ${
@@ -1583,16 +1580,13 @@
               }`;
 
 
-
-            // =================================================
-            // DNI ADMINISTRADOR
-            // =================================================
-
             const dniAdministrador =
               document.createElement(
                 "p"
               );
 
+            dniAdministrador.className =
+              "cliente-info";
 
             dniAdministrador.textContent =
               `DNI Administrador: ${
@@ -1601,16 +1595,13 @@
               }`;
 
 
-
-            // =================================================
-            // EMAIL
-            // =================================================
-
             const email =
               document.createElement(
                 "p"
               );
 
+            email.className =
+              "cliente-info";
 
             email.textContent =
               `Email: ${
@@ -1619,16 +1610,13 @@
               }`;
 
 
-
-            // =================================================
-            // TELÉFONO
-            // =================================================
-
             const telefono =
               document.createElement(
                 "p"
               );
 
+            telefono.className =
+              "cliente-info";
 
             telefono.textContent =
               `Teléfono: ${
@@ -1637,16 +1625,23 @@
               }`;
 
 
+            // =================================================
+            // ASIGNACIÓN
+            // =================================================
 
-            // =================================================
-            // EMPRESA
-            // =================================================
+            const asignacion =
+              document.createElement(
+                "div"
+              );
+
+            asignacion.className =
+              "cliente-asignacion";
+
 
             const empresa =
               document.createElement(
                 "p"
               );
-
 
             empresa.textContent =
               `Empresa: ${
@@ -1655,16 +1650,10 @@
               }`;
 
 
-
-            // =================================================
-            // OFICINA
-            // =================================================
-
             const oficina =
               document.createElement(
                 "p"
               );
-
 
             oficina.textContent =
               `Oficina: ${
@@ -1672,6 +1661,14 @@
                 "-"
               }`;
 
+
+            asignacion.appendChild(
+              empresa
+            );
+
+            asignacion.appendChild(
+              oficina
+            );
 
 
             // =================================================
@@ -1683,6 +1680,8 @@
                 "p"
               );
 
+            trabajador.className =
+              "cliente-info";
 
             trabajador.textContent =
               `Trabajador asignado: ${
@@ -1690,7 +1689,6 @@
                 cliente.trabajador?.nombre ||
                 "Sin asignar"
               }`;
-
 
 
             // =================================================
@@ -1702,6 +1700,8 @@
                 "p"
               );
 
+            creado.className =
+              "cliente-id";
 
             creado.textContent =
               `Creado: ${
@@ -1710,6 +1710,18 @@
                 )
               }`;
 
+
+            // =================================================
+            // ACCIONES
+            // =================================================
+
+            const acciones =
+              document.createElement(
+                "div"
+              );
+
+            acciones.className =
+              "cliente-actions";
 
 
             // =================================================
@@ -1721,18 +1733,14 @@
                 "button"
               );
 
-
             botonEditar.type =
               "button";
-
 
             botonEditar.textContent =
               "Editar cliente";
 
-
             botonEditar.className =
               "btn";
-
 
             botonEditar.addEventListener(
               "click",
@@ -1741,7 +1749,6 @@
                   cliente
                 )
             );
-
 
 
             // =================================================
@@ -1753,18 +1760,14 @@
                 "button"
               );
 
-
             botonAsignar.type =
               "button";
-
 
             botonAsignar.textContent =
               "Asignar trabajador";
 
-
             botonAsignar.className =
-              "btn";
-
+              "btn btn-secondary";
 
             botonAsignar.addEventListener(
               "click",
@@ -1775,9 +1778,8 @@
             );
 
 
-
             // =================================================
-            // CONSTRUIR CLIENTE
+            // CONSTRUIR TARJETA
             // =================================================
 
             article.appendChild(
@@ -1816,12 +1818,7 @@
 
 
             article.appendChild(
-              empresa
-            );
-
-
-            article.appendChild(
-              oficina
+              asignacion
             );
 
 
@@ -1835,13 +1832,18 @@
             );
 
 
-            article.appendChild(
+            acciones.appendChild(
               botonEditar
             );
 
 
-            article.appendChild(
+            acciones.appendChild(
               botonAsignar
+            );
+
+
+            article.appendChild(
+              acciones
             );
 
 
