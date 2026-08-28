@@ -1464,8 +1464,11 @@ let oficinaEditandoId = null;
           datos.oficinas.length === 0
         ) {
 
-          oficinasContainer.innerHTML =
-            "<p>No hay oficinas para esta empresa.</p>";
+          oficinasContainer.innerHTML = `
+            <div class="oficinas-empty-state">
+              No hay oficinas para esta empresa.
+            </div>
+          `;
 
           return;
         }
