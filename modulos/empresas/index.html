@@ -761,7 +761,225 @@
 
     </section>
 
+    <!-- =================================================
+         FORMULARIO EDITAR EMPRESA
+         ================================================= -->
 
+    <div
+      id="formularioEditarEmpresa"
+      class="form-card"
+      style="display: none;"
+    >
+
+      <h3>
+        Editar empresa
+      </h3>
+
+
+      <form
+        id="editarEmpresaForm"
+        class="empresa-form empresa-form-completo"
+      >
+
+        <input
+          type="hidden"
+          id="editarEmpresaId"
+        >
+
+
+        <div class="empresa-form-grid">
+
+          <div class="empresa-form-field">
+
+            <label for="editarNombreEmpresa">
+              Razón social / Nombre *
+            </label>
+
+            <input
+              id="editarNombreEmpresa"
+              type="text"
+              required
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarCifEmpresa">
+              CIF *
+            </label>
+
+            <input
+              id="editarCifEmpresa"
+              type="text"
+              required
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarDireccionEmpresa">
+              Dirección
+            </label>
+
+            <input
+              id="editarDireccionEmpresa"
+              type="text"
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarCodigoPostalEmpresa">
+              Código postal
+            </label>
+
+            <input
+              id="editarCodigoPostalEmpresa"
+              type="text"
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarPoblacionEmpresa">
+              Población
+            </label>
+
+            <input
+              id="editarPoblacionEmpresa"
+              type="text"
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarProvinciaEmpresa">
+              Provincia
+            </label>
+
+            <input
+              id="editarProvinciaEmpresa"
+              type="text"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="empresa-form-section-title">
+          Datos del administrador
+        </div>
+
+
+        <div class="empresa-form-grid">
+
+          <div class="empresa-form-field">
+
+            <label for="editarNombreAdministradorEmpresa">
+              Nombre del administrador
+            </label>
+
+            <input
+              id="editarNombreAdministradorEmpresa"
+              type="text"
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarEmailAdministradorEmpresa">
+              Email
+            </label>
+
+            <input
+              id="editarEmailAdministradorEmpresa"
+              type="email"
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarTelefonoAdministradorEmpresa">
+              Teléfono
+            </label>
+
+            <input
+              id="editarTelefonoAdministradorEmpresa"
+              type="tel"
+            >
+
+          </div>
+
+
+          <div class="empresa-form-field">
+
+            <label for="editarWebEmpresa">
+              Web
+            </label>
+
+            <input
+              id="editarWebEmpresa"
+              type="url"
+              placeholder="https://www.empresa.com"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="empresa-form-field empresa-form-notas">
+
+          <label for="editarNotasEmpresa">
+            Notas
+          </label>
+
+          <textarea
+            id="editarNotasEmpresa"
+            rows="4"
+          ></textarea>
+
+        </div>
+
+
+        <div class="empresa-form-actions">
+
+          <button
+            id="cancelarEdicionEmpresa"
+            class="btn btn-secondary"
+            type="button"
+          >
+            Cancelar
+          </button>
+
+
+          <button
+            class="btn btn-primary"
+            type="submit"
+          >
+            Guardar cambios
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
 
     <!-- ===================================================
          LISTADO DE EMPRESAS
