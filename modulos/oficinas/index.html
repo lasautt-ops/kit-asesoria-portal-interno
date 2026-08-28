@@ -1513,8 +1513,14 @@ let oficinaEditandoId = null;
 
             estado.textContent =
               oficina.activo
-                ? "Estado: Activa"
-                : "Estado: Inactiva";
+                ? "Activa"
+                : "Inactiva";
+
+
+            estado.className =
+              oficina.activo
+                ? "oficina-estado activa"
+                : "oficina-estado inactiva";
 
 
             // =================================================
