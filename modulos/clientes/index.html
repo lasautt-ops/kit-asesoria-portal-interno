@@ -1581,8 +1581,16 @@
           !datos.ok
         ) {
 
-          clientesContainer.innerHTML =
-            "";
+         clientesContainer.innerHTML =
+  `
+    <div class="clientes-list"></div>
+  `;
+
+
+const clientesList =
+  clientesContainer.querySelector(
+    ".clientes-list"
+  );
 
 
           listadoMessage.textContent =
