@@ -1109,18 +1109,107 @@
       </div>
 
 
+            <div class="clientes-filtros">
+
+        <div class="cliente-filtro-buscador">
+
+          <label for="buscarClientes">
+            Buscar cliente
+          </label>
+
+          <input
+            id="buscarClientes"
+            type="search"
+            placeholder="Nombre, CIF, email o administrador..."
+            autocomplete="off"
+          >
+
+        </div>
+
+
+        <div class="cliente-filtro-campo">
+
+          <label for="filtroEmpresa">
+            Empresa
+          </label>
+
+          <select id="filtroEmpresa">
+
+            <option value="">
+              Todas las empresas
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="cliente-filtro-campo">
+
+          <label for="filtroOficina">
+            Oficina
+          </label>
+
+          <select id="filtroOficina">
+
+            <option value="">
+              Todas las oficinas
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="cliente-filtro-campo">
+
+          <label for="filtroTrabajador">
+            Trabajador
+          </label>
+
+          <select id="filtroTrabajador">
+
+            <option value="">
+              Todos los trabajadores
+            </option>
+
+            <option value="sin-asignar">
+              Sin trabajador asignado
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="cliente-filtros-acciones">
+
+          <button
+            id="limpiarFiltrosClientes"
+            class="btn btn-secondary"
+            type="button"
+          >
+            Limpiar filtros
+          </button>
+
+        </div>
+
+      </div>
+
+
       <p
         id="listadoMessage"
         class="message"
       ></p>
 
 
-      <div id="clientesContainer">
+      <div
+        id="clientesContainer"
+      >
 
         Cargando clientes...
 
       </div>
-
     </section>
 
 
