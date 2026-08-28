@@ -461,19 +461,200 @@
 
 
     <!-- ===================================================
-     ACCIONES Y CREAR CLIENTE
+     CREAR CLIENTE
      =================================================== -->
 
 <section class="dashboard-section">
 
-  <h2>
-    Clientes
-  </h2>
+  <div class="form-card">
+
+    <h3>
+      Crear nuevo cliente
+    </h3>
 
 
-  <div id="clientesContainer">
+    <div class="cliente-form-completo">
 
-    Cargando clientes...
+      <!-- DATOS DEL CLIENTE -->
+
+      <div class="cliente-form-section-title">
+        Datos del cliente
+      </div>
+
+
+      <div class="cliente-form-grid">
+
+        <div class="cliente-form-field">
+
+          <label for="nombre">
+            Nombre:
+          </label>
+
+          <input
+            id="nombre"
+            type="text"
+            placeholder="Nombre completo"
+          >
+
+        </div>
+
+
+        <div class="cliente-form-field">
+
+          <label for="cif">
+            CIF:
+          </label>
+
+          <input
+            id="cif"
+            type="text"
+            placeholder="CIF"
+          >
+
+        </div>
+
+
+        <div class="cliente-form-field">
+
+          <label for="direccionFiscal">
+            Dirección Fiscal:
+          </label>
+
+          <input
+            id="direccionFiscal"
+            type="text"
+            placeholder="Dirección fiscal"
+          >
+
+        </div>
+
+
+        <div class="cliente-form-field">
+
+          <label for="administrador">
+            Administrador:
+          </label>
+
+          <input
+            id="administrador"
+            type="text"
+            placeholder="Nombre del administrador"
+          >
+
+        </div>
+
+
+        <div class="cliente-form-field">
+
+          <label for="dniAdministrador">
+            DNI Administrador:
+          </label>
+
+          <input
+            id="dniAdministrador"
+            type="text"
+            placeholder="DNI del administrador"
+          >
+
+        </div>
+
+
+        <div class="cliente-form-field">
+
+          <label for="email">
+            Email:
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            placeholder="correo@ejemplo.com"
+          >
+
+        </div>
+
+
+        <div class="cliente-form-field">
+
+          <label for="telefono">
+            Teléfono:
+          </label>
+
+          <input
+            id="telefono"
+            type="tel"
+            placeholder="Teléfono"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- ASIGNACIÓN -->
+
+      <div class="cliente-form-section-title">
+        Asignación
+      </div>
+
+
+      <div class="cliente-form-grid">
+
+        <div class="cliente-form-field">
+
+          <label for="empresaSelect">
+            Empresa:
+          </label>
+
+          <select id="empresaSelect">
+
+            <option value="">
+              Selecciona una empresa
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="cliente-form-field">
+
+          <label for="oficinaSelect">
+            Oficina:
+          </label>
+
+          <select id="oficinaSelect">
+
+            <option value="">
+              Selecciona una oficina
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="cliente-form-actions">
+
+        <button
+          id="crearCliente"
+          class="btn"
+          type="button"
+        >
+          Crear cliente
+        </button>
+
+      </div>
+
+
+      <p
+        id="crearMessage"
+        class="message"
+      ></p>
+
+    </div>
 
   </div>
 
