@@ -861,6 +861,29 @@ let oficinaEditandoId = null;
               }`;
 
 
+// =================================================
+// BOTÓN EDITAR
+// =================================================
+
+const botonEditar =
+  document.createElement(
+    "button"
+  );
+
+botonEditar.type =
+  "button";
+
+botonEditar.textContent =
+  "Editar oficina";
+
+botonEditar.addEventListener(
+  "click",
+  () =>
+    mostrarFormularioEdicion(
+      oficina
+    )
+);
+            
             // =================================================
             // BOTÓN ESTADO
             // =================================================
