@@ -1575,100 +1575,413 @@ document
 
 
 
-    // =====================================================
+        // =====================================================
     // EDITAR EMPRESA
     // =====================================================
 
-    async function editarEmpresa(
+    function editarEmpresa(
       empresa
     ) {
 
-      const nuevoNombre =
-        prompt(
-          "Nuevo nombre de la empresa:",
-          empresa.nombre
+      // ===================================================
+      // MOSTRAR FORMULARIO
+      // ===================================================
+
+      const formulario =
+        document.getElementById(
+          "formularioEditarEmpresa"
         );
 
 
-      if (
-        nuevoNombre === null
-      ) {
-
-        return;
-      }
+      formulario.style.display =
+        "block";
 
 
-      const nombre =
-        nuevoNombre.trim();
+      // ===================================================
+      // RELLENAR DATOS
+      // ===================================================
+
+      document
+        .getElementById(
+          "editarEmpresaId"
+        )
+        .value =
+          empresa.id;
 
 
-      if (!nombre) {
-
-        alert(
-          "El nombre de la empresa es obligatorio."
-        );
-
-        return;
-      }
+      document
+        .getElementById(
+          "editarNombreEmpresa"
+        )
+        .value =
+          empresa.nombre || "";
 
 
-      try {
-
-        const respuesta =
-          await peticionAPI(
-            `/api/empresas/${empresa.id}`,
-            {
-              method: "PUT",
-
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-
-              body:
-                JSON.stringify({
-                  nombre
-                })
-            }
-          );
+      document
+        .getElementById(
+          "editarCifEmpresa"
+        )
+        .value =
+          empresa.cif || "";
 
 
-        const datos =
-          await respuesta.json();
+      document
+        .getElementById(
+          "editarDireccionEmpresa"
+        )
+        .value =
+          empresa.direccion || "";
 
 
-        if (
-          !respuesta.ok ||
-          !datos.ok
-        ) {
-
-          alert(
-            datos.message ||
-            "No se ha podido modificar la empresa."
-          );
-
-          return;
-        }
+      document
+        .getElementById(
+          "editarCodigoPostalEmpresa"
+        )
+        .value =
+          empresa.codigoPostal || "";
 
 
-        await cargarEmpresas();
+      document
+        .getElementById(
+          "editarPoblacionEmpresa"
+        )
+        .value =
+          empresa.poblacion || "";
 
 
-      } catch (error) {
+      document
+        .getElementById(
+          "editarProvinciaEmpresa"
+        )
+        .value =
+          empresa.provincia || "";
 
-        console.error(
-          "Error modificando empresa:",
-          error
-        );
+
+      document
+        .getElementById(
+          "editarNombreAdministradorEmpresa"
+        )
+        .value =
+          empresa.nombreAdministrador || "";
 
 
-        alert(
-          "No se ha podido conectar con el servidor."
-        );
+      document
+        .getElementById(
+          "editarEmailAdministradorEmpresa"
+        )
+        .value =
+          empresa.emailAdministrador || "";
 
-      }
+
+      document
+        .getElementById(
+          "editarTelefonoAdministradorEmpresa"
+        )
+        .value =
+          empresa.telefonoAdministrador || "";
+
+
+      document
+        .getElementById(
+          "editarWebEmpresa"
+        )
+        .value =
+          empresa.web || "";
+
+
+      document
+        .getElementById(
+          "editarNotasEmpresa"
+        )
+        .value =
+          empresa.notas || "";
+
+
+      // ===================================================
+      // SUBIR HASTA EL FORMULARIO
+      // ===================================================
+
+      formulario.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
 
     }
+
+
+
+    // =====================================================
+    // GUARDAR CAMBIOS EMPRESA
+    // =====================================================
+
+    document
+      .getElementById(
+        "editarEmpresaForm"
+      )
+      .addEventListener(
+        "submit",
+        async (event) => {
+
+          event.preventDefault();
+
+
+          // =================================================
+          // OBTENER DATOS
+          // =================================================
+
+          const empresaId =
+            document
+              .getElementById(
+                "editarEmpresaId"
+              )
+              .value;
+
+
+          const nombre =
+            document
+              .getElementById(
+                "editarNombreEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const cif =
+            document
+              .getElementById(
+                "editarCifEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const direccion =
+            document
+              .getElementById(
+                "editarDireccionEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const codigoPostal =
+            document
+              .getElementById(
+                "editarCodigoPostalEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const poblacion =
+            document
+              .getElementById(
+                "editarPoblacionEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const provincia =
+            document
+              .getElementById(
+                "editarProvinciaEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const nombreAdministrador =
+            document
+              .getElementById(
+                "editarNombreAdministradorEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const emailAdministrador =
+            document
+              .getElementById(
+                "editarEmailAdministradorEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const telefonoAdministrador =
+            document
+              .getElementById(
+                "editarTelefonoAdministradorEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const web =
+            document
+              .getElementById(
+                "editarWebEmpresa"
+              )
+              .value
+              .trim();
+
+
+          const notas =
+            document
+              .getElementById(
+                "editarNotasEmpresa"
+              )
+              .value
+              .trim();
+
+
+          // =================================================
+          // VALIDACIONES
+          // =================================================
+
+          if (!nombre) {
+
+            alert(
+              "La razón social / nombre es obligatorio."
+            );
+
+            return;
+          }
+
+
+          if (!cif) {
+
+            alert(
+              "El CIF de la empresa es obligatorio."
+            );
+
+            return;
+          }
+
+
+          if (!empresaId) {
+
+            alert(
+              "No se ha podido identificar la empresa."
+            );
+
+            return;
+          }
+
+
+          // =================================================
+          // ACTUALIZAR EMPRESA
+          // =================================================
+
+          try {
+
+            const respuesta =
+              await peticionAPI(
+                `/api/empresas/${empresaId}`,
+                {
+                  method: "PUT",
+
+                  headers: {
+                    "Content-Type":
+                      "application/json"
+                  },
+
+                  body:
+                    JSON.stringify({
+                      nombre,
+                      cif,
+                      direccion,
+                      codigoPostal,
+                      poblacion,
+                      provincia,
+                      nombreAdministrador,
+                      emailAdministrador,
+                      telefonoAdministrador,
+                      web,
+                      notas
+                    })
+                }
+              );
+
+
+            const datos =
+              await respuesta.json();
+
+
+            if (
+              !respuesta.ok ||
+              !datos.ok
+            ) {
+
+              alert(
+                datos.message ||
+                "No se ha podido modificar la empresa."
+              );
+
+              return;
+            }
+
+
+            // ===============================================
+            // OCULTAR FORMULARIO
+            // ===============================================
+
+            document
+              .getElementById(
+                "formularioEditarEmpresa"
+              )
+              .style.display =
+                "none";
+
+
+            // ===============================================
+            // RECARGAR LISTADO
+            // ===============================================
+
+            await cargarEmpresas();
+
+
+          } catch (error) {
+
+            console.error(
+              "Error modificando empresa:",
+              error
+            );
+
+
+            alert(
+              "No se ha podido conectar con el servidor."
+            );
+
+          }
+
+        }
+      );
+
+
+
+    // =====================================================
+    // CANCELAR EDICIÓN
+    // =====================================================
+
+    document
+      .getElementById(
+        "cancelarEdicionEmpresa"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          document
+            .getElementById(
+              "formularioEditarEmpresa"
+            )
+            .style.display =
+              "none";
+
+        }
+      );
 
 
 
