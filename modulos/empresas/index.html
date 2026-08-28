@@ -17,6 +17,233 @@
     href="../../css/estilos.css"
   >
 
+  <style>
+
+    /* =====================================================
+       EMPRESAS - ESTILOS VISUALES
+       ===================================================== */
+
+    .page-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+
+    /* =====================================================
+       FORMULARIO
+       ===================================================== */
+
+    .form-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    .form-card h3 {
+      margin: 0 0 20px;
+      color: #111827;
+      font-size: 20px;
+    }
+
+    .empresa-form {
+      display: flex;
+      align-items: flex-end;
+      gap: 15px;
+    }
+
+    .empresa-form-field {
+      flex: 1;
+    }
+
+    .empresa-form-field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .empresa-form-field input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      background: #ffffff;
+      color: #1f2937;
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .empresa-form-field input:focus {
+      border-color: #2563eb;
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+
+    /* =====================================================
+       LISTADO
+       ===================================================== */
+
+    .empresas-list {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+
+    /* =====================================================
+       TARJETA EMPRESA
+       ===================================================== */
+
+    .empresa-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.04);
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+    }
+
+    .empresa-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+      box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+
+    .empresa-card h3 {
+      margin: 0 0 15px;
+      font-size: 19px;
+      color: #111827;
+    }
+
+
+    .empresa-info {
+      margin: 0 0 7px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+
+    .empresa-id {
+      margin: 0 0 20px;
+      color: #9ca3af;
+      font-size: 12px;
+      word-break: break-all;
+    }
+
+
+    /* =====================================================
+       ESTADO
+       ===================================================== */
+
+    .empresa-estado {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .empresa-estado.activa {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .empresa-estado.inactiva {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+
+    /* =====================================================
+       ACCIONES TARJETA
+       ===================================================== */
+
+    .empresa-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .empresa-actions .btn {
+      flex: 1;
+      min-width: 100px;
+    }
+
+
+    /* =====================================================
+       MENSAJE VACÍO
+       ===================================================== */
+
+    .empty-state {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 35px;
+      text-align: center;
+      color: #6b7280;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 1000px) {
+
+      .empresas-list {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+      .empresa-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .empresa-form .btn {
+        width: 100%;
+      }
+
+      .empresas-list {
+        grid-template-columns: 1fr;
+      }
+
+      .page-actions {
+        justify-content: stretch;
+      }
+
+      .page-actions .btn {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 
@@ -46,7 +273,7 @@
 
       <a
         href="../../index.html"
-        class="btn"
+        class="btn btn-secondary"
       >
         ← Volver al panel
       </a>
@@ -96,14 +323,14 @@
 
     <section class="dashboard-section">
 
-      <div>
+      <div class="page-actions">
 
         <button
           id="recargarEmpresas"
-          class="btn"
+          class="btn btn-secondary"
           type="button"
         >
-          Recargar empresas
+          ↻ Recargar empresas
         </button>
 
       </div>
@@ -115,20 +342,27 @@
       ></p>
 
 
+
       <!-- =================================================
            FORMULARIO NUEVA EMPRESA
            ================================================= -->
 
-      <div id="formularioEmpresa">
+      <div
+        id="formularioEmpresa"
+        class="form-card"
+      >
 
         <h3>
           Nueva empresa
         </h3>
 
 
-        <form id="crearEmpresaForm">
+        <form
+          id="crearEmpresaForm"
+          class="empresa-form"
+        >
 
-          <div>
+          <div class="empresa-form-field">
 
             <label for="nombreEmpresa">
               Nombre de la empresa
@@ -144,10 +378,10 @@
 
 
           <button
-            class="btn"
+            class="btn btn-primary"
             type="submit"
           >
-            Crear empresa
+            + Crear empresa
           </button>
 
         </form>
@@ -170,7 +404,10 @@
       </h2>
 
 
-      <div id="empresasContainer">
+      <div
+        id="empresasContainer"
+        class="empresas-list"
+      >
 
         Cargando empresas...
 
@@ -315,8 +552,11 @@
           datos.empresas.length === 0
         ) {
 
-          container.innerHTML =
-            "<p>No hay empresas registradas.</p>";
+          container.innerHTML = `
+            <div class="empty-state">
+              No hay empresas registradas.
+            </div>
+          `;
 
           return;
         }
@@ -333,6 +573,10 @@
               document.createElement(
                 "article"
               );
+
+
+            article.className =
+              "empresa-card";
 
 
             // =================================================
@@ -362,8 +606,14 @@
 
             estado.textContent =
               empresa.activo
-                ? "Estado: Activa"
-                : "Estado: Inactiva";
+                ? "Activa"
+                : "Inactiva";
+
+
+            estado.className =
+              empresa.activo
+                ? "empresa-estado activa"
+                : "empresa-estado inactiva";
 
 
             // =================================================
@@ -378,6 +628,10 @@
 
             identificador.textContent =
               `ID: ${empresa.id}`;
+
+
+            identificador.className =
+              "empresa-id";
 
 
             // =================================================
@@ -395,6 +649,10 @@
 
             editar.textContent =
               "Editar";
+
+
+            editar.className =
+              "btn btn-secondary";
 
 
             editar.addEventListener(
@@ -424,6 +682,10 @@
               "Desactivar";
 
 
+            desactivar.className =
+              "btn btn-danger";
+
+
             desactivar.disabled =
               !empresa.activo;
 
@@ -434,6 +696,30 @@
                 desactivarEmpresa(
                   empresa.id
                 )
+            );
+
+
+            // =================================================
+            // CONTENEDOR ACCIONES
+            // =================================================
+
+            const acciones =
+              document.createElement(
+                "div"
+              );
+
+
+            acciones.className =
+              "empresa-actions";
+
+
+            acciones.appendChild(
+              editar
+            );
+
+
+            acciones.appendChild(
+              desactivar
             );
 
 
@@ -457,12 +743,7 @@
 
 
             article.appendChild(
-              editar
-            );
-
-
-            article.appendChild(
-              desactivar
+              acciones
             );
 
 
