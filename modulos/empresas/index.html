@@ -57,16 +57,104 @@
 
 
     .empresa-form {
-      display: flex;
-      align-items: flex-end;
-      gap: 15px;
-    }
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+}
 
 
-    .empresa-form-field {
-      flex: 1;
-    }
+/* =====================================================
+   FORMULARIO EMPRESA COMPLETO
+   ===================================================== */
 
+.empresa-form-completo {
+  display: block;
+}
+
+
+.empresa-form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-bottom: 22px;
+}
+
+
+.empresa-form-section-title {
+  margin: 28px 0 18px;
+
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #374151;
+}
+
+
+.empresa-form-field textarea {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  font-size: 15px;
+
+  font-family: inherit;
+
+  outline: none;
+
+  background: #ffffff;
+  color: #1f2937;
+
+  resize: vertical;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.empresa-form-field textarea:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+.empresa-form-notas {
+  margin-bottom: 20px;
+}
+
+
+.empresa-form-actions {
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+
+@media (max-width: 700px) {
+
+  .empresa-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+.empresa-form-field {
+  flex: 1;
+}
 
     .empresa-form-field label {
       display: block;
