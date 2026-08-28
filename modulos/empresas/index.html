@@ -17,6 +17,7 @@
     href="../../css/estilos.css"
   >
 
+
   <style>
 
     /* =====================================================
@@ -31,7 +32,7 @@
 
 
     /* =====================================================
-       FORMULARIO
+       FORMULARIO NUEVA EMPRESA
        ===================================================== */
 
     .form-card {
@@ -40,14 +41,20 @@
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 35px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+
+      box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.04);
     }
+
 
     .form-card h3 {
       margin: 0 0 20px;
-      color: #111827;
+
       font-size: 20px;
+
+      color: #111827;
     }
+
 
     .empresa-form {
       display: flex;
@@ -55,48 +62,66 @@
       gap: 15px;
     }
 
+
     .empresa-form-field {
       flex: 1;
     }
 
+
     .empresa-form-field label {
       display: block;
+
       margin-bottom: 7px;
+
       font-size: 14px;
       font-weight: 600;
+
       color: #374151;
     }
 
+
     .empresa-form-field input {
       width: 100%;
+
       padding: 11px 12px;
+
       border: 1px solid #d1d5db;
       border-radius: 8px;
+
       font-size: 15px;
+
       outline: none;
+
       background: #ffffff;
       color: #1f2937;
+
       transition:
         border-color 0.15s ease,
         box-shadow 0.15s ease;
     }
 
+
     .empresa-form-field input:focus {
       border-color: #2563eb;
+
       box-shadow:
         0 0 0 3px rgba(37, 99, 235, 0.10);
     }
 
 
     /* =====================================================
-       LISTADO
+       LISTADO DE EMPRESAS
        ===================================================== */
 
     .empresas-list {
       display: grid;
+
       grid-template-columns:
         repeat(3, minmax(0, 1fr));
+
       gap: 20px;
+
+      width: 100%;
     }
 
 
@@ -106,11 +131,16 @@
 
     .empresa-card {
       background: #ffffff;
+
       border: 1px solid #e5e7eb;
       border-radius: 12px;
+
       padding: 22px;
+
       box-shadow:
         0 4px 12px rgba(15, 23, 42, 0.04);
+
+      min-width: 0;
 
       transition:
         transform 0.15s ease,
@@ -118,9 +148,12 @@
         border-color 0.15s ease;
     }
 
+
     .empresa-card:hover {
       transform: translateY(-2px);
+
       border-color: #cbd5e1;
+
       box-shadow:
         0 8px 24px rgba(15, 23, 42, 0.08);
     }
@@ -128,78 +161,161 @@
 
     .empresa-card h3 {
       margin: 0 0 15px;
+
       font-size: 19px;
+
       color: #111827;
+
+      word-break: break-word;
     }
 
 
+    /* =====================================================
+       INFORMACIÓN EMPRESA
+       ===================================================== */
+
     .empresa-info {
       margin: 0 0 7px;
+
       color: #6b7280;
+
       font-size: 14px;
     }
 
 
     .empresa-id {
-      margin: 0 0 20px;
+      margin: 0 0 18px;
+
       color: #9ca3af;
+
       font-size: 12px;
+
       word-break: break-all;
     }
 
 
     /* =====================================================
-       ESTADO
+       ESTADO EMPRESA
        ===================================================== */
 
     .empresa-estado {
       display: inline-flex;
+
       align-items: center;
-      padding: 5px 9px;
+
+      padding: 5px 10px;
+
       border-radius: 999px;
+
       font-size: 12px;
       font-weight: 600;
+
       margin-bottom: 18px;
     }
 
+
     .empresa-estado.activa {
       background: #ecfdf5;
+
       color: #047857;
     }
 
+
     .empresa-estado.inactiva {
       background: #f3f4f6;
+
       color: #6b7280;
     }
 
 
     /* =====================================================
-       ACCIONES TARJETA
+       ACCIONES DE EMPRESA
        ===================================================== */
 
     .empresa-actions {
       display: flex;
+
       gap: 10px;
+
       flex-wrap: wrap;
+
+      padding-top: 5px;
     }
+
 
     .empresa-actions .btn {
       flex: 1;
+
       min-width: 100px;
     }
 
 
     /* =====================================================
-       MENSAJE VACÍO
+       BOTONES
+       ===================================================== */
+
+    .empresa-actions .btn-secondary {
+      background: #f3f4f6;
+
+      color: #374151;
+    }
+
+
+    .empresa-actions .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+
+
+    .empresa-actions .btn-danger {
+      background: #dc2626;
+
+      color: #ffffff;
+    }
+
+
+    .empresa-actions .btn-danger:hover {
+      background: #b91c1c;
+    }
+
+
+    .empresa-actions .btn-danger:disabled {
+      background: #f3f4f6;
+
+      color: #9ca3af;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+
+    /* =====================================================
+       ESTADO VACÍO
        ===================================================== */
 
     .empty-state {
+      grid-column: 1 / -1;
+
       background: #ffffff;
+
       border: 1px solid #e5e7eb;
+
       border-radius: 12px;
+
       padding: 35px;
+
       text-align: center;
+
       color: #6b7280;
+    }
+
+
+    /* =====================================================
+       MENSAJES
+       ===================================================== */
+
+    #listadoMessage {
+      margin-bottom: 20px;
     }
 
 
@@ -221,22 +337,46 @@
 
       .empresa-form {
         flex-direction: column;
+
         align-items: stretch;
       }
+
 
       .empresa-form .btn {
         width: 100%;
       }
 
+
       .empresas-list {
         grid-template-columns: 1fr;
       }
+
 
       .page-actions {
         justify-content: stretch;
       }
 
+
       .page-actions .btn {
+        width: 100%;
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      .empresa-card {
+        padding: 20px;
+      }
+
+
+      .empresa-actions {
+        flex-direction: column;
+      }
+
+
+      .empresa-actions .btn {
         width: 100%;
       }
 
@@ -322,6 +462,7 @@
          =================================================== -->
 
     <section class="dashboard-section">
+
 
       <div class="page-actions">
 
