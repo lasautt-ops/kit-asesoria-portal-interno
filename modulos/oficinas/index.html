@@ -599,163 +599,185 @@
   style="display: none;"
 >
 
-  <h2>
-    Crear oficina
-  </h2>
+  <div class="oficina-form-card">
 
-
-  <div>
-
-    <label for="nombreOficina">
-      Nombre:
-    </label>
-
-    <input
-      id="nombreOficina"
-      type="text"
-      placeholder="Nombre de la oficina"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="direccionOficina">
-      Dirección:
-    </label>
-
-    <input
-      id="direccionOficina"
-      type="text"
-      placeholder="Dirección"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="codigoPostalOficina">
-      Código postal:
-    </label>
-
-    <input
-      id="codigoPostalOficina"
-      type="text"
-      placeholder="Código postal"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="poblacionOficina">
-      Población:
-    </label>
-
-    <input
-      id="poblacionOficina"
-      type="text"
-      placeholder="Población"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="provinciaOficina">
-      Provincia:
-    </label>
-
-    <input
-      id="provinciaOficina"
-      type="text"
-      placeholder="Provincia"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="telefonoOficina">
-      Teléfono:
-    </label>
-
-    <input
-      id="telefonoOficina"
-      type="text"
-      placeholder="Teléfono"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="emailOficina">
-      Email:
-    </label>
-
-    <input
-      id="emailOficina"
-      type="email"
-      placeholder="Email"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="responsableOficina">
-      Responsable:
-    </label>
-
-    <input
-      id="responsableOficina"
-      type="text"
-      placeholder="Responsable"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="notasOficina">
-      Notas:
-    </label>
-
-    <textarea
-      id="notasOficina"
-      placeholder="Notas"
-      rows="4"
-    ></textarea>
-
-  </div>
-
-
-  <div>
-
-    <button
-      id="crearOficina"
-      class="btn"
-      type="button"
-    >
+    <h2>
       Crear oficina
-    </button>
+    </h2>
+
+
+    <div class="oficina-form-section-title">
+      Datos de la oficina
+    </div>
+
+
+    <div class="oficina-form-grid">
+
+      <div class="oficina-form-field">
+
+        <label for="nombreOficina">
+          Nombre *
+        </label>
+
+        <input
+          id="nombreOficina"
+          type="text"
+          placeholder="Nombre de la oficina"
+        >
+
+      </div>
+
+
+      <div class="oficina-form-field">
+
+        <label for="responsableOficina">
+          Responsable
+        </label>
+
+        <input
+          id="responsableOficina"
+          type="text"
+          placeholder="Responsable"
+        >
+
+      </div>
+
+
+      <div class="oficina-form-field">
+
+        <label for="direccionOficina">
+          Dirección
+        </label>
+
+        <input
+          id="direccionOficina"
+          type="text"
+          placeholder="Dirección"
+        >
+
+      </div>
+
+
+      <div class="oficina-form-field">
+
+        <label for="codigoPostalOficina">
+          Código postal
+        </label>
+
+        <input
+          id="codigoPostalOficina"
+          type="text"
+          placeholder="Código postal"
+        >
+
+      </div>
+
+
+      <div class="oficina-form-field">
+
+        <label for="poblacionOficina">
+          Población
+        </label>
+
+        <input
+          id="poblacionOficina"
+          type="text"
+          placeholder="Población"
+        >
+
+      </div>
+
+
+      <div class="oficina-form-field">
+
+        <label for="provinciaOficina">
+          Provincia
+        </label>
+
+        <input
+          id="provinciaOficina"
+          type="text"
+          placeholder="Provincia"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="oficina-form-section-title">
+      Datos de contacto
+    </div>
+
+
+    <div class="oficina-form-grid">
+
+      <div class="oficina-form-field">
+
+        <label for="telefonoOficina">
+          Teléfono
+        </label>
+
+        <input
+          id="telefonoOficina"
+          type="text"
+          placeholder="Teléfono"
+        >
+
+      </div>
+
+
+      <div class="oficina-form-field">
+
+        <label for="emailOficina">
+          Email
+        </label>
+
+        <input
+          id="emailOficina"
+          type="email"
+          placeholder="Email"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="oficina-form-field oficina-form-notas">
+
+      <label for="notasOficina">
+        Notas
+      </label>
+
+      <textarea
+        id="notasOficina"
+        placeholder="Notas"
+        rows="4"
+      ></textarea>
+
+    </div>
+
+
+    <div class="oficina-form-actions">
+
+      <button
+        id="crearOficina"
+        class="btn btn-primary"
+        type="button"
+      >
+        + Crear oficina
+      </button>
+
+    </div>
+
+
+    <p
+      id="crearMessage"
+      class="message"
+    ></p>
 
   </div>
-
-
-  <p
-    id="crearMessage"
-    class="message"
-  ></p>
 
 </section>
 
