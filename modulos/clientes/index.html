@@ -1554,10 +1554,16 @@
     // CARGAR CLIENTES
     // =====================================================
 
+        // =====================================================
+    // CARGAR CLIENTES
+    // =====================================================
+
     async function cargarClientes() {
 
       clientesContainer.innerHTML =
-        "Cargando clientes...";
+        `
+          <div class="clientes-list"></div>
+        `;
 
 
       listadoMessage.textContent =
@@ -1581,21 +1587,16 @@
           !datos.ok
         ) {
 
-         clientesContainer.innerHTML =
-  `
-    <div class="clientes-list"></div>
-  `;
-
-
-const clientesList =
-  clientesContainer.querySelector(
-    ".clientes-list"
-  );
+          clientesContainer.innerHTML =
+            `
+              <div class="clientes-list"></div>
+            `;
 
 
           listadoMessage.textContent =
             datos.message ||
             "No se han podido cargar los clientes.";
+
 
           return;
         }
@@ -1609,15 +1610,36 @@ const clientesList =
         ) {
 
           clientesContainer.innerHTML =
-            "<p>No hay clientes disponibles.</p>";
+            `
+              <p>
+                No hay clientes disponibles.
+              </p>
+            `;
+
 
           return;
         }
 
 
-        clientesContainer.innerHTML =
-          "";
+        // =================================================
+        // CONTENEDOR DEL LISTADO
+        // =================================================
 
+        clientesContainer.innerHTML =
+          `
+            <div class="clientes-list"></div>
+          `;
+
+
+        const clientesList =
+          clientesContainer.querySelector(
+            ".clientes-list"
+          );
+
+
+        // =================================================
+        // CREAR TARJETAS
+        // =================================================
 
         datos.clientes.forEach(
           cliente => {
@@ -1626,6 +1648,7 @@ const clientesList =
               document.createElement(
                 "article"
               );
+
 
             article.className =
               "cliente-card";
@@ -1639,6 +1662,7 @@ const clientesList =
               document.createElement(
                 "h3"
               );
+
 
             titulo.textContent =
               cliente.nombre ||
@@ -1654,8 +1678,10 @@ const clientesList =
                 "p"
               );
 
+
             cif.className =
               "cliente-info";
+
 
             cif.textContent =
               `CIF: ${
@@ -1669,8 +1695,10 @@ const clientesList =
                 "p"
               );
 
+
             direccionFiscal.className =
               "cliente-info";
+
 
             direccionFiscal.textContent =
               `Dirección Fiscal: ${
@@ -1684,8 +1712,10 @@ const clientesList =
                 "p"
               );
 
+
             administrador.className =
               "cliente-info";
+
 
             administrador.textContent =
               `Administrador: ${
@@ -1699,8 +1729,10 @@ const clientesList =
                 "p"
               );
 
+
             dniAdministrador.className =
               "cliente-info";
+
 
             dniAdministrador.textContent =
               `DNI Administrador: ${
@@ -1714,8 +1746,10 @@ const clientesList =
                 "p"
               );
 
+
             email.className =
               "cliente-info";
+
 
             email.textContent =
               `Email: ${
@@ -1729,8 +1763,10 @@ const clientesList =
                 "p"
               );
 
+
             telefono.className =
               "cliente-info";
+
 
             telefono.textContent =
               `Teléfono: ${
@@ -1748,6 +1784,7 @@ const clientesList =
                 "div"
               );
 
+
             asignacion.className =
               "cliente-asignacion";
 
@@ -1756,6 +1793,7 @@ const clientesList =
               document.createElement(
                 "p"
               );
+
 
             empresa.textContent =
               `Empresa: ${
@@ -1769,6 +1807,7 @@ const clientesList =
                 "p"
               );
 
+
             oficina.textContent =
               `Oficina: ${
                 cliente.oficina?.nombre ||
@@ -1779,6 +1818,7 @@ const clientesList =
             asignacion.appendChild(
               empresa
             );
+
 
             asignacion.appendChild(
               oficina
@@ -1794,8 +1834,10 @@ const clientesList =
                 "p"
               );
 
+
             trabajador.className =
               "cliente-info";
+
 
             trabajador.textContent =
               `Trabajador asignado: ${
@@ -1814,8 +1856,10 @@ const clientesList =
                 "p"
               );
 
+
             creado.className =
               "cliente-id";
+
 
             creado.textContent =
               `Creado: ${
@@ -1834,6 +1878,7 @@ const clientesList =
                 "div"
               );
 
+
             acciones.className =
               "cliente-actions";
 
@@ -1847,14 +1892,18 @@ const clientesList =
                 "button"
               );
 
+
             botonEditar.type =
               "button";
+
 
             botonEditar.textContent =
               "Editar cliente";
 
+
             botonEditar.className =
               "btn";
+
 
             botonEditar.addEventListener(
               "click",
@@ -1874,14 +1923,18 @@ const clientesList =
                 "button"
               );
 
+
             botonAsignar.type =
               "button";
+
 
             botonAsignar.textContent =
               "Asignar trabajador";
 
+
             botonAsignar.className =
               "btn btn-secondary";
+
 
             botonAsignar.addEventListener(
               "click",
@@ -1986,7 +2039,6 @@ const clientesList =
       }
 
     }
-
 
 
     // =====================================================
