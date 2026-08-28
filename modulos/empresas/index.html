@@ -499,9 +499,172 @@
 
 
         <form
-          id="crearEmpresaForm"
-          class="empresa-form"
-        >
+  id="crearEmpresaForm"
+  class="empresa-form empresa-form-completo"
+>
+
+  <div class="empresa-form-grid">
+
+    <div class="empresa-form-field">
+      <label for="nombreEmpresa">
+        Razón social / Nombre *
+      </label>
+
+      <input
+        id="nombreEmpresa"
+        type="text"
+        required
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="cifEmpresa">
+        CIF *
+      </label>
+
+      <input
+        id="cifEmpresa"
+        type="text"
+        required
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="direccionEmpresa">
+        Dirección
+      </label>
+
+      <input
+        id="direccionEmpresa"
+        type="text"
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="codigoPostalEmpresa">
+        Código postal
+      </label>
+
+      <input
+        id="codigoPostalEmpresa"
+        type="text"
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="poblacionEmpresa">
+        Población
+      </label>
+
+      <input
+        id="poblacionEmpresa"
+        type="text"
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="provinciaEmpresa">
+        Provincia
+      </label>
+
+      <input
+        id="provinciaEmpresa"
+        type="text"
+      >
+    </div>
+
+  </div>
+
+
+  <div class="empresa-form-section-title">
+    Datos del administrador
+  </div>
+
+
+  <div class="empresa-form-grid">
+
+    <div class="empresa-form-field">
+      <label for="nombreAdministradorEmpresa">
+        Nombre del administrador
+      </label>
+
+      <input
+        id="nombreAdministradorEmpresa"
+        type="text"
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="emailAdministradorEmpresa">
+        Email
+      </label>
+
+      <input
+        id="emailAdministradorEmpresa"
+        type="email"
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="telefonoAdministradorEmpresa">
+        Teléfono
+      </label>
+
+      <input
+        id="telefonoAdministradorEmpresa"
+        type="tel"
+      >
+    </div>
+
+
+    <div class="empresa-form-field">
+      <label for="webEmpresa">
+        Web
+      </label>
+
+      <input
+        id="webEmpresa"
+        type="url"
+        placeholder="https://www.empresa.com"
+      >
+    </div>
+
+  </div>
+
+
+  <div class="empresa-form-field empresa-form-notas">
+
+    <label for="notasEmpresa">
+      Notas
+    </label>
+
+    <textarea
+      id="notasEmpresa"
+      rows="4"
+    ></textarea>
+
+  </div>
+
+
+  <div class="empresa-form-actions">
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+    >
+      + Crear empresa
+    </button>
+
+  </div>
+
+</form>
 
           <div class="empresa-form-field">
 
