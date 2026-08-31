@@ -1,15 +1,16 @@
-
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Trabajadores - Gestión Interna</title>
 
@@ -20,9 +21,7 @@
 
 </head>
 
-
 <body>
-
 
   <!-- =====================================================
        CABECERA
@@ -30,82 +29,106 @@
 
   <header class="portal-header">
 
-    <div class="portal-header-left">
+```
+<div class="portal-header-left">
 
-      <h1>
-        Trabajadores
-      </h1>
+  <h1>
+    Trabajadores
+  </h1>
 
-      <p id="usuarioCabecera">
-        Cargando...
-      </p>
+  <p id="usuarioCabecera">
+    Cargando...
+  </p>
 
-    </div>
+</div>
 
 
-    <div class="portal-header-right">
+<div class="portal-header-right">
 
-      <a
-        href="../../index.html"
-        class="btn"
-      >
-        ← Volver al portal
-      </a>
+  <a
+    href="../../index.html"
+    class="btn"
+  >
+    ← Volver al portal
+  </a>
 
-      <button
-        id="cerrarSesion"
-        class="btn btn-danger"
-        type="button"
-      >
-        Cerrar sesión
-      </button>
+  <button
+    id="cerrarSesion"
+    class="btn btn-danger"
+    type="button"
+  >
+    Cerrar sesión
+  </button>
 
-    </div>
+</div>
+```
 
   </header>
-
-
 
   <!-- =====================================================
        CONTENIDO PRINCIPAL
        ===================================================== -->
 
-  <main class="portal-container">
+  <main class="portal-container trabajadores-page">
+
+```
+<!-- ===================================================
+     CABECERA DEL MÓDULO
+     =================================================== -->
+
+<section class="welcome-section trabajadores-welcome">
+
+  <h2>
+    Gestión de trabajadores
+  </h2>
+
+  <p>
+    Gestiona los trabajadores y sus accesos al sistema.
+  </p>
+
+</section>
 
 
-    <!-- ===================================================
-         BIENVENIDA
-         =================================================== -->
 
-    <section class="welcome-section">
+<!-- ===================================================
+     CREAR TRABAJADOR
+     =================================================== -->
 
-      <h2>
-        Gestión de trabajadores
-      </h2>
+<section class="dashboard-section trabajador-create-section">
 
-      <p>
-        Gestiona los trabajadores y sus accesos al sistema.
-      </p>
+  <div class="trabajadores-section-header">
 
-    </section>
-
-
-
-    <!-- ===================================================
-         CREAR TRABAJADOR
-         =================================================== -->
-
-    <section class="dashboard-section">
+    <div>
 
       <h2>
         Crear trabajador
       </h2>
 
+      <p>
+        Añade un nuevo trabajador y asígnalo a una empresa y oficina.
+      </p>
 
-      <div>
+    </div>
+
+  </div>
+
+
+  <div class="trabajador-form-card">
+
+
+    <!-- ===============================================
+         DATOS DEL TRABAJADOR
+         =============================================== -->
+
+    <div class="trabajador-form-grid">
+
+
+      <!-- NOMBRE -->
+
+      <div class="trabajador-field">
 
         <label for="nombre">
-          Nombre:
+          Nombre
         </label>
 
         <input
@@ -117,10 +140,12 @@
       </div>
 
 
-      <div>
+      <!-- EMAIL -->
+
+      <div class="trabajador-field">
 
         <label for="email">
-          Email:
+          Email
         </label>
 
         <input
@@ -132,10 +157,12 @@
       </div>
 
 
-      <div>
+      <!-- CONTRASEÑA -->
+
+      <div class="trabajador-field">
 
         <label for="password">
-          Contraseña:
+          Contraseña
         </label>
 
         <input
@@ -147,10 +174,12 @@
       </div>
 
 
-      <div>
+      <!-- EMPRESA -->
+
+      <div class="trabajador-field">
 
         <label for="empresaSelect">
-          Empresa:
+          Empresa
         </label>
 
         <select id="empresaSelect">
@@ -164,10 +193,12 @@
       </div>
 
 
-      <div>
+      <!-- OFICINA -->
+
+      <div class="trabajador-field trabajador-field-full">
 
         <label for="oficinaSelect">
-          Oficina:
+          Oficina
         </label>
 
         <select id="oficinaSelect">
@@ -181,74 +212,97 @@
       </div>
 
 
+    </div>
+
+
+    <!-- ===============================================
+         ACCIONES
+         =============================================== -->
+
+    <div class="trabajador-form-actions">
+
       <button
         id="crearTrabajador"
-        class="btn"
+        class="btn trabajador-create-button"
         type="button"
       >
         Crear trabajador
       </button>
 
-
-      <p
-        id="crearMessage"
-        class="message"
-      ></p>
-
-    </section>
+    </div>
 
 
-
-    <!-- ===================================================
-         LISTADO
-         =================================================== -->
-
-    <section class="dashboard-section">
-
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 10px;
-          flex-wrap: wrap;
-        "
-      >
-
-        <h2>
-          Trabajadores
-        </h2>
+    <p
+      id="crearMessage"
+      class="message trabajador-create-message"
+    ></p>
 
 
-        <button
-          id="recargarTrabajadores"
-          class="btn"
-          type="button"
-        >
-          Recargar trabajadores
-        </button>
+  </div>
 
-      </div>
+</section>
 
 
-      <p
-        id="listadoMessage"
-        class="message"
-      ></p>
+
+<!-- ===================================================
+     LISTADO DE TRABAJADORES
+     =================================================== -->
+
+<section class="dashboard-section trabajadores-list-section">
 
 
-      <div id="trabajadoresContainer">
+  <div class="trabajadores-section-header trabajadores-list-header">
 
-        Cargando trabajadores...
+    <div>
 
-      </div>
+      <h2>
+        Trabajadores
+      </h2>
 
-    </section>
+      <p>
+        Consulta y gestiona los trabajadores registrados.
+      </p>
 
+    </div>
+
+
+    <button
+      id="recargarTrabajadores"
+      class="btn"
+      type="button"
+    >
+      ↻ Recargar trabajadores
+    </button>
+
+  </div>
+
+
+  <p
+    id="listadoMessage"
+    class="message"
+  ></p>
+
+
+  <!-- =================================================
+       CONTENEDOR GENERADO POR JAVASCRIPT
+       ================================================= -->
+
+  <div
+    id="trabajadoresContainer"
+    class="trabajadores-grid"
+  >
+
+    <div class="trabajadores-loading">
+      Cargando trabajadores...
+    </div>
+
+  </div>
+
+
+</section>
+```
 
   </main>
-
-
 
   <!-- =====================================================
        PIE
@@ -256,19 +310,17 @@
 
   <footer class="portal-footer">
 
-    Kit Gestión Asesoría · Gestión Interna
+```
+Kit Gestión Asesoría · Gestión Interna
+```
 
   </footer>
-
-
 
   <!-- =====================================================
        JAVASCRIPT COMÚN
        ===================================================== -->
 
   <script src="../../js/comun.js"></script>
-
-
 
   <!-- =====================================================
        JAVASCRIPT DEL MÓDULO
@@ -564,7 +616,11 @@
     async function cargarTrabajadores() {
 
       trabajadoresContainer.innerHTML =
-        "Cargando trabajadores...";
+        `
+          <div class="trabajadores-loading">
+            Cargando trabajadores...
+          </div>
+        `;
 
 
       listadoMessage.textContent =
@@ -608,7 +664,21 @@
         ) {
 
           trabajadoresContainer.innerHTML =
-            "<p>No hay trabajadores disponibles.</p>";
+            `
+              <div class="trabajadores-empty">
+                <div class="trabajadores-empty-icon">
+                  👥
+                </div>
+
+                <h3>
+                  No hay trabajadores
+                </h3>
+
+                <p>
+                  Todavía no hay trabajadores registrados.
+                </p>
+              </div>
+            `;
 
           return;
         }
@@ -627,6 +697,24 @@
               );
 
 
+            article.className =
+              "trabajador-card";
+
+
+            // =============================================
+            // CABECERA
+            // =============================================
+
+            const cardHeader =
+              document.createElement(
+                "div"
+              );
+
+
+            cardHeader.className =
+              "trabajador-card-header";
+
+
             const titulo =
               document.createElement(
                 "h3"
@@ -639,18 +727,68 @@
               "-";
 
 
+            const estado =
+              document.createElement(
+                "span"
+              );
+
+
+            estado.className =
+              trabajador.usuario?.activo
+                ? "trabajador-status trabajador-status-active"
+                : "trabajador-status trabajador-status-inactive";
+
+
+            estado.textContent =
+              trabajador.usuario?.activo
+                ? "Activo"
+                : "Inactivo";
+
+
+            cardHeader.appendChild(
+              titulo
+            );
+
+
+            cardHeader.appendChild(
+              estado
+            );
+
+
+            // =============================================
+            // INFORMACIÓN
+            // =============================================
+
+            const info =
+              document.createElement(
+                "div"
+              );
+
+
+            info.className =
+              "trabajador-card-info";
+
+
             const email =
               document.createElement(
                 "p"
               );
 
 
-            email.textContent =
-              `Email: ${
-                trabajador.usuario?.email ||
-                trabajador.email ||
-                "-"
-              }`;
+            email.innerHTML =
+              `
+                <span class="trabajador-info-label">
+                  Email
+                </span>
+
+                <span>
+                  ${
+                    trabajador.usuario?.email ||
+                    trabajador.email ||
+                    "-"
+                  }
+                </span>
+              `;
 
 
             const rol =
@@ -659,11 +797,19 @@
               );
 
 
-            rol.textContent =
-              `Rol: ${
-                trabajador.usuario?.rol ||
-                "-"
-              }`;
+            rol.innerHTML =
+              `
+                <span class="trabajador-info-label">
+                  Rol
+                </span>
+
+                <span class="trabajador-role">
+                  ${
+                    trabajador.usuario?.rol ||
+                    "-"
+                  }
+                </span>
+              `;
 
 
             const empresa =
@@ -672,11 +818,19 @@
               );
 
 
-            empresa.textContent =
-              `Empresa: ${
-                trabajador.empresa?.nombre ||
-                "-"
-              }`;
+            empresa.innerHTML =
+              `
+                <span class="trabajador-info-label">
+                  Empresa
+                </span>
+
+                <span>
+                  ${
+                    trabajador.empresa?.nombre ||
+                    "-"
+                  }
+                </span>
+              `;
 
 
             const oficina =
@@ -685,23 +839,53 @@
               );
 
 
-            oficina.textContent =
-              `Oficina: ${
-                trabajador.oficina?.nombre ||
-                "-"
-              }`;
+            oficina.innerHTML =
+              `
+                <span class="trabajador-info-label">
+                  Oficina
+                </span>
+
+                <span>
+                  ${
+                    trabajador.oficina?.nombre ||
+                    "-"
+                  }
+                </span>
+              `;
 
 
-            const estado =
+            info.appendChild(
+              email
+            );
+
+
+            info.appendChild(
+              rol
+            );
+
+
+            info.appendChild(
+              empresa
+            );
+
+
+            info.appendChild(
+              oficina
+            );
+
+
+            // =============================================
+            // ACCIONES
+            // =============================================
+
+            const actions =
               document.createElement(
-                "p"
+                "div"
               );
 
 
-            estado.textContent =
-              trabajador.usuario?.activo
-                ? "Estado: Activo"
-                : "Estado: Inactivo";
+            actions.className =
+              "trabajador-card-actions";
 
 
             const boton =
@@ -712,6 +896,10 @@
 
             boton.type =
               "button";
+
+
+            boton.className =
+              "btn trabajador-edit-button";
 
 
             boton.textContent =
@@ -727,38 +915,27 @@
             );
 
 
-            article.appendChild(
-              titulo
-            );
-
-
-            article.appendChild(
-              email
-            );
-
-
-            article.appendChild(
-              rol
-            );
-
-
-            article.appendChild(
-              empresa
-            );
-
-
-            article.appendChild(
-              oficina
-            );
-
-
-            article.appendChild(
-              estado
-            );
-
-
-            article.appendChild(
+            actions.appendChild(
               boton
+            );
+
+
+            // =============================================
+            // CONSTRUIR TARJETA
+            // =============================================
+
+            article.appendChild(
+              cardHeader
+            );
+
+
+            article.appendChild(
+              info
+            );
+
+
+            article.appendChild(
+              actions
             );
 
 
@@ -1096,8 +1273,6 @@
 
   </script>
 
-
 </body>
 
 </html>
-
