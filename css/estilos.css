@@ -2232,9 +2232,9 @@ RESPONSIVE - MÓVIL
 .trabajadores-section-header {
 flex-direction: column;
 
-
+```
 align-items: flex-start;
-
+```
 
 }
 
@@ -2245,9 +2245,9 @@ width: 100%;
 .trabajador-form-grid {
 grid-template-columns: 1fr;
 
-
+```
 gap: 18px;
-
+```
 
 }
 
@@ -2288,16 +2288,16 @@ flex-direction: column;
 
 ```
 align-items: flex-start;
-
+```
 
 }
 
 .trabajador-card-info p {
 flex-direction: column;
 
-
+```
 gap: 3px;
-
+```
 
 }
 
