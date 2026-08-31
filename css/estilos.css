@@ -2319,10 +2319,10 @@ width: 100%;
    FILTROS - MÓDULO TRABAJADORES
    ========================================================= */
 
-.trabajadores-filtros {
+.trabajadores-filters {
   width: 100%;
 
-  margin-bottom: 25px;
+  margin: 0 0 25px;
 
   padding: 20px 22px;
 
@@ -2334,74 +2334,37 @@ width: 100%;
 
   box-shadow:
     0 2px 6px rgba(15, 23, 42, 0.03);
-}
 
-
-/* =========================================================
-   CABECERA DEL FILTRO
-   ========================================================= */
-
-.trabajadores-filtros-header {
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 15px;
-
-  margin-bottom: 18px;
-}
-
-.trabajadores-filtros-header h3 {
-  margin: 0;
-
-  color: #111827;
-
-  font-size: 17px;
-
-  font-weight: 600;
-
-  letter-spacing: -0.2px;
-}
-
-.trabajadores-filtros-header p {
-  margin: 4px 0 0;
-
-  color: #6b7280;
-
-  font-size: 13px;
-}
-
-
-/* =========================================================
-   CONTENEDOR DE CAMPOS
-   ========================================================= */
-
-.trabajadores-filtros-grid {
   display: grid;
 
   grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+    minmax(240px, 2fr)
+    repeat(3, minmax(150px, 1fr));
 
-  gap: 15px;
+  gap: 16px;
 
   align-items: end;
 }
 
 
 /* =========================================================
-   CAMPO
+   CAMPOS DEL FILTRO
    ========================================================= */
 
-.trabajadores-filtro-field {
+.trabajador-filter {
   display: flex;
 
   flex-direction: column;
 
   gap: 7px;
+
+  min-width: 0;
 }
 
-.trabajadores-filtro-field label {
+
+.trabajador-filter label {
+  display: block;
+
   color: #374151;
 
   font-size: 13px;
@@ -2409,11 +2372,12 @@ width: 100%;
   font-weight: 600;
 }
 
-.trabajadores-filtro-field input,
-.trabajadores-filtro-field select {
+
+.trabajador-filter input,
+.trabajador-filter select {
   width: 100%;
 
-  min-height: 42px;
+  height: 42px;
 
   padding: 10px 12px;
 
@@ -2437,12 +2401,20 @@ width: 100%;
     background 0.15s ease;
 }
 
-.trabajadores-filtro-field input::placeholder {
+
+.trabajador-filter input::placeholder {
   color: #9ca3af;
 }
 
-.trabajadores-filtro-field input:focus,
-.trabajadores-filtro-field select:focus {
+
+.trabajador-filter input:hover,
+.trabajador-filter select:hover {
+  border-color: #cbd5e1;
+}
+
+
+.trabajador-filter input:focus,
+.trabajador-filter select:focus {
   border-color: #2563eb;
 
   box-shadow:
@@ -2451,49 +2423,20 @@ width: 100%;
 
 
 /* =========================================================
-   ACCIONES DEL FILTRO
+   BUSCADOR
    ========================================================= */
 
-.trabajadores-filtros-actions {
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  margin-top: 18px;
-
-  padding-top: 17px;
-
-  border-top: 1px solid #f3f4f6;
+.trabajador-filter-search {
+  min-width: 0;
 }
 
 
 /* =========================================================
-   BOTÓN LIMPIAR FILTROS
+   CONTADOR DE RESULTADOS
    ========================================================= */
 
-.trabajadores-filtros .btn-secondary {
-  background: #f3f4f6;
-
-  color: #374151;
-
-  border: 1px solid #e5e7eb;
-}
-
-.trabajadores-filtros .btn-secondary:hover {
-  background: #e5e7eb;
-
-  border-color: #d1d5db;
-}
-
-
-/* =========================================================
-   RESULTADOS DEL FILTRO
-   ========================================================= */
-
-.trabajadores-filtros-resultados {
-  margin-top: 15px;
+.trabajadores-results-info {
+  margin: 0 0 15px;
 
   color: #6b7280;
 
@@ -2501,15 +2444,119 @@ width: 100%;
 }
 
 
+#trabajadoresResultados {
+  font-weight: 600;
+
+  color: #374151;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.trabajadores-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+
+.trabajadores-table {
+  width: 100%;
+
+  min-width: 850px;
+
+  border-collapse: collapse;
+
+  font-size: 14px;
+}
+
+
+.trabajadores-table thead {
+  background: #f9fafb;
+}
+
+
+.trabajadores-table th {
+  padding: 13px 15px;
+
+  text-align: left;
+
+  color: #374151;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  white-space: nowrap;
+}
+
+
+.trabajadores-table td {
+  padding: 14px 15px;
+
+  color: #4b5563;
+
+  border-bottom: 1px solid #f3f4f6;
+
+  vertical-align: middle;
+}
+
+
+.trabajadores-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+
+.trabajadores-table tbody tr {
+  transition:
+    background 0.15s ease;
+}
+
+
+.trabajadores-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+
+/* =========================================================
+   CARGANDO
+   ========================================================= */
+
+.trabajadores-table-loading {
+  padding: 35px 20px !important;
+
+  text-align: center;
+
+  color: #6b7280 !important;
+}
+
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 
-  .trabajadores-filtros-grid {
+  .trabajadores-filters {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
+  }
+
+  .trabajador-filter-search {
+    grid-column: 1 / -1;
   }
 
 }
@@ -2517,28 +2564,21 @@ width: 100%;
 
 @media (max-width: 600px) {
 
-  .trabajadores-filtros {
-    padding: 18px;
-  }
-
-  .trabajadores-filtros-header {
-    flex-direction: column;
-
-    align-items: flex-start;
-  }
-
-  .trabajadores-filtros-grid {
+  .trabajadores-filters {
     grid-template-columns: 1fr;
+
+    padding: 18px;
+
+    gap: 14px;
   }
 
-  .trabajadores-filtros-actions {
-    flex-direction: column;
-
-    align-items: stretch;
+  .trabajador-filter-search {
+    grid-column: auto;
   }
 
-  .trabajadores-filtros-actions .btn {
-    width: 100%;
+  .trabajador-filter input,
+  .trabajador-filter select {
+    height: 44px;
   }
 
 }
