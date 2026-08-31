@@ -2582,3 +2582,622 @@ width: 100%;
   }
 
 }
+
+
+/* =========================================================
+   MODAL - FICHA DEL TRABAJADOR
+   ========================================================= */
+
+.trabajador-modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+}
+
+
+.trabajador-modal[hidden] {
+  display: none;
+}
+
+
+/* =========================================================
+   FONDO DEL MODAL
+   ========================================================= */
+
+.trabajador-modal-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.48);
+
+  backdrop-filter: blur(2px);
+}
+
+
+/* =========================================================
+   CONTENIDO DEL MODAL
+   ========================================================= */
+
+.trabajador-modal-content {
+  position: relative;
+
+  z-index: 1;
+
+  width: 100%;
+
+  max-width: 650px;
+
+  max-height: calc(100vh - 50px);
+
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.18);
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+.trabajador-modal-header {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 24px 26px 20px;
+
+  border-bottom: 1px solid #eef0f3;
+}
+
+
+.trabajador-modal-eyebrow {
+  margin: 0 0 6px;
+
+  color: #6b7280;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+}
+
+
+.trabajador-modal-header h2 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 22px;
+
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   BOTÓN CERRAR
+   ========================================================= */
+
+.trabajador-modal-close {
+  flex-shrink: 0;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 8px;
+
+  background: #f9fafb;
+
+  color: #6b7280;
+
+  font-family: inherit;
+
+  font-size: 22px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+
+.trabajador-modal-close:hover {
+  background: #f3f4f6;
+
+  border-color: #d1d5db;
+
+  color: #111827;
+}
+
+
+/* =========================================================
+   CUERPO
+   ========================================================= */
+
+.trabajador-modal-body {
+  padding: 25px 26px;
+}
+
+
+/* =========================================================
+   FICHA
+   ========================================================= */
+
+.trabajador-ficha {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+
+.trabajador-ficha-item {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  padding: 15px 16px;
+
+  background: #f9fafb;
+
+  border: 1px solid #eef0f3;
+
+  border-radius: 10px;
+}
+
+
+.trabajador-ficha-item span {
+  color: #6b7280;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+.trabajador-ficha-item strong {
+  min-width: 0;
+
+  color: #374151;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   ESTADO DE LA FICHA
+   ========================================================= */
+
+.trabajador-ficha-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  width: fit-content;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 12px !important;
+
+  font-weight: 700 !important;
+}
+
+
+.trabajador-ficha-status-active {
+  background: #dcfce7;
+
+  color: #166534 !important;
+}
+
+
+.trabajador-ficha-status-inactive {
+  background: #fee2e2;
+
+  color: #991b1b !important;
+}
+
+
+/* =========================================================
+   EDICIÓN
+   ========================================================= */
+
+.trabajador-edicion {
+  margin-top: 22px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid #eef0f3;
+}
+
+
+.trabajador-edicion-header {
+  margin-bottom: 20px;
+}
+
+
+.trabajador-edicion-header h3 {
+  margin: 0 0 6px;
+
+  color: #111827;
+
+  font-size: 18px;
+
+  font-weight: 700;
+}
+
+
+.trabajador-edicion-header p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULARIO DE EDICIÓN
+   ========================================================= */
+
+.trabajador-edit-form {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px 24px;
+}
+
+
+.trabajador-edit-form .trabajador-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.trabajador-edit-form .trabajador-field label {
+  color: #374151;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+
+.trabajador-edit-form .trabajador-field input {
+  width: 100%;
+
+  min-height: 44px;
+
+  padding: 10px 13px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+
+.trabajador-edit-form .trabajador-field input:hover {
+  border-color: #9ca3af;
+}
+
+
+.trabajador-edit-form .trabajador-field input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   MENSAJE DE EDICIÓN
+   ========================================================= */
+
+#editarMessage {
+  margin: 18px 0 0;
+}
+
+
+/* =========================================================
+   ACCIONES DEL MODAL
+   ========================================================= */
+
+.trabajador-modal-actions {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding: 18px 26px 22px;
+
+  border-top: 1px solid #eef0f3;
+}
+
+
+.trabajador-modal-actions .btn {
+  min-height: 40px;
+
+  padding: 9px 15px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   BOTÓN EDITAR
+   ========================================================= */
+
+#editarTrabajadorButton {
+  background: #f3f4f6;
+
+  color: #374151;
+
+  border: 1px solid #e5e7eb;
+}
+
+
+#editarTrabajadorButton:hover {
+  background: #e5e7eb;
+
+  border-color: #d1d5db;
+
+  color: #111827;
+}
+
+
+/* =========================================================
+   BOTÓN GUARDAR
+   ========================================================= */
+
+#guardarTrabajadorButton {
+  background: #2563eb;
+
+  color: #ffffff;
+
+  border: 1px solid #2563eb;
+
+  box-shadow:
+    0 2px 5px rgba(37, 99, 235, 0.15);
+}
+
+
+#guardarTrabajadorButton:hover {
+  background: #1d4ed8;
+
+  border-color: #1d4ed8;
+
+  box-shadow:
+    0 4px 10px rgba(37, 99, 235, 0.18);
+}
+
+
+/* =========================================================
+   BOTÓN CANCELAR
+   ========================================================= */
+
+#cancelarEdicionButton {
+  background: #ffffff;
+
+  color: #374151;
+
+  border: 1px solid #d1d5db;
+}
+
+
+#cancelarEdicionButton:hover {
+  background: #f9fafb;
+
+  border-color: #9ca3af;
+}
+
+
+/* =========================================================
+   BOTÓN CERRAR
+   ========================================================= */
+
+#cerrarFichaButton {
+  background: #ffffff;
+
+  color: #374151;
+
+  border: 1px solid #d1d5db;
+}
+
+
+#cerrarFichaButton:hover {
+  background: #f9fafb;
+
+  border-color: #9ca3af;
+}
+
+
+/* =========================================================
+   ESTADO DESHABILITADO
+   ========================================================= */
+
+.trabajador-modal-actions .btn:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   BLOQUEO DEL SCROLL
+   ========================================================= */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   RESPONSIVE - MODAL
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .trabajador-modal {
+    padding: 15px;
+  }
+
+
+  .trabajador-modal-content {
+    max-height: calc(100vh - 30px);
+
+    border-radius: 14px;
+  }
+
+
+  .trabajador-modal-header {
+    padding: 20px 20px 17px;
+  }
+
+
+  .trabajador-modal-body {
+    padding: 20px;
+  }
+
+
+  .trabajador-ficha {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+
+  .trabajador-edit-form {
+    grid-template-columns: 1fr;
+
+    gap: 17px;
+  }
+
+
+  .trabajador-modal-actions {
+    flex-wrap: wrap;
+
+    padding: 16px 20px 20px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .trabajador-modal {
+    padding: 10px;
+  }
+
+
+  .trabajador-modal-content {
+    max-height: calc(100vh - 20px);
+  }
+
+
+  .trabajador-modal-header {
+    padding: 18px;
+  }
+
+
+  .trabajador-modal-body {
+    padding: 18px;
+  }
+
+
+  .trabajador-modal-header h2 {
+    font-size: 20px;
+  }
+
+
+  .trabajador-modal-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 15px 18px 18px;
+  }
+
+
+  .trabajador-modal-actions .btn {
+    width: 100%;
+  }
+
+}
