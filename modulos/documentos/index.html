@@ -66,115 +66,162 @@
 
 
 
-  <!-- =====================================================
+    <!-- =====================================================
        CONTENIDO
        ===================================================== -->
 
-  <main class="portal-container">
+  <main class="portal-container documentos-page">
+
+
+    <!-- ===================================================
+         CABECERA DEL MÓDULO
+         =================================================== -->
+
+    <section class="documentos-welcome">
+
+      <h2>
+        Gestión de documentos
+      </h2>
+
+      <p>
+        Sube, consulta y gestiona la documentación de tus clientes.
+      </p>
+
+    </section>
+
 
 
     <!-- ===================================================
          SUBIR DOCUMENTO
          =================================================== -->
 
-    <section class="dashboard-section">
+    <section class="dashboard-section documentos-upload-section">
 
-      <h2>
-        Subir documento
-      </h2>
-
-
-      <form id="formDocumento">
-
-
-        <!-- CLIENTE -->
+      <div class="documentos-section-header">
 
         <div>
 
-          <label for="clienteId">
-            Cliente
-          </label>
+          <h2>
+            Subir documento
+          </h2>
 
-          <select
-            id="clienteId"
-            required
-          >
-
-            <option value="">
-              Cargando clientes...
-            </option>
-
-          </select>
+          <p>
+            Añade un nuevo documento asociado a uno de tus clientes.
+          </p>
 
         </div>
 
-
-        <!-- NOMBRE -->
-
-        <div>
-
-          <label for="nombreDocumento">
-            Nombre del documento
-          </label>
-
-          <input
-            type="text"
-            id="nombreDocumento"
-            required
-          >
-
-        </div>
+      </div>
 
 
-        <!-- TIPO -->
+      <div class="documento-form-card">
 
-        <div>
+        <form id="formDocumento">
 
-          <label for="tipoDocumento">
-            Tipo
-          </label>
-
-          <input
-            type="text"
-            id="tipoDocumento"
-            placeholder="Ej.: Factura, contrato, nómina..."
-            required
-          >
-
-        </div>
+          <div class="documento-form-grid">
 
 
-        <!-- ARCHIVO -->
+            <!-- CLIENTE -->
 
-        <div>
+            <div class="documento-field">
 
-          <label for="archivoDocumento">
-            Archivo
-          </label>
+              <label for="clienteId">
+                Cliente
+              </label>
 
-          <input
-            type="file"
-            id="archivoDocumento"
-            required
-          >
+              <select
+                id="clienteId"
+                required
+              >
 
-        </div>
+                <option value="">
+                  Cargando clientes...
+                </option>
 
+              </select>
 
-        <!-- BOTÓN -->
-
-        <button
-          type="submit"
-          id="subirDocumento"
-          class="btn"
-        >
-          Subir documento
-        </button>
+            </div>
 
 
-        <p id="formMessage"></p>
+            <!-- NOMBRE -->
 
-      </form>
+            <div class="documento-field">
+
+              <label for="nombreDocumento">
+                Nombre del documento
+              </label>
+
+              <input
+                type="text"
+                id="nombreDocumento"
+                placeholder="Ej.: Contrato de prestación de servicios"
+                required
+              >
+
+            </div>
+
+
+            <!-- TIPO -->
+
+            <div class="documento-field">
+
+              <label for="tipoDocumento">
+                Tipo de documento
+              </label>
+
+              <input
+                type="text"
+                id="tipoDocumento"
+                placeholder="Ej.: Factura, contrato, nómina..."
+                required
+              >
+
+            </div>
+
+
+            <!-- ARCHIVO -->
+
+            <div class="documento-field">
+
+              <label for="archivoDocumento">
+                Archivo
+              </label>
+
+              <input
+                type="file"
+                id="archivoDocumento"
+                required
+              >
+
+            </div>
+
+
+          </div>
+
+
+          <!-- ACCIONES -->
+
+          <div class="documento-form-actions">
+
+            <button
+              type="submit"
+              id="subirDocumento"
+              class="btn documento-upload-button"
+            >
+              Subir documento
+            </button>
+
+          </div>
+
+
+          <p
+            id="formMessage"
+            class="documento-form-message"
+          ></p>
+
+        </form>
+
+      </div>
 
     </section>
 
@@ -184,30 +231,52 @@
          LISTADO
          =================================================== -->
 
-    <section class="dashboard-section">
-
-      <h2>
-        Documentos
-      </h2>
+    <section class="dashboard-section documentos-list-section">
 
 
-      <button
-        id="recargarDocumentos"
-        class="btn"
-        type="button"
-      >
-        Recargar documentos
-      </button>
+      <div class="documentos-section-header documentos-list-header">
+
+        <div>
+
+          <h2>
+            Documentos
+          </h2>
+
+          <p>
+            Consulta y gestiona los documentos disponibles.
+          </p>
+
+        </div>
 
 
-      <p id="listadoMessage"></p>
-
-
-      <div id="documentosContainer">
-
-        Cargando documentos...
+        <button
+          id="recargarDocumentos"
+          class="btn documentos-reload-button"
+          type="button"
+        >
+          Recargar documentos
+        </button>
 
       </div>
+
+
+      <p
+        id="listadoMessage"
+        class="documentos-list-message"
+      ></p>
+
+
+      <div
+        id="documentosContainer"
+        class="documentos-grid"
+      >
+
+        <div class="documentos-loading">
+          Cargando documentos...
+        </div>
+
+      </div>
+
 
     </section>
 
