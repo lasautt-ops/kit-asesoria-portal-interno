@@ -1,15 +1,16 @@
-
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Documentos - Gestión Interna</title>
 
@@ -20,9 +21,7 @@
 
 </head>
 
-
 <body>
-
 
   <!-- =====================================================
        CABECERA
@@ -30,42 +29,42 @@
 
   <header class="portal-header">
 
-    <div class="portal-header-left">
+```
+<div class="portal-header-left">
 
-      <h1>
-        Documentos
-      </h1>
+  <h1>
+    Documentos
+  </h1>
 
-      <p id="usuarioCabecera">
-        Cargando...
-      </p>
+  <p id="usuarioCabecera">
+    Cargando...
+  </p>
 
-    </div>
-
-
-    <div class="portal-header-right">
-
-      <a
-        href="../../index.html"
-        class="btn"
-      >
-        ← Volver al portal
-      </a>
+</div>
 
 
-      <button
-        id="cerrarSesion"
-        class="btn btn-danger"
-        type="button"
-      >
-        Cerrar sesión
-      </button>
+<div class="portal-header-right">
 
-    </div>
+  <a
+    href="../../index.html"
+    class="btn"
+  >
+    ← Volver al portal
+  </a>
+
+
+  <button
+    id="cerrarSesion"
+    class="btn btn-danger"
+    type="button"
+  >
+    Cerrar sesión
+  </button>
+
+</div>
+```
 
   </header>
-
-
 
   <!-- =====================================================
        CONTENIDO
@@ -73,158 +72,159 @@
 
   <main class="portal-container documentos-page">
 
+```
+<!-- ===================================================
+     CABECERA DEL MÓDULO
+     =================================================== -->
 
-    <!-- ===================================================
-         CABECERA DEL MÓDULO
-         =================================================== -->
+<section class="documentos-welcome">
 
-    <section class="documentos-welcome">
+  <h2>
+    Gestión de documentos
+  </h2>
+
+  <p>
+    Sube, consulta y gestiona la documentación de tus clientes.
+  </p>
+
+</section>
+
+
+
+<!-- ===================================================
+     SUBIR DOCUMENTO
+     =================================================== -->
+
+<section class="dashboard-section documentos-upload-section">
+
+  <div class="documentos-section-header">
+
+    <div>
 
       <h2>
-        Gestión de documentos
+        Subir documento
       </h2>
 
       <p>
-        Sube, consulta y gestiona la documentación de tus clientes.
+        Añade un nuevo documento asociado a uno de tus clientes.
       </p>
 
-    </section>
+    </div>
+
+  </div>
 
 
+  <div class="documento-form-card">
 
-    <!-- ===================================================
-         SUBIR DOCUMENTO
-         =================================================== -->
+    <form id="formDocumento">
 
-    <section class="dashboard-section documentos-upload-section">
+      <div class="documento-form-grid">
 
-      <div class="documentos-section-header">
 
-        <div>
+        <!-- CLIENTE -->
 
-          <h2>
-            Subir documento
-          </h2>
+        <div class="documento-field">
 
-          <p>
-            Añade un nuevo documento asociado a uno de tus clientes.
-          </p>
+          <label for="clienteId">
+            Cliente
+          </label>
+
+          <select
+            id="clienteId"
+            required
+          >
+
+            <option value="">
+              Cargando clientes...
+            </option>
+
+          </select>
 
         </div>
 
+
+        <!-- NOMBRE -->
+
+        <div class="documento-field">
+
+          <label for="nombreDocumento">
+            Nombre del documento
+          </label>
+
+          <input
+            type="text"
+            id="nombreDocumento"
+            placeholder="Ej.: Contrato de prestación de servicios"
+            required
+          >
+
+        </div>
+
+
+        <!-- TIPO -->
+
+        <div class="documento-field">
+
+          <label for="tipoDocumento">
+            Tipo de documento
+          </label>
+
+          <input
+            type="text"
+            id="tipoDocumento"
+            placeholder="Ej.: Factura, contrato, nómina..."
+            required
+          >
+
+        </div>
+
+
+        <!-- ARCHIVO -->
+
+        <div class="documento-field">
+
+          <label for="archivoDocumento">
+            Archivo
+          </label>
+
+          <input
+            type="file"
+            id="archivoDocumento"
+            required
+          >
+
+        </div>
+
+
       </div>
 
 
-      <div class="documento-form-card">
+      <!-- ACCIONES -->
 
-        <form id="formDocumento">
+      <div class="documento-form-actions">
 
-          <div class="documento-form-grid">
-
-
-            <!-- CLIENTE -->
-
-            <div class="documento-field">
-
-              <label for="clienteId">
-                Cliente
-              </label>
-
-              <select
-                id="clienteId"
-                required
-              >
-
-                <option value="">
-                  Cargando clientes...
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <!-- NOMBRE -->
-
-            <div class="documento-field">
-
-              <label for="nombreDocumento">
-                Nombre del documento
-              </label>
-
-              <input
-                type="text"
-                id="nombreDocumento"
-                placeholder="Ej.: Contrato de prestación de servicios"
-                required
-              >
-
-            </div>
-
-
-            <!-- TIPO -->
-
-            <div class="documento-field">
-
-              <label for="tipoDocumento">
-                Tipo de documento
-              </label>
-
-              <input
-                type="text"
-                id="tipoDocumento"
-                placeholder="Ej.: Factura, contrato, nómina..."
-                required
-              >
-
-            </div>
-
-
-            <!-- ARCHIVO -->
-
-            <div class="documento-field">
-
-              <label for="archivoDocumento">
-                Archivo
-              </label>
-
-              <input
-                type="file"
-                id="archivoDocumento"
-                required
-              >
-
-            </div>
-
-
-          </div>
-
-
-          <!-- ACCIONES -->
-
-          <div class="documento-form-actions">
-
-            <button
-              type="submit"
-              id="subirDocumento"
-              class="btn documento-upload-button"
-            >
-              Subir documento
-            </button>
-
-          </div>
-
-
-          <p
-            id="formMessage"
-            class="documento-form-message"
-          ></p>
-
-        </form>
+        <button
+          type="submit"
+          id="subirDocumento"
+          class="btn documento-upload-button"
+        >
+          Subir documento
+        </button>
 
       </div>
 
-    </section>
+
+      <p
+        id="formMessage"
+        class="documento-form-message"
+      ></p>
+
+    </form>
+
+  </div>
+
+</section>
+
 
 
 <!-- ===================================================
@@ -351,12 +351,10 @@
   </p>
 
 
-
   <p
     id="listadoMessage"
     class="documentos-list-message"
   ></p>
-
 
 
   <div
@@ -372,11 +370,9 @@
 
 
 </section>
-
+```
 
   </main>
-
-
 
   <!-- =====================================================
        PIE
@@ -384,19 +380,17 @@
 
   <footer class="portal-footer">
 
-    Kit Gestión Asesoría · Gestión Interna
+```
+Kit Gestión Asesoría · Gestión Interna
+```
 
   </footer>
-
-
 
   <!-- =====================================================
        JAVASCRIPT COMÚN
        ===================================================== -->
 
   <script src="../../js/comun.js"></script>
-
-
 
   <!-- =====================================================
        JAVASCRIPT DEL MÓDULO
@@ -462,6 +456,120 @@
 
 
     // =====================================================
+    // CARGAR CLIENTES
+    // =====================================================
+
+    async function cargarClientes() {
+
+      const select =
+        document.getElementById(
+          "clienteId"
+        );
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/clientes",
+            {
+              method: "GET"
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          select.innerHTML =
+            `<option value="">
+              No se han podido cargar los clientes
+            </option>`;
+
+          return;
+
+        }
+
+
+        todosLosClientes =
+          Array.isArray(
+            datos.clientes
+          )
+            ? datos.clientes
+            : [];
+
+
+        if (
+          todosLosClientes.length === 0
+        ) {
+
+          select.innerHTML =
+            `<option value="">
+              No hay clientes disponibles
+            </option>`;
+
+          return;
+
+        }
+
+
+        select.innerHTML =
+          `<option value="">
+            Selecciona un cliente
+          </option>`;
+
+
+        todosLosClientes.forEach(
+          (cliente) => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              cliente.id;
+
+
+            option.textContent =
+              `${cliente.nombre} · ${cliente.email || ""}`;
+
+
+            select.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando clientes:",
+          error
+        );
+
+
+        select.innerHTML =
+          `<option value="">
+            Error cargando clientes
+          </option>`;
+
+      }
+
+    }
+
+
+
+    // =====================================================
     // CARGAR EMPRESAS
     // =====================================================
 
@@ -493,9 +601,20 @@
           !datos.ok
         ) {
 
+          select.innerHTML =
+            `<option value="">
+              No se han podido cargar las empresas
+            </option>`;
+
           return;
 
         }
+
+
+        select.innerHTML =
+          `<option value="">
+            Todas las empresas
+          </option>`;
 
 
         if (
@@ -533,6 +652,7 @@
           }
         );
 
+
       } catch (error) {
 
         console.error(
@@ -540,614 +660,61 @@
           error
         );
 
-      }
 
-    }
-
-
-// =====================================================
-// FILTROS
-// =====================================================
-
-let empresas = [];
-
-let oficinas = [];
-
-let clientes = [];
-
-let documentos = [];
-
-
-
-// =====================================================
-// CARGAR EMPRESAS
-// =====================================================
-
-async function cargarEmpresas() {
-
-  const select =
-    document.getElementById(
-      "filtroEmpresa"
-    );
-
-
-  try {
-
-    const respuesta =
-      await peticionAPI(
-        "/api/empresas",
-        {
-          method: "GET"
-        }
-      );
-
-
-    const datos =
-      await respuesta.json();
-
-
-    if (
-      !respuesta.ok ||
-      !datos.ok
-    ) {
-
-      select.innerHTML =
-        `<option value="">
-          No se han podido cargar las empresas
-        </option>`;
-
-      return;
-    }
-
-
-    empresas =
-      Array.isArray(
-        datos.empresas
-      )
-        ? datos.empresas
-        : [];
-
-
-    select.innerHTML =
-      `<option value="">
-        Todas las empresas
-      </option>`;
-
-
-    empresas.forEach(
-      (empresa) => {
-
-        const option =
-          document.createElement(
-            "option"
-          );
-
-
-        option.value =
-          empresa.id;
-
-
-        option.textContent =
-          empresa.nombre;
-
-
-        select.appendChild(
-          option
-        );
+        select.innerHTML =
+          `<option value="">
+            Error cargando empresas
+          </option>`;
 
       }
-    );
 
-
-  } catch (error) {
-
-    console.error(
-      "Error cargando empresas:",
-      error
-    );
-
-
-    select.innerHTML =
-      `<option value="">
-        Error cargando empresas
-      </option>`;
-
-  }
-
-}
-
-
-
-// =====================================================
-// CARGAR OFICINAS
-// =====================================================
-
-async function cargarOficinas(
-  empresaId
-) {
-
-  const select =
-    document.getElementById(
-      "filtroOficina"
-    );
-
-
-  const clienteSelect =
-    document.getElementById(
-      "filtroCliente"
-    );
-
-
-  select.innerHTML =
-    `<option value="">
-      Todas las oficinas
-    </option>`;
-
-
-  clienteSelect.innerHTML =
-    `<option value="">
-      Todos los clientes
-    </option>`;
-
-
-  select.disabled =
-    true;
-
-
-  clienteSelect.disabled =
-    true;
-
-
-  if (!empresaId) {
-
-    aplicarFiltros();
-
-    return;
-  }
-
-
-  try {
-
-    const respuesta =
-      await peticionAPI(
-        `/api/empresas/${empresaId}/oficinas`,
-        {
-          method: "GET"
-        }
-      );
-
-
-    const datos =
-      await respuesta.json();
-
-
-    if (
-      !respuesta.ok ||
-      !datos.ok
-    ) {
-
-      select.innerHTML =
-        `<option value="">
-          No se han podido cargar las oficinas
-        </option>`;
-
-      aplicarFiltros();
-
-      return;
     }
 
-
-    oficinas =
-      Array.isArray(
-        datos.oficinas
-      )
-        ? datos.oficinas
-        : [];
-
-
-    oficinas.forEach(
-      (oficina) => {
-
-        const option =
-          document.createElement(
-            "option"
-          );
-
-
-        option.value =
-          oficina.id;
-
-
-        option.textContent =
-          oficina.nombre;
-
-
-        select.appendChild(
-          option
-        );
-
-      }
-    );
-
-
-    select.disabled =
-      false;
-
-
-    aplicarFiltros();
-
-
-  } catch (error) {
-
-    console.error(
-      "Error cargando oficinas:",
-      error
-    );
-
-
-    select.innerHTML =
-      `<option value="">
-        Error cargando oficinas
-      </option>`;
-
-    aplicarFiltros();
-
-  }
-
-}
-
-
-
-// =====================================================
-// CARGAR CLIENTES DEL FILTRO
-// =====================================================
-
-async function cargarClientesFiltro(
-  empresaId,
-  oficinaId
-) {
-
-  const select =
-    document.getElementById(
-      "filtroCliente"
-    );
-
-
-  select.innerHTML =
-    `<option value="">
-      Todos los clientes
-    </option>`;
-
-
-  select.disabled =
-    true;
-
-
-  if (
-    !empresaId ||
-    !oficinaId
-  ) {
-
-    aplicarFiltros();
-
-    return;
-  }
-
-
-  try {
-
-    const respuesta =
-      await peticionAPI(
-        "/api/clientes",
-        {
-          method: "GET"
-        }
-      );
-
-
-    const datos =
-      await respuesta.json();
-
-
-    if (
-      !respuesta.ok ||
-      !datos.ok
-    ) {
-
-      select.innerHTML =
-        `<option value="">
-          No se han podido cargar los clientes
-        </option>`;
-
-      aplicarFiltros();
-
-      return;
-    }
-
-
-    clientes =
-      Array.isArray(
-        datos.clientes
-      )
-        ? datos.clientes
-        : [];
-
-
-    const clientesFiltrados =
-      clientes.filter(
-        (cliente) => {
-
-          return (
-            cliente.empresaId === empresaId &&
-            cliente.oficinaId === oficinaId
-          );
-
-        }
-      );
-
-
-    clientesFiltrados.forEach(
-      (cliente) => {
-
-        const option =
-          document.createElement(
-            "option"
-          );
-
-
-        option.value =
-          cliente.id;
-
-
-        option.textContent =
-          `${cliente.nombre} · ${cliente.email}`;
-
-
-        select.appendChild(
-          option
-        );
-
-      }
-    );
-
-
-    select.disabled =
-      false;
-
-
-    aplicarFiltros();
-
-
-  } catch (error) {
-
-    console.error(
-      "Error cargando clientes del filtro:",
-      error
-    );
-
-
-    select.innerHTML =
-      `<option value="">
-        Error cargando clientes
-      </option>`;
-
-    aplicarFiltros();
-
-  }
-
-}
-
-
-
-// =====================================================
-// APLICAR FILTROS
-// =====================================================
-
-function aplicarFiltros() {
-
-  const empresaId =
-    document.getElementById(
-      "filtroEmpresa"
-    ).value;
-
-
-  const oficinaId =
-    document.getElementById(
-      "filtroOficina"
-    ).value;
-
-
-  const clienteId =
-    document.getElementById(
-      "filtroCliente"
-    ).value;
-
-
-  const filtrados =
-    documentos.filter(
-      (documento) => {
-
-        const cliente =
-          documento.cliente;
-
-
-        if (
-          empresaId &&
-          cliente?.empresaId !== empresaId
-        ) {
-
-          return false;
-        }
-
-
-        if (
-          oficinaId &&
-          cliente?.oficinaId !== oficinaId
-        ) {
-
-          return false;
-        }
-
-
-        if (
-          clienteId &&
-          cliente?.id !== clienteId
-        ) {
-
-          return false;
-        }
-
-
-        return true;
-
-      }
-    );
-
-
-  renderizarDocumentos(
-    filtrados
-  );
-
-
-  const resultados =
-    document.getElementById(
-      "documentosResultados"
-    );
-
-
-  if (
-    !empresaId &&
-    !oficinaId &&
-    !clienteId
-  ) {
-
-    resultados.textContent =
-      `${documentos.length} documento${
-        documentos.length === 1
-          ? ""
-          : "s"
-      }`;
-
-    return;
-  }
-
-
-  resultados.textContent =
-    `${filtrados.length} documento${
-      filtrados.length === 1
-        ? ""
-        : "s"
-    } encontrado${
-      filtrados.length === 1
-        ? ""
-        : "s"
-    }`;
-
-}
-
-
-
-// =====================================================
-// EVENTO EMPRESA
-// =====================================================
-
-document
-  .getElementById(
-    "filtroEmpresa"
-  )
-  .addEventListener(
-    "change",
-    async (event) => {
-
-      const empresaId =
-        event.target.value;
-
-
-      await cargarOficinas(
-        empresaId
-      );
-
-    }
-  );
-
-
-
-// =====================================================
-// EVENTO OFICINA
-// =====================================================
-
-document
-  .getElementById(
-    "filtroOficina"
-  )
-  .addEventListener(
-    "change",
-    async (event) => {
-
-      const empresaId =
-        document.getElementById(
-          "filtroEmpresa"
-        ).value;
-
-
-      const oficinaId =
-        event.target.value;
-
-
-      await cargarClientesFiltro(
-        empresaId,
-        oficinaId
-      );
-
-    }
-  );
-
-
-
-// =====================================================
-// EVENTO CLIENTE
-// =====================================================
-
-document
-  .getElementById(
-    "filtroCliente"
-  )
-  .addEventListener(
-    "change",
-    () => {
-
-      aplicarFiltros();
-
-    }
-  );
 
 
     // =====================================================
-    // CARGAR OFICINAS
+    // CARGAR OFICINAS DE UNA EMPRESA
     // =====================================================
 
     async function cargarOficinas(
       empresaId
     ) {
 
-      const select =
+      const selectOficina =
         document.getElementById(
           "filtroOficina"
         );
 
 
-      select.innerHTML =
+      const selectCliente =
+        document.getElementById(
+          "filtroCliente"
+        );
+
+
+      selectOficina.innerHTML =
         `<option value="">
           Todas las oficinas
         </option>`;
 
 
+      selectCliente.innerHTML =
+        `<option value="">
+          Todos los clientes
+        </option>`;
+
+
+      selectOficina.disabled =
+        true;
+
+
+      selectCliente.disabled =
+        true;
+
+
       if (!empresaId) {
 
-        select.disabled =
-          true;
-
-        actualizarFiltroClientes();
+        renderizarDocumentos();
 
         return;
 
@@ -1157,14 +724,10 @@ document
       try {
 
         const respuesta =
-          await fetch(
+          await peticionAPI(
             `/api/empresas/${empresaId}/oficinas`,
             {
-              method: "GET",
-              headers: {
-                Authorization:
-                  `Bearer ${localStorage.getItem("token")}`
-              }
+              method: "GET"
             }
           );
 
@@ -1178,10 +741,12 @@ document
           !datos.ok
         ) {
 
-          select.disabled =
-            true;
+          selectOficina.innerHTML =
+            `<option value="">
+              No se han podido cargar las oficinas
+            </option>`;
 
-          actualizarFiltroClientes();
+          renderizarDocumentos();
 
           return;
 
@@ -1191,13 +756,16 @@ document
         if (
           !Array.isArray(
             datos.oficinas
-          )
+          ) ||
+          datos.oficinas.length === 0
         ) {
 
-          select.disabled =
-            true;
+          selectOficina.innerHTML =
+            `<option value="">
+              No hay oficinas disponibles
+            </option>`;
 
-          actualizarFiltroClientes();
+          renderizarDocumentos();
 
           return;
 
@@ -1221,7 +789,7 @@ document
               oficina.nombre;
 
 
-            select.appendChild(
+            selectOficina.appendChild(
               option
             );
 
@@ -1229,11 +797,12 @@ document
         );
 
 
-        select.disabled =
+        selectOficina.disabled =
           false;
 
 
-        actualizarFiltroClientes();
+        renderizarDocumentos();
+
 
       } catch (error) {
 
@@ -1242,8 +811,14 @@ document
           error
         );
 
-        select.disabled =
-          true;
+
+        selectOficina.innerHTML =
+          `<option value="">
+            Error cargando oficinas
+          </option>`;
+
+
+        renderizarDocumentos();
 
       }
 
@@ -1252,7 +827,7 @@ document
 
 
     // =====================================================
-    // ACTUALIZAR FILTRO CLIENTES
+    // ACTUALIZAR CLIENTES DEL FILTRO
     // =====================================================
 
     function actualizarFiltroClientes() {
@@ -1269,47 +844,37 @@ document
         ).value;
 
 
-      const select =
+      const selectCliente =
         document.getElementById(
           "filtroCliente"
         );
 
 
-      const valorActual =
-        select.value;
-
-
-      select.innerHTML =
+      selectCliente.innerHTML =
         `<option value="">
           Todos los clientes
         </option>`;
+
+
+      selectCliente.disabled =
+        true;
+
+
+      if (!empresaId || !oficinaId) {
+
+        return;
+
+      }
 
 
       const clientesFiltrados =
         todosLosClientes.filter(
           (cliente) => {
 
-            if (
-              empresaId &&
-              cliente.empresaId !== empresaId
-            ) {
-
-              return false;
-
-            }
-
-
-            if (
-              oficinaId &&
-              cliente.oficinaId !== oficinaId
-            ) {
-
-              return false;
-
-            }
-
-
-            return true;
+            return (
+              cliente.empresaId === empresaId &&
+              cliente.oficinaId === oficinaId
+            );
 
           }
         );
@@ -1329,10 +894,10 @@ document
 
 
           option.textContent =
-            cliente.nombre;
+            `${cliente.nombre} · ${cliente.email || ""}`;
 
 
-          select.appendChild(
+          selectCliente.appendChild(
             option
           );
 
@@ -1341,19 +906,11 @@ document
 
 
       if (
-        clientesFiltrados.some(
-          (cliente) =>
-            cliente.id === valorActual
-        )
+        clientesFiltrados.length > 0
       ) {
 
-        select.value =
-          valorActual;
-
-      } else {
-
-        select.value =
-          "";
+        selectCliente.disabled =
+          false;
 
       }
 
@@ -1423,29 +980,16 @@ document
         }
 
 
-        if (
-          !Array.isArray(
-            datos.documentos
-          ) ||
-          datos.documentos.length === 0
-        ) {
-
-          todosLosDocumentos =
-            [];
-
-
-          renderizarDocumentos();
-
-          return;
-
-        }
-
-
         todosLosDocumentos =
-          datos.documentos;
+          Array.isArray(
+            datos.documentos
+          )
+            ? datos.documentos
+            : [];
 
 
         renderizarDocumentos();
+
 
       } catch (error) {
 
@@ -1502,13 +1046,13 @@ document
         todosLosDocumentos.filter(
           (documento) => {
 
-            const documentoCliente =
+            const cliente =
               documento.cliente;
 
 
             if (
               empresaId &&
-              documentoCliente?.empresaId !== empresaId
+              cliente?.empresaId !== empresaId
             ) {
 
               return false;
@@ -1518,7 +1062,7 @@ document
 
             if (
               oficinaId &&
-              documentoCliente?.oficinaId !== oficinaId
+              cliente?.oficinaId !== oficinaId
             ) {
 
               return false;
@@ -1599,6 +1143,7 @@ document
             "documento-card";
 
 
+
           // =================================================
           // CABECERA
           // =================================================
@@ -1627,6 +1172,7 @@ document
           cardHeader.appendChild(
             titulo
           );
+
 
 
           // =================================================
@@ -1671,6 +1217,7 @@ document
 
           info.className =
             "documento-card-info";
+
 
 
           // CLIENTE
@@ -1798,9 +1345,7 @@ document
 
 
 
-          // -----------------------------------------------
           // DESCARGAR
-          // -----------------------------------------------
 
           const botonDescargar =
             document.createElement(
@@ -1836,9 +1381,7 @@ document
 
 
 
-          // -----------------------------------------------
           // ELIMINAR
-          // -----------------------------------------------
 
           if (
             usuario.rol === "SUPERADMIN" ||
@@ -1912,6 +1455,26 @@ document
             event.target.value;
 
 
+          const oficinaSelect =
+            document.getElementById(
+              "filtroOficina"
+            );
+
+
+          const clienteSelect =
+            document.getElementById(
+              "filtroCliente"
+            );
+
+
+          oficinaSelect.value =
+            "";
+
+
+          clienteSelect.value =
+            "";
+
+
           await cargarOficinas(
             empresaId
           );
@@ -1939,7 +1502,18 @@ document
         "change",
         () => {
 
+          const clienteSelect =
+            document.getElementById(
+              "filtroCliente"
+            );
+
+
+          clienteSelect.value =
+            "";
+
+
           actualizarFiltroClientes();
+
 
           renderizarDocumentos();
 
@@ -2113,6 +1687,8 @@ document
               )
               .reset();
 
+
+            await cargarClientes();
 
             await cargarDocumentos();
 
@@ -2339,9 +1915,6 @@ document
 
   </script>
 
-
 </body>
 
 </html>
-
-
