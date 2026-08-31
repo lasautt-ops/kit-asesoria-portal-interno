@@ -4512,3 +4512,84 @@ body.modal-open {
   }
 
 }
+
+/* =========================================================
+   ACCIONES DE TARJETA - DOCUMENTOS
+   ========================================================= */
+
+.documentos-grid article {
+  position: relative;
+}
+
+
+/* Contenedor visual de acciones.
+   Como el HTML actual no tiene un wrapper,
+   ajustamos los botones directamente. */
+
+.documentos-grid article button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  min-width: 0;
+
+  min-height: 34px;
+
+  margin-top: 0;
+
+  padding: 7px 12px;
+
+  border-radius: 7px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  box-shadow: none;
+}
+
+
+/* Descargar */
+
+.documentos-grid article button:not(.btn-danger) {
+  margin-top: 18px;
+
+  background: #f8fafc !important;
+
+  color: #475569 !important;
+
+  border: 1px solid #e2e8f0 !important;
+}
+
+.documentos-grid article button:not(.btn-danger):hover {
+  background: #f1f5f9 !important;
+
+  border-color: #cbd5e1 !important;
+
+  color: #1e293b !important;
+}
+
+
+/* Eliminar */
+
+.documentos-grid article button.btn-danger {
+  margin-top: 18px;
+  margin-left: 8px;
+
+  background: #fff1f2 !important;
+
+  color: #be123c !important;
+
+  border: 1px solid #fecdd3 !important;
+}
+
+.documentos-grid article button.btn-danger:hover {
+  background: #ffe4e6 !important;
+
+  border-color: #fda4af !important;
+
+  color: #9f1239 !important;
+}
