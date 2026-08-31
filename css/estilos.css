@@ -2315,3 +2315,230 @@ width: 100%;
 
 }
 
+/* =========================================================
+   FILTROS - MÓDULO TRABAJADORES
+   ========================================================= */
+
+.trabajadores-filtros {
+  width: 100%;
+
+  margin-bottom: 25px;
+
+  padding: 20px 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+
+/* =========================================================
+   CABECERA DEL FILTRO
+   ========================================================= */
+
+.trabajadores-filtros-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 18px;
+}
+
+.trabajadores-filtros-header h3 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  letter-spacing: -0.2px;
+}
+
+.trabajadores-filtros-header p {
+  margin: 4px 0 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CONTENEDOR DE CAMPOS
+   ========================================================= */
+
+.trabajadores-filtros-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+
+  align-items: end;
+}
+
+
+/* =========================================================
+   CAMPO
+   ========================================================= */
+
+.trabajadores-filtro-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.trabajadores-filtro-field label {
+  color: #374151;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.trabajadores-filtro-field input,
+.trabajadores-filtro-field select {
+  width: 100%;
+
+  min-height: 42px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.trabajadores-filtro-field input::placeholder {
+  color: #9ca3af;
+}
+
+.trabajadores-filtro-field input:focus,
+.trabajadores-filtro-field select:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   ACCIONES DEL FILTRO
+   ========================================================= */
+
+.trabajadores-filtros-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 18px;
+
+  padding-top: 17px;
+
+  border-top: 1px solid #f3f4f6;
+}
+
+
+/* =========================================================
+   BOTÓN LIMPIAR FILTROS
+   ========================================================= */
+
+.trabajadores-filtros .btn-secondary {
+  background: #f3f4f6;
+
+  color: #374151;
+
+  border: 1px solid #e5e7eb;
+}
+
+.trabajadores-filtros .btn-secondary:hover {
+  background: #e5e7eb;
+
+  border-color: #d1d5db;
+}
+
+
+/* =========================================================
+   RESULTADOS DEL FILTRO
+   ========================================================= */
+
+.trabajadores-filtros-resultados {
+  margin-top: 15px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .trabajadores-filtros-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .trabajadores-filtros {
+    padding: 18px;
+  }
+
+  .trabajadores-filtros-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .trabajadores-filtros-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trabajadores-filtros-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .trabajadores-filtros-actions .btn {
+    width: 100%;
+  }
+
+}
