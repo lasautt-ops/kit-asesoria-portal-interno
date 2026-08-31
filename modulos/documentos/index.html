@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -66,7 +67,7 @@
 
 
 
-    <!-- =====================================================
+  <!-- =====================================================
        CONTENIDO
        ===================================================== -->
 
@@ -260,11 +261,100 @@
       </div>
 
 
+
+      <!-- =================================================
+           FILTROS
+           ================================================= -->
+
+      <div class="documentos-filters">
+
+
+        <!-- EMPRESA -->
+
+        <div class="documento-filter">
+
+          <label for="filtroEmpresa">
+            Empresa
+          </label>
+
+          <select id="filtroEmpresa">
+
+            <option value="">
+              Todas las empresas
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- OFICINA -->
+
+        <div class="documento-filter">
+
+          <label for="filtroOficina">
+            Oficina
+          </label>
+
+          <select
+            id="filtroOficina"
+            disabled
+          >
+
+            <option value="">
+              Todas las oficinas
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- CLIENTE -->
+
+        <div class="documento-filter">
+
+          <label for="filtroCliente">
+            Cliente
+          </label>
+
+          <select id="filtroCliente">
+
+            <option value="">
+              Todos los clientes
+            </option>
+
+          </select>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- =================================================
+           INFORMACIÓN DE RESULTADOS
+           ================================================= -->
+
+      <p
+        id="documentosResultados"
+        class="documentos-results-info"
+      ></p>
+
+
       <p
         id="listadoMessage"
         class="documentos-list-message"
       ></p>
 
+
+
+      <!-- =================================================
+           DOCUMENTOS
+           ================================================= -->
 
       <div
         id="documentosContainer"
@@ -344,6 +434,16 @@
 
 
     // =====================================================
+    // VARIABLES
+    // =====================================================
+
+    let todosLosClientes = [];
+
+    let todosLosDocumentos = [];
+
+
+
+    // =====================================================
     // CERRAR SESIÓN
     // =====================================================
 
@@ -359,6 +459,91 @@
 
 
     // =====================================================
+    // CARGAR EMPRESAS
+    // =====================================================
+
+    async function cargarEmpresas() {
+
+      const select =
+        document.getElementById(
+          "filtroEmpresa"
+        );
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/empresas",
+            {
+              method: "GET"
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          return;
+
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.empresas
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        datos.empresas.forEach(
+          (empresa) => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              empresa.id;
+
+
+            option.textContent =
+              empresa.nombre;
+
+
+            select.appendChild(
+              option
+            );
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando empresas:",
+          error
+        );
+
+      }
+
+    }
+
+
+
+    // =====================================================
     // CARGAR CLIENTES
     // =====================================================
 
@@ -367,6 +552,12 @@
       const select =
         document.getElementById(
           "clienteId"
+        );
+
+
+      const filtroCliente =
+        document.getElementById(
+          "filtroCliente"
         );
 
 
@@ -396,6 +587,7 @@
             </option>`;
 
           return;
+
         }
 
 
@@ -412,8 +604,17 @@
             </option>`;
 
           return;
+
         }
 
+
+        todosLosClientes =
+          datos.clientes;
+
+
+        // -----------------------------------------------
+        // CLIENTE DEL FORMULARIO
+        // -----------------------------------------------
 
         select.innerHTML =
           `<option value="">
@@ -445,6 +646,13 @@
           }
         );
 
+
+        // -----------------------------------------------
+        // CLIENTE DEL FILTRO
+        // -----------------------------------------------
+
+        actualizarFiltroClientes();
+
       } catch (error) {
 
         console.error(
@@ -457,6 +665,245 @@
           `<option value="">
             Error cargando clientes
           </option>`;
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // CARGAR OFICINAS
+    // =====================================================
+
+    async function cargarOficinas(
+      empresaId
+    ) {
+
+      const select =
+        document.getElementById(
+          "filtroOficina"
+        );
+
+
+      select.innerHTML =
+        `<option value="">
+          Todas las oficinas
+        </option>`;
+
+
+      if (!empresaId) {
+
+        select.disabled =
+          true;
+
+        actualizarFiltroClientes();
+
+        return;
+
+      }
+
+
+      try {
+
+        const respuesta =
+          await fetch(
+            `/api/empresas/${empresaId}/oficinas`,
+            {
+              method: "GET",
+              headers: {
+                Authorization:
+                  `Bearer ${localStorage.getItem("token")}`
+              }
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          select.disabled =
+            true;
+
+          actualizarFiltroClientes();
+
+          return;
+
+        }
+
+
+        if (
+          !Array.isArray(
+            datos.oficinas
+          )
+        ) {
+
+          select.disabled =
+            true;
+
+          actualizarFiltroClientes();
+
+          return;
+
+        }
+
+
+        datos.oficinas.forEach(
+          (oficina) => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              oficina.id;
+
+
+            option.textContent =
+              oficina.nombre;
+
+
+            select.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+        select.disabled =
+          false;
+
+
+        actualizarFiltroClientes();
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando oficinas:",
+          error
+        );
+
+        select.disabled =
+          true;
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // ACTUALIZAR FILTRO CLIENTES
+    // =====================================================
+
+    function actualizarFiltroClientes() {
+
+      const empresaId =
+        document.getElementById(
+          "filtroEmpresa"
+        ).value;
+
+
+      const oficinaId =
+        document.getElementById(
+          "filtroOficina"
+        ).value;
+
+
+      const select =
+        document.getElementById(
+          "filtroCliente"
+        );
+
+
+      const valorActual =
+        select.value;
+
+
+      select.innerHTML =
+        `<option value="">
+          Todos los clientes
+        </option>`;
+
+
+      const clientesFiltrados =
+        todosLosClientes.filter(
+          (cliente) => {
+
+            if (
+              empresaId &&
+              cliente.empresaId !== empresaId
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              oficinaId &&
+              cliente.oficinaId !== oficinaId
+            ) {
+
+              return false;
+
+            }
+
+
+            return true;
+
+          }
+        );
+
+
+      clientesFiltrados.forEach(
+        (cliente) => {
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+
+          option.value =
+            cliente.id;
+
+
+          option.textContent =
+            cliente.nombre;
+
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
+
+
+      if (
+        clientesFiltrados.some(
+          (cliente) =>
+            cliente.id === valorActual
+        )
+      ) {
+
+        select.value =
+          valorActual;
+
+      } else {
+
+        select.value =
+          "";
 
       }
 
@@ -483,9 +930,13 @@
 
 
       container.innerHTML =
-        "Cargando documentos...";
+        `<div class="documentos-loading">
+          Cargando documentos...
+        </div>`;
 
-      message.textContent = "";
+
+      message.textContent =
+        "";
 
 
       try {
@@ -511,11 +962,14 @@
           container.innerHTML =
             "";
 
+
           message.textContent =
             datos.message ||
             "No se han podido cargar los documentos.";
 
+
           return;
+
         }
 
 
@@ -526,238 +980,22 @@
           datos.documentos.length === 0
         ) {
 
-          container.innerHTML =
-            "<p>No hay documentos disponibles.</p>";
+          todosLosDocumentos =
+            [];
+
+
+          renderizarDocumentos();
 
           return;
+
         }
 
 
-        container.innerHTML =
-          "";
+        todosLosDocumentos =
+          datos.documentos;
 
 
-        datos.documentos.forEach(
-          (documento) => {
-
-            const article =
-              document.createElement(
-                "article"
-              );
-
-
-            // =================================================
-            // NOMBRE
-            // =================================================
-
-            const titulo =
-              document.createElement(
-                "h3"
-              );
-
-
-            titulo.textContent =
-              documento.nombre ||
-              "Sin nombre";
-
-
-            // =================================================
-            // CLIENTE
-            // =================================================
-
-            const cliente =
-              document.createElement(
-                "p"
-              );
-
-
-            cliente.textContent =
-              `Cliente: ${
-                documento.cliente?.nombre ||
-                "-"
-              }`;
-
-
-            // =================================================
-            // ARCHIVO
-            // =================================================
-
-            const archivo =
-              document.createElement(
-                "p"
-              );
-
-
-            archivo.textContent =
-              `Archivo: ${
-                documento.nombreArchivo ||
-                "-"
-              }`;
-
-
-            // =================================================
-            // TIPO
-            // =================================================
-
-            const tipo =
-              document.createElement(
-                "p"
-              );
-
-
-            tipo.textContent =
-              `Tipo: ${
-                documento.tipo ||
-                "-"
-              }`;
-
-
-            // =================================================
-            // ESTADO
-            // =================================================
-
-            const estado =
-              document.createElement(
-                "p"
-              );
-
-
-            estado.textContent =
-              `Estado: ${
-                documento.estado ||
-                "-"
-              }`;
-
-
-            // =================================================
-            // FECHA
-            // =================================================
-
-            const fecha =
-              document.createElement(
-                "p"
-              );
-
-
-            fecha.textContent =
-              `Subido: ${
-                formatearFecha(
-                  documento.createdAt
-                )
-              }`;
-
-
-            // =================================================
-            // DESCARGAR
-            // =================================================
-
-            const botonDescargar =
-              document.createElement(
-                "button"
-              );
-
-
-            botonDescargar.type =
-              "button";
-
-            botonDescargar.className =
-              "btn";
-
-            botonDescargar.textContent =
-              "Descargar";
-
-
-            botonDescargar.addEventListener(
-              "click",
-              () =>
-                descargarDocumento(
-                  documento.id,
-                  documento.nombreArchivo
-                )
-            );
-
-
-            // =================================================
-            // ELIMINAR
-            // =================================================
-
-            if (
-              usuario.rol === "SUPERADMIN" ||
-              usuario.rol === "ADMIN" ||
-              usuario.rol === "DIRECTOR"
-            ) {
-
-              const botonEliminar =
-                document.createElement(
-                  "button"
-                );
-
-
-              botonEliminar.type =
-                "button";
-
-              botonEliminar.className =
-                "btn btn-danger";
-
-              botonEliminar.textContent =
-                "Eliminar";
-
-
-              botonEliminar.addEventListener(
-                "click",
-                () =>
-                  eliminarDocumento(
-                    documento.id
-                  )
-              );
-
-
-              article.appendChild(
-                botonEliminar
-              );
-
-            }
-
-
-            // =================================================
-            // CONSTRUIR DOCUMENTO
-            // =================================================
-
-            article.appendChild(
-              titulo
-            );
-
-            article.appendChild(
-              cliente
-            );
-
-            article.appendChild(
-              archivo
-            );
-
-            article.appendChild(
-              tipo
-            );
-
-            article.appendChild(
-              estado
-            );
-
-            article.appendChild(
-              fecha
-            );
-
-            article.appendChild(
-              botonDescargar
-            );
-
-
-            container.appendChild(
-              article
-            );
-
-          }
-        );
+        renderizarDocumentos();
 
       } catch (error) {
 
@@ -777,6 +1015,505 @@
       }
 
     }
+
+
+
+    // =====================================================
+    // RENDERIZAR DOCUMENTOS
+    // =====================================================
+
+    function renderizarDocumentos() {
+
+      const container =
+        document.getElementById(
+          "documentosContainer"
+        );
+
+
+      const empresaId =
+        document.getElementById(
+          "filtroEmpresa"
+        ).value;
+
+
+      const oficinaId =
+        document.getElementById(
+          "filtroOficina"
+        ).value;
+
+
+      const clienteId =
+        document.getElementById(
+          "filtroCliente"
+        ).value;
+
+
+      const documentosFiltrados =
+        todosLosDocumentos.filter(
+          (documento) => {
+
+            const documentoCliente =
+              documento.cliente;
+
+
+            if (
+              empresaId &&
+              documentoCliente?.empresaId !== empresaId
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              oficinaId &&
+              documentoCliente?.oficinaId !== oficinaId
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              clienteId &&
+              documento.clienteId !== clienteId
+            ) {
+
+              return false;
+
+            }
+
+
+            return true;
+
+          }
+        );
+
+
+      container.innerHTML =
+        "";
+
+
+      const resultados =
+        document.getElementById(
+          "documentosResultados"
+        );
+
+
+      resultados.textContent =
+        `${documentosFiltrados.length} ${
+          documentosFiltrados.length === 1
+            ? "documento"
+            : "documentos"
+        }`;
+
+
+      if (
+        documentosFiltrados.length === 0
+      ) {
+
+        container.innerHTML =
+          `<div class="documentos-empty">
+
+            <div class="documentos-empty-icon">
+              📄
+            </div>
+
+            <h3>
+              No hay documentos
+            </h3>
+
+            <p>
+              No se han encontrado documentos con los filtros seleccionados.
+            </p>
+
+          </div>`;
+
+        return;
+
+      }
+
+
+      documentosFiltrados.forEach(
+        (documento) => {
+
+          const article =
+            document.createElement(
+              "article"
+            );
+
+
+          article.className =
+            "documento-card";
+
+
+          // =================================================
+          // CABECERA
+          // =================================================
+
+          const cardHeader =
+            document.createElement(
+              "div"
+            );
+
+
+          cardHeader.className =
+            "documento-card-header";
+
+
+          const titulo =
+            document.createElement(
+              "h3"
+            );
+
+
+          titulo.textContent =
+            documento.nombre ||
+            "Sin nombre";
+
+
+          cardHeader.appendChild(
+            titulo
+          );
+
+
+          // =================================================
+          // ESTADO
+          // =================================================
+
+          const estado =
+            document.createElement(
+              "span"
+            );
+
+
+          estado.className =
+            "documento-status";
+
+
+          estado.textContent =
+            documento.estado ||
+            "-";
+
+
+          cardHeader.appendChild(
+            estado
+          );
+
+
+          article.appendChild(
+            cardHeader
+          );
+
+
+
+          // =================================================
+          // INFORMACIÓN
+          // =================================================
+
+          const info =
+            document.createElement(
+              "div"
+            );
+
+
+          info.className =
+            "documento-card-info";
+
+
+          // CLIENTE
+
+          const cliente =
+            document.createElement(
+              "p"
+            );
+
+
+          cliente.innerHTML =
+            `<span class="documento-info-label">
+              Cliente
+            </span>
+            <span>
+              ${
+                documento.cliente?.nombre ||
+                "-"
+              }
+            </span>`;
+
+
+          info.appendChild(
+            cliente
+          );
+
+
+
+          // ARCHIVO
+
+          const archivo =
+            document.createElement(
+              "p"
+            );
+
+
+          archivo.innerHTML =
+            `<span class="documento-info-label">
+              Archivo
+            </span>
+            <span>
+              ${
+                documento.nombreArchivo ||
+                "-"
+              }
+            </span>`;
+
+
+          info.appendChild(
+            archivo
+          );
+
+
+
+          // TIPO
+
+          const tipo =
+            document.createElement(
+              "p"
+            );
+
+
+          tipo.innerHTML =
+            `<span class="documento-info-label">
+              Tipo
+            </span>
+            <span>
+              ${
+                documento.tipo ||
+                "-"
+              }
+            </span>`;
+
+
+          info.appendChild(
+            tipo
+          );
+
+
+
+          // FECHA
+
+          const fecha =
+            document.createElement(
+              "p"
+            );
+
+
+          fecha.innerHTML =
+            `<span class="documento-info-label">
+              Subido
+            </span>
+            <span>
+              ${
+                formatearFecha(
+                  documento.createdAt
+                )
+              }
+            </span>`;
+
+
+          info.appendChild(
+            fecha
+          );
+
+
+          article.appendChild(
+            info
+          );
+
+
+
+          // =================================================
+          // ACCIONES
+          // =================================================
+
+          const acciones =
+            document.createElement(
+              "div"
+            );
+
+
+          acciones.className =
+            "documento-card-actions";
+
+
+
+          // -----------------------------------------------
+          // DESCARGAR
+          // -----------------------------------------------
+
+          const botonDescargar =
+            document.createElement(
+              "button"
+            );
+
+
+          botonDescargar.type =
+            "button";
+
+
+          botonDescargar.className =
+            "btn documento-download-button";
+
+
+          botonDescargar.textContent =
+            "Descargar";
+
+
+          botonDescargar.addEventListener(
+            "click",
+            () =>
+              descargarDocumento(
+                documento.id,
+                documento.nombreArchivo
+              )
+          );
+
+
+          acciones.appendChild(
+            botonDescargar
+          );
+
+
+
+          // -----------------------------------------------
+          // ELIMINAR
+          // -----------------------------------------------
+
+          if (
+            usuario.rol === "SUPERADMIN" ||
+            usuario.rol === "ADMIN" ||
+            usuario.rol === "DIRECTOR"
+          ) {
+
+            const botonEliminar =
+              document.createElement(
+                "button"
+              );
+
+
+            botonEliminar.type =
+              "button";
+
+
+            botonEliminar.className =
+              "btn btn-danger documento-delete-button";
+
+
+            botonEliminar.textContent =
+              "Eliminar";
+
+
+            botonEliminar.addEventListener(
+              "click",
+              () =>
+                eliminarDocumento(
+                  documento.id
+                )
+            );
+
+
+            acciones.appendChild(
+              botonEliminar
+            );
+
+          }
+
+
+          article.appendChild(
+            acciones
+          );
+
+
+          container.appendChild(
+            article
+          );
+
+        }
+      );
+
+    }
+
+
+
+    // =====================================================
+    // CAMBIO DE EMPRESA
+    // =====================================================
+
+    document
+      .getElementById(
+        "filtroEmpresa"
+      )
+      .addEventListener(
+        "change",
+        async (event) => {
+
+          const empresaId =
+            event.target.value;
+
+
+          await cargarOficinas(
+            empresaId
+          );
+
+
+          actualizarFiltroClientes();
+
+
+          renderizarDocumentos();
+
+        }
+      );
+
+
+
+    // =====================================================
+    // CAMBIO DE OFICINA
+    // =====================================================
+
+    document
+      .getElementById(
+        "filtroOficina"
+      )
+      .addEventListener(
+        "change",
+        () => {
+
+          actualizarFiltroClientes();
+
+          renderizarDocumentos();
+
+        }
+      );
+
+
+
+    // =====================================================
+    // CAMBIO DE CLIENTE
+    // =====================================================
+
+    document
+      .getElementById(
+        "filtroCliente"
+      )
+      .addEventListener(
+        "change",
+        () => {
+
+          renderizarDocumentos();
+
+        }
+      );
 
 
 
@@ -842,6 +1579,7 @@
               "Todos los campos son obligatorios.";
 
             return;
+
           }
 
 
@@ -911,6 +1649,7 @@
                 "No se ha podido subir el documento.";
 
               return;
+
             }
 
 
@@ -942,6 +1681,7 @@
 
             boton.disabled =
               false;
+
 
             boton.textContent =
               "Subir documento";
@@ -984,7 +1724,9 @@
             "No se ha podido descargar el documento."
           );
 
+
           return;
+
         }
 
 
@@ -1061,7 +1803,9 @@
 
 
       if (!confirmar) {
+
         return;
+
       }
 
 
@@ -1090,7 +1834,9 @@
             "No se ha podido eliminar el documento."
           );
 
+
           return;
+
         }
 
 
@@ -1134,6 +1880,8 @@
     // INICIO
     // =====================================================
 
+    cargarEmpresas();
+
     cargarClientes();
 
     cargarDocumentos();
@@ -1145,3 +1893,5 @@
 </body>
 
 </html>
+
+
