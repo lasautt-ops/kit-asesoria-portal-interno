@@ -29,7 +29,7 @@ content="width=device-width, initial-scale=1.0"
 
   <header class="portal-header">
 
-
+```
 <div class="portal-header-left">
 
   <h1>
@@ -61,7 +61,7 @@ content="width=device-width, initial-scale=1.0"
   </button>
 
 </div>
-
+```
 
   </header>
 
@@ -71,7 +71,7 @@ content="width=device-width, initial-scale=1.0"
 
   <main class="portal-container trabajadores-page">
 
-
+```
 <!-- ===================================================
      CABECERA DEL MÓDULO
      =================================================== -->
@@ -87,7 +87,6 @@ content="width=device-width, initial-scale=1.0"
   </p>
 
 </section>
-
 
 
 <!-- ===================================================
@@ -114,11 +113,6 @@ content="width=device-width, initial-scale=1.0"
 
 
   <div class="trabajador-form-card">
-
-
-    <!-- ===============================================
-         DATOS DEL TRABAJADOR
-         =============================================== -->
 
     <div class="trabajador-form-grid">
 
@@ -215,9 +209,7 @@ content="width=device-width, initial-scale=1.0"
     </div>
 
 
-    <!-- ===============================================
-         ACCIONES
-         =============================================== -->
+    <!-- ACCIONES -->
 
     <div class="trabajador-form-actions">
 
@@ -237,15 +229,13 @@ content="width=device-width, initial-scale=1.0"
       class="message trabajador-create-message"
     ></p>
 
-
   </div>
 
 </section>
 
 
-
 <!-- ===================================================
-     LISTADO DE TRABAJADORES
+     LISTADO
      =================================================== -->
 
 <section class="dashboard-section trabajadores-list-section">
@@ -277,6 +267,107 @@ content="width=device-width, initial-scale=1.0"
   </div>
 
 
+  <!-- =================================================
+       FILTROS
+       ================================================= -->
+
+  <div class="trabajadores-filters">
+
+    <!-- BUSCADOR -->
+
+    <div class="trabajador-filter trabajador-filter-search">
+
+      <label for="buscarTrabajador">
+        Buscar
+      </label>
+
+      <input
+        id="buscarTrabajador"
+        type="search"
+        placeholder="Nombre o email..."
+      >
+
+    </div>
+
+
+    <!-- EMPRESA -->
+
+    <div class="trabajador-filter">
+
+      <label for="filtroEmpresa">
+        Empresa
+      </label>
+
+      <select id="filtroEmpresa">
+
+        <option value="">
+          Todas las empresas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- OFICINA -->
+
+    <div class="trabajador-filter">
+
+      <label for="filtroOficina">
+        Oficina
+      </label>
+
+      <select id="filtroOficina">
+
+        <option value="">
+          Todas las oficinas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ESTADO -->
+
+    <div class="trabajador-filter">
+
+      <label for="filtroEstado">
+        Estado
+      </label>
+
+      <select id="filtroEstado">
+
+        <option value="">
+          Todos
+        </option>
+
+        <option value="activo">
+          Activos
+        </option>
+
+        <option value="inactivo">
+          Inactivos
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONTADOR -->
+
+  <div class="trabajadores-results-info">
+
+    <span id="trabajadoresResultados">
+      0 trabajadores
+    </span>
+
+  </div>
+
+
   <p
     id="listadoMessage"
     class="message"
@@ -284,25 +375,322 @@ content="width=device-width, initial-scale=1.0"
 
 
   <!-- =================================================
-       CONTENEDOR GENERADO POR JAVASCRIPT
+       TABLA
        ================================================= -->
 
-  <div
-    id="trabajadoresContainer"
-    class="trabajadores-grid"
-  >
+  <div class="trabajadores-table-wrapper">
 
-    <div class="trabajadores-loading">
-      Cargando trabajadores...
-    </div>
+    <table class="trabajadores-table">
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Trabajador
+          </th>
+
+          <th>
+            Email
+          </th>
+
+          <th>
+            Empresa
+          </th>
+
+          <th>
+            Oficina
+          </th>
+
+          <th>
+            Rol
+          </th>
+
+          <th>
+            Estado
+          </th>
+
+          <th>
+            Acciones
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="trabajadoresTableBody">
+
+        <tr>
+
+          <td
+            colspan="7"
+            class="trabajadores-table-loading"
+          >
+            Cargando trabajadores...
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
 
   </div>
 
 
 </section>
-
+```
 
   </main>
+
+  <!-- =====================================================
+       MODAL FICHA TRABAJADOR
+       ===================================================== -->
+
+  <div
+    id="trabajadorModal"
+    class="trabajador-modal"
+    hidden
+  >
+
+```
+<div
+  class="trabajador-modal-overlay"
+  id="trabajadorModalOverlay"
+></div>
+
+
+<div
+  class="trabajador-modal-content"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="trabajadorModalTitulo"
+>
+
+
+  <!-- CABECERA -->
+
+  <div class="trabajador-modal-header">
+
+    <div>
+
+      <p class="trabajador-modal-eyebrow">
+        Ficha del trabajador
+      </p>
+
+      <h2 id="trabajadorModalTitulo">
+        Trabajador
+      </h2>
+
+    </div>
+
+
+    <button
+      id="cerrarTrabajadorModal"
+      class="trabajador-modal-close"
+      type="button"
+      aria-label="Cerrar"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <!-- CONTENIDO -->
+
+  <div class="trabajador-modal-body">
+
+
+    <!-- INFORMACIÓN -->
+
+    <div
+      id="trabajadorFicha"
+      class="trabajador-ficha"
+    >
+
+      <div class="trabajador-ficha-item">
+
+        <span>
+          Email
+        </span>
+
+        <strong id="fichaEmail">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="trabajador-ficha-item">
+
+        <span>
+          Rol
+        </span>
+
+        <strong id="fichaRol">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="trabajador-ficha-item">
+
+        <span>
+          Empresa
+        </span>
+
+        <strong id="fichaEmpresa">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="trabajador-ficha-item">
+
+        <span>
+          Oficina
+        </span>
+
+        <strong id="fichaOficina">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="trabajador-ficha-item">
+
+        <span>
+          Estado
+        </span>
+
+        <strong id="fichaEstado">
+          -
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FORMULARIO DE EDICIÓN
+         ================================================= -->
+
+    <div
+      id="trabajadorEdicion"
+      class="trabajador-edicion"
+      hidden
+    >
+
+      <div class="trabajador-edicion-header">
+
+        <h3>
+          Editar trabajador
+        </h3>
+
+        <p>
+          Modifica los datos básicos del trabajador.
+        </p>
+
+      </div>
+
+
+      <div class="trabajador-edit-form">
+
+
+        <div class="trabajador-field">
+
+          <label for="editarNombre">
+            Nombre
+          </label>
+
+          <input
+            id="editarNombre"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="trabajador-field">
+
+          <label for="editarEmail">
+            Email
+          </label>
+
+          <input
+            id="editarEmail"
+            type="email"
+          >
+
+        </div>
+
+
+      </div>
+
+
+      <p
+        id="editarMessage"
+        class="message"
+      ></p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ACCIONES -->
+
+  <div class="trabajador-modal-actions">
+
+    <button
+      id="editarTrabajadorButton"
+      class="btn"
+      type="button"
+    >
+      Editar trabajador
+    </button>
+
+
+    <button
+      id="guardarTrabajadorButton"
+      class="btn"
+      type="button"
+      hidden
+    >
+      Guardar cambios
+    </button>
+
+
+    <button
+      id="cancelarEdicionButton"
+      class="btn"
+      type="button"
+      hidden
+    >
+      Cancelar
+    </button>
+
+
+    <button
+      id="cerrarFichaButton"
+      class="btn"
+      type="button"
+    >
+      Cerrar
+    </button>
+
+  </div>
+
+</div>
+```
+
+  </div>
 
   <!-- =====================================================
        PIE
@@ -310,9 +698,9 @@ content="width=device-width, initial-scale=1.0"
 
   <footer class="portal-footer">
 
-
+```
 Kit Gestión Asesoría · Gestión Interna
-
+```
 
   </footer>
 
@@ -383,9 +771,9 @@ Kit Gestión Asesoría · Gestión Interna
       );
 
 
-    const trabajadoresContainer =
+    const trabajadoresTableBody =
       document.getElementById(
-        "trabajadoresContainer"
+        "trabajadoresTableBody"
       );
 
 
@@ -399,6 +787,147 @@ Kit Gestión Asesoría · Gestión Interna
       document.getElementById(
         "listadoMessage"
       );
+
+
+    const buscarTrabajador =
+      document.getElementById(
+        "buscarTrabajador"
+      );
+
+
+    const filtroEmpresa =
+      document.getElementById(
+        "filtroEmpresa"
+      );
+
+
+    const filtroOficina =
+      document.getElementById(
+        "filtroOficina"
+      );
+
+
+    const filtroEstado =
+      document.getElementById(
+        "filtroEstado"
+      );
+
+
+    const trabajadoresResultados =
+      document.getElementById(
+        "trabajadoresResultados"
+      );
+
+
+    const trabajadorModal =
+      document.getElementById(
+        "trabajadorModal"
+      );
+
+
+    const trabajadorModalOverlay =
+      document.getElementById(
+        "trabajadorModalOverlay"
+      );
+
+
+    const cerrarTrabajadorModal =
+      document.getElementById(
+        "cerrarTrabajadorModal"
+      );
+
+
+    const cerrarFichaButton =
+      document.getElementById(
+        "cerrarFichaButton"
+      );
+
+
+    const editarTrabajadorButton =
+      document.getElementById(
+        "editarTrabajadorButton"
+      );
+
+
+    const guardarTrabajadorButton =
+      document.getElementById(
+        "guardarTrabajadorButton"
+      );
+
+
+    const cancelarEdicionButton =
+      document.getElementById(
+        "cancelarEdicionButton"
+      );
+
+
+    const trabajadorEdicion =
+      document.getElementById(
+        "trabajadorEdicion"
+      );
+
+
+    const editarNombre =
+      document.getElementById(
+        "editarNombre"
+      );
+
+
+    const editarEmail =
+      document.getElementById(
+        "editarEmail"
+      );
+
+
+    const editarMessage =
+      document.getElementById(
+        "editarMessage"
+      );
+
+
+    const fichaEmail =
+      document.getElementById(
+        "fichaEmail"
+      );
+
+
+    const fichaRol =
+      document.getElementById(
+        "fichaRol"
+      );
+
+
+    const fichaEmpresa =
+      document.getElementById(
+        "fichaEmpresa"
+      );
+
+
+    const fichaOficina =
+      document.getElementById(
+        "fichaOficina"
+      );
+
+
+    const fichaEstado =
+      document.getElementById(
+        "fichaEstado"
+      );
+
+
+    const trabajadorModalTitulo =
+      document.getElementById(
+        "trabajadorModalTitulo"
+      );
+
+
+    // =====================================================
+    // DATOS EN MEMORIA
+    // =====================================================
+
+    let trabajadoresActuales = [];
+
+    let trabajadorSeleccionado = null;
 
 
     // =====================================================
@@ -440,6 +969,14 @@ Kit Gestión Asesoría · Gestión Interna
           `;
 
 
+        filtroEmpresa.innerHTML =
+          `
+            <option value="">
+              Todas las empresas
+            </option>
+          `;
+
+
         datos.empresas.forEach(
           empresa => {
 
@@ -461,6 +998,25 @@ Kit Gestión Asesoría · Gestión Interna
               option
             );
 
+
+            const filtroOption =
+              document.createElement(
+                "option"
+              );
+
+
+            filtroOption.value =
+              empresa.id;
+
+
+            filtroOption.textContent =
+              empresa.nombre;
+
+
+            filtroEmpresa.appendChild(
+              filtroOption
+            );
+
           }
         );
 
@@ -474,13 +1030,14 @@ Kit Gestión Asesoría · Gestión Interna
 
         crearMessage.textContent =
           "No se ha podido conectar con el servidor.";
+
       }
+
     }
 
 
-
     // =====================================================
-    // CARGAR OFICINAS
+    // CARGAR OFICINAS PARA CREACIÓN
     // =====================================================
 
     async function cargarOficinas(
@@ -587,13 +1144,14 @@ Kit Gestión Asesoría · Gestión Interna
               Error cargando oficinas
             </option>
           `;
+
       }
+
     }
 
 
-
     // =====================================================
-    // CAMBIO DE EMPRESA
+    // CAMBIO DE EMPRESA EN CREACIÓN
     // =====================================================
 
     empresaSelect.addEventListener(
@@ -608,18 +1166,24 @@ Kit Gestión Asesoría · Gestión Interna
     );
 
 
-
     // =====================================================
     // CARGAR TRABAJADORES
     // =====================================================
 
     async function cargarTrabajadores() {
 
-      trabajadoresContainer.innerHTML =
+      trabajadoresTableBody.innerHTML =
         `
-          <div class="trabajadores-loading">
-            Cargando trabajadores...
-          </div>
+          <tr>
+
+            <td
+              colspan="7"
+              class="trabajadores-table-loading"
+            >
+              Cargando trabajadores...
+            </td>
+
+          </tr>
         `;
 
 
@@ -644,307 +1208,45 @@ Kit Gestión Asesoría · Gestión Interna
           !datos.ok
         ) {
 
-          trabajadoresContainer.innerHTML =
-            "";
+          trabajadoresActuales = [];
+
+
+          trabajadoresTableBody.innerHTML =
+            `
+              <tr>
+
+                <td
+                  colspan="7"
+                  class="trabajadores-table-empty"
+                >
+                  No se han podido cargar los trabajadores.
+                </td>
+
+              </tr>
+            `;
 
 
           listadoMessage.textContent =
             datos.message ||
             "No se han podido cargar los trabajadores.";
 
+          actualizarContador();
+
           return;
         }
 
 
-        if (
-          !Array.isArray(
+        trabajadoresActuales =
+          Array.isArray(
             datos.trabajadores
-          ) ||
-          datos.trabajadores.length === 0
-        ) {
+          )
+            ? datos.trabajadores
+            : [];
 
-          trabajadoresContainer.innerHTML =
-            `
-              <div class="trabajadores-empty">
-                <div class="trabajadores-empty-icon">
-                  👥
-                </div>
 
-                <h3>
-                  No hay trabajadores
-                </h3>
+        cargarOficinasFiltro();
 
-                <p>
-                  Todavía no hay trabajadores registrados.
-                </p>
-              </div>
-            `;
-
-          return;
-        }
-
-
-        trabajadoresContainer.innerHTML =
-          "";
-
-
-        datos.trabajadores.forEach(
-          trabajador => {
-
-            const article =
-              document.createElement(
-                "article"
-              );
-
-
-            article.className =
-              "trabajador-card";
-
-
-            // =============================================
-            // CABECERA
-            // =============================================
-
-            const cardHeader =
-              document.createElement(
-                "div"
-              );
-
-
-            cardHeader.className =
-              "trabajador-card-header";
-
-
-            const titulo =
-              document.createElement(
-                "h3"
-              );
-
-
-            titulo.textContent =
-              trabajador.usuario?.nombre ||
-              trabajador.nombre ||
-              "-";
-
-
-            const estado =
-              document.createElement(
-                "span"
-              );
-
-
-            estado.className =
-              trabajador.usuario?.activo
-                ? "trabajador-status trabajador-status-active"
-                : "trabajador-status trabajador-status-inactive";
-
-
-            estado.textContent =
-              trabajador.usuario?.activo
-                ? "Activo"
-                : "Inactivo";
-
-
-            cardHeader.appendChild(
-              titulo
-            );
-
-
-            cardHeader.appendChild(
-              estado
-            );
-
-
-            // =============================================
-            // INFORMACIÓN
-            // =============================================
-
-            const info =
-              document.createElement(
-                "div"
-              );
-
-
-            info.className =
-              "trabajador-card-info";
-
-
-            const email =
-              document.createElement(
-                "p"
-              );
-
-
-            email.innerHTML =
-              `
-                <span class="trabajador-info-label">
-                  Email
-                </span>
-
-                <span>
-                  ${
-                    trabajador.usuario?.email ||
-                    trabajador.email ||
-                    "-"
-                  }
-                </span>
-              `;
-
-
-            const rol =
-              document.createElement(
-                "p"
-              );
-
-
-            rol.innerHTML =
-              `
-                <span class="trabajador-info-label">
-                  Rol
-                </span>
-
-                <span class="trabajador-role">
-                  ${
-                    trabajador.usuario?.rol ||
-                    "-"
-                  }
-                </span>
-              `;
-
-
-            const empresa =
-              document.createElement(
-                "p"
-              );
-
-
-            empresa.innerHTML =
-              `
-                <span class="trabajador-info-label">
-                  Empresa
-                </span>
-
-                <span>
-                  ${
-                    trabajador.empresa?.nombre ||
-                    "-"
-                  }
-                </span>
-              `;
-
-
-            const oficina =
-              document.createElement(
-                "p"
-              );
-
-
-            oficina.innerHTML =
-              `
-                <span class="trabajador-info-label">
-                  Oficina
-                </span>
-
-                <span>
-                  ${
-                    trabajador.oficina?.nombre ||
-                    "-"
-                  }
-                </span>
-              `;
-
-
-            info.appendChild(
-              email
-            );
-
-
-            info.appendChild(
-              rol
-            );
-
-
-            info.appendChild(
-              empresa
-            );
-
-
-            info.appendChild(
-              oficina
-            );
-
-
-            // =============================================
-            // ACCIONES
-            // =============================================
-
-            const actions =
-              document.createElement(
-                "div"
-              );
-
-
-            actions.className =
-              "trabajador-card-actions";
-
-
-            const boton =
-              document.createElement(
-                "button"
-              );
-
-
-            boton.type =
-              "button";
-
-
-            boton.className =
-              "btn trabajador-edit-button";
-
-
-            boton.textContent =
-              "Editar trabajador";
-
-
-            boton.addEventListener(
-              "click",
-              () =>
-                editarTrabajador(
-                  trabajador
-                )
-            );
-
-
-            actions.appendChild(
-              boton
-            );
-
-
-            // =============================================
-            // CONSTRUIR TARJETA
-            // =============================================
-
-            article.appendChild(
-              cardHeader
-            );
-
-
-            article.appendChild(
-              info
-            );
-
-
-            article.appendChild(
-              actions
-            );
-
-
-            trabajadoresContainer.appendChild(
-              article
-            );
-
-          }
-        );
+        renderizarTrabajadores();
 
       } catch (error) {
 
@@ -954,15 +1256,622 @@ Kit Gestión Asesoría · Gestión Interna
         );
 
 
-        trabajadoresContainer.innerHTML =
-          "";
+        trabajadoresActuales = [];
+
+
+        trabajadoresTableBody.innerHTML =
+          `
+            <tr>
+
+              <td
+                colspan="7"
+                class="trabajadores-table-empty"
+              >
+                No se ha podido conectar con el servidor.
+              </td>
+
+            </tr>
+          `;
 
 
         listadoMessage.textContent =
           "No se ha podido conectar con el servidor.";
+
+        actualizarContador();
+
       }
+
     }
 
+
+    // =====================================================
+    // CARGAR OFICINAS DEL FILTRO
+    // =====================================================
+
+    function cargarOficinasFiltro() {
+
+      const empresaId =
+        filtroEmpresa.value;
+
+
+      filtroOficina.innerHTML =
+        `
+          <option value="">
+            Todas las oficinas
+          </option>
+        `;
+
+
+      const oficinas = [];
+
+
+      trabajadoresActuales.forEach(
+        trabajador => {
+
+          const trabajadorEmpresaId =
+            trabajador.empresa?.id;
+
+
+          const oficinaId =
+            trabajador.oficina?.id;
+
+
+          const oficinaNombre =
+            trabajador.oficina?.nombre;
+
+
+          if (
+            oficinaId &&
+            oficinaNombre &&
+            (
+              !empresaId ||
+              trabajadorEmpresaId === empresaId
+            )
+          ) {
+
+            const existe =
+              oficinas.some(
+                oficina =>
+                  oficina.id === oficinaId
+              );
+
+
+            if (!existe) {
+
+              oficinas.push({
+                id: oficinaId,
+                nombre: oficinaNombre
+              });
+
+            }
+
+          }
+
+        }
+      );
+
+
+      oficinas.sort(
+        (a, b) =>
+          a.nombre.localeCompare(
+            b.nombre,
+            "es"
+          )
+      );
+
+
+      oficinas.forEach(
+        oficina => {
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+
+          option.value =
+            oficina.id;
+
+
+          option.textContent =
+            oficina.nombre;
+
+
+          filtroOficina.appendChild(
+            option
+          );
+
+        }
+      );
+
+    }
+
+
+    // =====================================================
+    // RENDERIZAR TRABAJADORES
+    // =====================================================
+
+    function renderizarTrabajadores() {
+
+      const texto =
+        buscarTrabajador.value
+          .trim()
+          .toLowerCase();
+
+
+      const empresaId =
+        filtroEmpresa.value;
+
+
+      const oficinaId =
+        filtroOficina.value;
+
+
+      const estadoFiltro =
+        filtroEstado.value;
+
+
+      const trabajadoresFiltrados =
+        trabajadoresActuales.filter(
+          trabajador => {
+
+            const nombre =
+              (
+                trabajador.usuario?.nombre ||
+                trabajador.nombre ||
+                ""
+              ).toLowerCase();
+
+
+            const email =
+              (
+                trabajador.usuario?.email ||
+                trabajador.email ||
+                ""
+              ).toLowerCase();
+
+
+            const empresaTrabajador =
+              trabajador.empresa?.id ||
+              "";
+
+
+            const oficinaTrabajador =
+              trabajador.oficina?.id ||
+              "";
+
+
+            const activo =
+              Boolean(
+                trabajador.usuario?.activo
+              );
+
+
+            const coincideTexto =
+              !texto ||
+              nombre.includes(texto) ||
+              email.includes(texto);
+
+
+            const coincideEmpresa =
+              !empresaId ||
+              empresaTrabajador === empresaId;
+
+
+            const coincideOficina =
+              !oficinaId ||
+              oficinaTrabajador === oficinaId;
+
+
+            const coincideEstado =
+              !estadoFiltro ||
+              (
+                estadoFiltro === "activo" &&
+                activo
+              ) ||
+              (
+                estadoFiltro === "inactivo" &&
+                !activo
+              );
+
+
+            return (
+              coincideTexto &&
+              coincideEmpresa &&
+              coincideOficina &&
+              coincideEstado
+            );
+
+          }
+        );
+
+
+      actualizarContador(
+        trabajadoresFiltrados.length
+      );
+
+
+      if (
+        trabajadoresFiltrados.length === 0
+      ) {
+
+        trabajadoresTableBody.innerHTML =
+          `
+            <tr>
+
+              <td
+                colspan="7"
+                class="trabajadores-table-empty"
+              >
+
+                <div class="trabajadores-empty">
+
+                  <div class="trabajadores-empty-icon">
+                    👥
+                  </div>
+
+                  <h3>
+                    No hay trabajadores
+                  </h3>
+
+                  <p>
+                    No se han encontrado trabajadores con los filtros seleccionados.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+          `;
+
+        return;
+      }
+
+
+      trabajadoresTableBody.innerHTML =
+        "";
+
+
+      trabajadoresFiltrados.forEach(
+        trabajador => {
+
+          const tr =
+            document.createElement(
+              "tr"
+            );
+
+
+          // =================================================
+          // TRABAJADOR
+          // =================================================
+
+          const nombre =
+            trabajador.usuario?.nombre ||
+            trabajador.nombre ||
+            "-";
+
+
+          const tdNombre =
+            document.createElement(
+              "td"
+            );
+
+
+          const trabajadorNombre =
+            document.createElement(
+              "div"
+            );
+
+
+          trabajadorNombre.className =
+            "trabajador-table-name";
+
+
+          trabajadorNombre.textContent =
+            nombre;
+
+
+          tdNombre.appendChild(
+            trabajadorNombre
+          );
+
+
+          // =================================================
+          // EMAIL
+          // =================================================
+
+          const tdEmail =
+            document.createElement(
+              "td"
+            );
+
+
+          tdEmail.textContent =
+            trabajador.usuario?.email ||
+            trabajador.email ||
+            "-";
+
+
+          // =================================================
+          // EMPRESA
+          // =================================================
+
+          const tdEmpresa =
+            document.createElement(
+              "td"
+            );
+
+
+          tdEmpresa.textContent =
+            trabajador.empresa?.nombre ||
+            "-";
+
+
+          // =================================================
+          // OFICINA
+          // =================================================
+
+          const tdOficina =
+            document.createElement(
+              "td"
+            );
+
+
+          tdOficina.textContent =
+            trabajador.oficina?.nombre ||
+            "-";
+
+
+          // =================================================
+          // ROL
+          // =================================================
+
+          const tdRol =
+            document.createElement(
+              "td"
+            );
+
+
+          const rol =
+            trabajador.usuario?.rol ||
+            "-";
+
+
+          const rolBadge =
+            document.createElement(
+              "span"
+            );
+
+
+          rolBadge.className =
+            "trabajador-role-badge";
+
+
+          rolBadge.textContent =
+            rol;
+
+
+          tdRol.appendChild(
+            rolBadge
+          );
+
+
+          // =================================================
+          // ESTADO
+          // =================================================
+
+          const tdEstado =
+            document.createElement(
+              "td"
+            );
+
+
+          const activo =
+            Boolean(
+              trabajador.usuario?.activo
+            );
+
+
+          const estadoBadge =
+            document.createElement(
+              "span"
+            );
+
+
+          estadoBadge.className =
+            activo
+              ? "trabajador-status trabajador-status-active"
+              : "trabajador-status trabajador-status-inactive";
+
+
+          estadoBadge.textContent =
+            activo
+              ? "Activo"
+              : "Inactivo";
+
+
+          tdEstado.appendChild(
+            estadoBadge
+          );
+
+
+          // =================================================
+          // ACCIONES
+          // =================================================
+
+          const tdAcciones =
+            document.createElement(
+              "td"
+            );
+
+
+          const acciones =
+            document.createElement(
+              "div"
+            );
+
+
+          acciones.className =
+            "trabajador-table-actions";
+
+
+          const botonFicha =
+            document.createElement(
+              "button"
+            );
+
+
+          botonFicha.type =
+            "button";
+
+
+          botonFicha.className =
+            "btn trabajador-view-button";
+
+
+          botonFicha.textContent =
+            "Ver ficha";
+
+
+          botonFicha.addEventListener(
+            "click",
+            () =>
+              abrirFichaTrabajador(
+                trabajador
+              )
+          );
+
+
+          acciones.appendChild(
+            botonFicha
+          );
+
+
+          tdAcciones.appendChild(
+            acciones
+          );
+
+
+          // =================================================
+          // AÑADIR FILA
+          // =================================================
+
+          tr.appendChild(
+            tdNombre
+          );
+
+
+          tr.appendChild(
+            tdEmail
+          );
+
+
+          tr.appendChild(
+            tdEmpresa
+          );
+
+
+          tr.appendChild(
+            tdOficina
+          );
+
+
+          tr.appendChild(
+            tdRol
+          );
+
+
+          tr.appendChild(
+            tdEstado
+          );
+
+
+          tr.appendChild(
+            tdAcciones
+          );
+
+
+          trabajadoresTableBody.appendChild(
+            tr
+          );
+
+        }
+      );
+
+    }
+
+
+    // =====================================================
+    // CONTADOR
+    // =====================================================
+
+    function actualizarContador(
+      cantidad = trabajadoresActuales.length
+    ) {
+
+      trabajadoresResultados.textContent =
+        cantidad === 1
+          ? "1 trabajador"
+          : `${cantidad} trabajadores`;
+
+    }
+
+
+    // =====================================================
+    // FILTROS
+    // =====================================================
+
+    buscarTrabajador.addEventListener(
+      "input",
+      renderizarTrabajadores
+    );
+
+
+    filtroEmpresa.addEventListener(
+      "change",
+      () => {
+
+        const oficinaAnterior =
+          filtroOficina.value;
+
+
+        cargarOficinasFiltro();
+
+
+        const existe =
+          Array.from(
+            filtroOficina.options
+          ).some(
+            option =>
+              option.value === oficinaAnterior
+          );
+
+
+        if (existe) {
+
+          filtroOficina.value =
+            oficinaAnterior;
+
+        }
+
+
+        renderizarTrabajadores();
+
+      }
+    );
+
+
+    filtroOficina.addEventListener(
+      "change",
+      renderizarTrabajadores
+    );
+
+
+    filtroEstado.addEventListener(
+      "change",
+      renderizarTrabajadores
+    );
 
 
     // =====================================================
@@ -983,21 +1892,27 @@ Kit Gestión Asesoría · Gestión Interna
 
       const nombre =
         document
-          .getElementById("nombre")
+          .getElementById(
+            "nombre"
+          )
           .value
           .trim();
 
 
       const email =
         document
-          .getElementById("email")
+          .getElementById(
+            "email"
+          )
           .value
           .trim();
 
 
       const password =
         document
-          .getElementById("password")
+          .getElementById(
+            "password"
+          )
           .value;
 
 
@@ -1028,7 +1943,9 @@ Kit Gestión Asesoría · Gestión Interna
       }
 
 
-      if (password.length < 8) {
+      if (
+        password.length < 8
+      ) {
 
         crearMessage.textContent =
           "La contraseña debe tener al menos 8 caracteres.";
@@ -1116,6 +2033,18 @@ Kit Gestión Asesoría · Gestión Interna
           "";
 
 
+        empresaSelect.value =
+          "";
+
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+
         crearMessage.textContent =
           "Trabajador creado correctamente.";
 
@@ -1141,58 +2070,290 @@ Kit Gestión Asesoría · Gestión Interna
 
         boton.textContent =
           "Crear trabajador";
+
       }
+
     }
 
 
-
     // =====================================================
-    // EDITAR TRABAJADOR
+    // ABRIR FICHA
     // =====================================================
 
-    async function editarTrabajador(
+    function abrirFichaTrabajador(
       trabajador
     ) {
 
-      const nuevoNombre =
-        prompt(
-          "Nombre:",
-          trabajador.usuario?.nombre ||
-          trabajador.nombre ||
-          ""
-        );
+      trabajadorSeleccionado =
+        trabajador;
 
+
+      const nombre =
+        trabajador.usuario?.nombre ||
+        trabajador.nombre ||
+        "-";
+
+
+      trabajadorModalTitulo.textContent =
+        nombre;
+
+
+      fichaEmail.textContent =
+        trabajador.usuario?.email ||
+        trabajador.email ||
+        "-";
+
+
+      fichaRol.textContent =
+        trabajador.usuario?.rol ||
+        "-";
+
+
+      fichaEmpresa.textContent =
+        trabajador.empresa?.nombre ||
+        "-";
+
+
+      fichaOficina.textContent =
+        trabajador.oficina?.nombre ||
+        "-";
+
+
+      fichaEstado.textContent =
+        trabajador.usuario?.activo
+          ? "Activo"
+          : "Inactivo";
+
+
+      fichaEstado.className =
+        trabajador.usuario?.activo
+          ? "trabajador-ficha-status trabajador-ficha-status-active"
+          : "trabajador-ficha-status trabajador-ficha-status-inactive";
+
+
+      cerrarModoEdicion();
+
+
+      editarNombre.value =
+        trabajador.usuario?.nombre ||
+        trabajador.nombre ||
+        "";
+
+
+      editarEmail.value =
+        trabajador.usuario?.email ||
+        trabajador.email ||
+        "";
+
+
+      trabajadorModal.hidden =
+        false;
+
+
+      document.body.classList.add(
+        "modal-open"
+      );
+
+    }
+
+
+    // =====================================================
+    // CERRAR FICHA
+    // =====================================================
+
+    function cerrarFicha() {
+
+      trabajadorModal.hidden =
+        true;
+
+
+      trabajadorSeleccionado =
+        null;
+
+
+      document.body.classList.remove(
+        "modal-open"
+      );
+
+    }
+
+
+    cerrarTrabajadorModal.addEventListener(
+      "click",
+      cerrarFicha
+    );
+
+
+    cerrarFichaButton.addEventListener(
+      "click",
+      cerrarFicha
+    );
+
+
+    trabajadorModalOverlay.addEventListener(
+      "click",
+      cerrarFicha
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape" &&
+          !trabajadorModal.hidden
+        ) {
+
+          cerrarFicha();
+
+        }
+
+      }
+    );
+
+
+    // =====================================================
+    // ACTIVAR EDICIÓN
+    // =====================================================
+
+    editarTrabajadorButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          !trabajadorSeleccionado
+        ) {
+
+          return;
+        }
+
+
+        editarMessage.textContent =
+          "";
+
+
+        trabajadorEdicion.hidden =
+          false;
+
+
+        editarTrabajadorButton.hidden =
+          true;
+
+
+        guardarTrabajadorButton.hidden =
+          false;
+
+
+        cancelarEdicionButton.hidden =
+          false;
+
+
+        cerrarFichaButton.hidden =
+          true;
+
+
+        editarNombre.focus();
+
+      }
+    );
+
+
+    // =====================================================
+    // CANCELAR EDICIÓN
+    // =====================================================
+
+    cancelarEdicionButton.addEventListener(
+      "click",
+      cerrarModoEdicion
+    );
+
+
+    function cerrarModoEdicion() {
+
+      trabajadorEdicion.hidden =
+        true;
+
+
+      editarTrabajadorButton.hidden =
+        false;
+
+
+      guardarTrabajadorButton.hidden =
+        true;
+
+
+      cancelarEdicionButton.hidden =
+        true;
+
+
+      cerrarFichaButton.hidden =
+        false;
+
+
+      editarMessage.textContent =
+        "";
+
+    }
+
+
+    // =====================================================
+    // GUARDAR CAMBIOS
+    // =====================================================
+
+    guardarTrabajadorButton.addEventListener(
+      "click",
+      guardarCambiosTrabajador
+    );
+
+
+    async function guardarCambiosTrabajador() {
 
       if (
-        nuevoNombre === null
+        !trabajadorSeleccionado
       ) {
 
         return;
       }
+
+
+      const nuevoNombre =
+        editarNombre.value.trim();
 
 
       const nuevoEmail =
-        prompt(
-          "Email:",
-          trabajador.usuario?.email ||
-          trabajador.email ||
-          ""
-        );
+        editarEmail.value.trim();
+
+
+      editarMessage.textContent =
+        "";
 
 
       if (
-        nuevoEmail === null
+        !nuevoNombre ||
+        !nuevoEmail
       ) {
+
+        editarMessage.textContent =
+          "El nombre y el email son obligatorios.";
 
         return;
       }
+
+
+      guardarTrabajadorButton.disabled =
+        true;
+
+
+      guardarTrabajadorButton.textContent =
+        "Guardando...";
 
 
       try {
 
         const respuesta =
           await peticionAPI(
-            `/api/trabajadores/${trabajador.id}`,
+            `/api/trabajadores/${trabajadorSeleccionado.id}`,
             {
               method: "PATCH",
 
@@ -1203,10 +2364,10 @@ Kit Gestión Asesoría · Gestión Interna
 
               body: JSON.stringify({
                 nombre:
-                  nuevoNombre.trim(),
+                  nuevoNombre,
 
                 email:
-                  nuevoEmail.trim()
+                  nuevoEmail
               })
             }
           );
@@ -1221,13 +2382,15 @@ Kit Gestión Asesoría · Gestión Interna
           !datos.ok
         ) {
 
-          alert(
+          editarMessage.textContent =
             datos.message ||
-            "No se ha podido modificar el trabajador."
-          );
+            "No se ha podido modificar el trabajador.";
 
           return;
         }
+
+
+        cerrarFicha();
 
 
         await cargarTrabajadores();
@@ -1240,12 +2403,21 @@ Kit Gestión Asesoría · Gestión Interna
         );
 
 
-        alert(
-          "No se ha podido conectar con el servidor."
-        );
-      }
-    }
+        editarMessage.textContent =
+          "No se ha podido conectar con el servidor.";
 
+      } finally {
+
+        guardarTrabajadorButton.disabled =
+          false;
+
+
+        guardarTrabajadorButton.textContent =
+          "Guardar cambios";
+
+      }
+
+    }
 
 
     // =====================================================
@@ -1260,7 +2432,6 @@ Kit Gestión Asesoría · Gestión Interna
         "click",
         cargarTrabajadores
       );
-
 
 
     // =====================================================
