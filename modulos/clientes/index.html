@@ -1,15 +1,16 @@
-
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Clientes - Gestión Interna</title>
 
@@ -137,6 +138,67 @@
 
   gap: 10px;
 }
+
+
+/* =====================================================
+   ACCESO AL PORTAL DEL CLIENTE
+   ===================================================== */
+
+.cliente-acceso-portal {
+  margin-top: 8px;
+  margin-bottom: 22px;
+
+  padding: 16px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 8px;
+}
+
+
+.cliente-acceso-checkbox {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #374151;
+}
+
+
+.cliente-acceso-checkbox input {
+  width: 17px;
+  height: 17px;
+
+  margin: 0;
+
+  cursor: pointer;
+}
+
+
+#campoPasswordPortal {
+  margin-top: 16px;
+}
+
+
+#campoPasswordPortal small {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
 
 
 /* =====================================================
@@ -735,12 +797,9 @@
 }  
 </style>
 
-
 </head>
 
-
 <body>
-
 
   <!-- =====================================================
        CABECERA
@@ -748,41 +807,41 @@
 
   <header class="portal-header">
 
-    <div class="portal-header-left">
+```
+<div class="portal-header-left">
 
-      <h1>
-        Clientes
-      </h1>
+  <h1>
+    Clientes
+  </h1>
 
-      <p id="usuarioCabecera">
-        Cargando...
-      </p>
+  <p id="usuarioCabecera">
+    Cargando...
+  </p>
 
-    </div>
+</div>
 
 
-    <div class="portal-header-right">
+<div class="portal-header-right">
 
-      <a
-        href="../../index.html"
-        class="btn"
-      >
-        ← Volver al portal
-      </a>
+  <a
+    href="../../index.html"
+    class="btn"
+  >
+    ← Volver al portal
+  </a>
 
-      <button
-        id="cerrarSesion"
-        class="btn btn-danger"
-        type="button"
-      >
-        Cerrar sesión
-      </button>
+  <button
+    id="cerrarSesion"
+    class="btn btn-danger"
+    type="button"
+  >
+    Cerrar sesión
+  </button>
 
-    </div>
+</div>
+```
 
   </header>
-
-
 
   <!-- =====================================================
        CONTENIDO PRINCIPAL
@@ -790,36 +849,312 @@
 
   <main class="portal-container">
 
-
-    <!-- ===================================================
-         CABECERA DEL MÓDULO
-         =================================================== -->
-
-    <section class="welcome-section">
-
-      <h2>
-        Gestión de clientes
-      </h2>
-
-      <p>
-        Gestiona los clientes y su asignación dentro de la asesoría.
-      </p>
-
-    </section>
-
-
-
-    <!-- ===================================================
-     CREAR CLIENTE
+```
+<!-- ===================================================
+     CABECERA DEL MÓDULO
      =================================================== -->
+
+<section class="welcome-section">
+
+  <h2>
+    Gestión de clientes
+  </h2>
+
+  <p>
+    Gestiona los clientes y su asignación dentro de la asesoría.
+  </p>
+
+</section>
+
+
+
+<!-- ===================================================
+ CREAR CLIENTE
+ =================================================== -->
+```
 
 <section class="dashboard-section">
 
   <div class="form-card">
 
-    <h3>
-      Crear nuevo cliente
-    </h3>
+```
+<h3>
+  Crear nuevo cliente
+</h3>
+
+
+<div class="cliente-form-completo">
+
+  <!-- DATOS DEL CLIENTE -->
+
+  <div class="cliente-form-section-title">
+    Datos del cliente
+  </div>
+
+
+  <div class="cliente-form-grid">
+
+    <div class="cliente-form-field">
+
+      <label for="nombre">
+        Nombre:
+      </label>
+
+      <input
+        id="nombre"
+        type="text"
+        placeholder="Nombre completo"
+      >
+
+    </div>
+
+
+    <div class="cliente-form-field">
+
+      <label for="cif">
+        CIF:
+      </label>
+
+      <input
+        id="cif"
+        type="text"
+        placeholder="CIF"
+      >
+
+    </div>
+
+
+    <div class="cliente-form-field">
+
+      <label for="direccionFiscal">
+        Dirección Fiscal:
+      </label>
+
+      <input
+        id="direccionFiscal"
+        type="text"
+        placeholder="Dirección fiscal"
+      >
+
+    </div>
+
+
+    <div class="cliente-form-field">
+
+      <label for="administrador">
+        Administrador:
+      </label>
+
+      <input
+        id="administrador"
+        type="text"
+        placeholder="Nombre del administrador"
+      >
+
+    </div>
+
+
+    <div class="cliente-form-field">
+
+      <label for="dniAdministrador">
+        DNI Administrador:
+      </label>
+
+      <input
+        id="dniAdministrador"
+        type="text"
+        placeholder="DNI del administrador"
+      >
+
+    </div>
+
+
+    <div class="cliente-form-field">
+
+      <label for="email">
+        Email:
+      </label>
+
+      <input
+        id="email"
+        type="email"
+        placeholder="correo@ejemplo.com"
+      >
+
+    </div>
+
+
+    <div class="cliente-form-field">
+
+      <label for="telefono">
+        Teléfono:
+      </label>
+
+      <input
+        id="telefono"
+        type="tel"
+        placeholder="Teléfono"
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- ASIGNACIÓN -->
+
+  <div class="cliente-form-section-title">
+    Asignación
+  </div>
+
+
+  <div class="cliente-form-grid">
+
+    <div class="cliente-form-field">
+
+      <label for="empresaSelect">
+        Empresa:
+      </label>
+
+      <select id="empresaSelect">
+
+        <option value="">
+          Selecciona una empresa
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="cliente-form-field">
+
+      <label for="oficinaSelect">
+        Oficina:
+      </label>
+
+      <select id="oficinaSelect">
+
+        <option value="">
+          Selecciona una oficina
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <!-- ACCESO AL PORTAL -->
+
+  <div class="cliente-form-section-title">
+    Acceso al Portal del cliente
+  </div>
+
+
+  <div class="cliente-acceso-portal">
+
+    <label
+      for="crearAccesoPortal"
+      class="cliente-acceso-checkbox"
+    >
+
+      <input
+        id="crearAccesoPortal"
+        type="checkbox"
+      >
+
+      Crear acceso al Portal
+
+    </label>
+
+
+    <div
+      id="campoPasswordPortal"
+      class="cliente-form-field"
+      style="display: none;"
+    >
+
+      <label for="passwordPortal">
+        Contraseña:
+      </label>
+
+      <input
+        id="passwordPortal"
+        type="password"
+        placeholder="Mínimo 8 caracteres"
+        autocomplete="new-password"
+      >
+
+      <small>
+        El cliente accederá al portal utilizando su email y esta contraseña.
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <div class="cliente-form-actions">
+
+    <button
+      id="crearCliente"
+      class="btn"
+      type="button"
+    >
+      Crear cliente
+    </button>
+
+  </div>
+
+
+  <p
+    id="crearMessage"
+    class="message"
+  ></p>
+
+</div>
+```
+
+  </div>
+
+</section>
+
+```
+    <!-- ===================================================
+     EDITAR CLIENTE
+     =================================================== -->
+
+<section
+  id="editarClienteSection"
+  class="dashboard-section"
+  style="display: none;"
+>
+
+  <div class="form-card">
+
+    <div class="editar-cliente-header">
+
+      <div>
+
+        <h3>
+          Editar cliente
+        </h3>
+
+        <p>
+          Modifica los datos y la asignación del cliente.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <input
+      id="editarClienteId"
+      type="hidden"
+    >
 
 
     <div class="cliente-form-completo">
@@ -835,12 +1170,12 @@
 
         <div class="cliente-form-field">
 
-          <label for="nombre">
+          <label for="editarNombre">
             Nombre:
           </label>
 
           <input
-            id="nombre"
+            id="editarNombre"
             type="text"
             placeholder="Nombre completo"
           >
@@ -850,12 +1185,12 @@
 
         <div class="cliente-form-field">
 
-          <label for="cif">
+          <label for="editarCif">
             CIF:
           </label>
 
           <input
-            id="cif"
+            id="editarCif"
             type="text"
             placeholder="CIF"
           >
@@ -865,12 +1200,12 @@
 
         <div class="cliente-form-field">
 
-          <label for="direccionFiscal">
+          <label for="editarDireccionFiscal">
             Dirección Fiscal:
           </label>
 
           <input
-            id="direccionFiscal"
+            id="editarDireccionFiscal"
             type="text"
             placeholder="Dirección fiscal"
           >
@@ -880,12 +1215,12 @@
 
         <div class="cliente-form-field">
 
-          <label for="administrador">
+          <label for="editarAdministrador">
             Administrador:
           </label>
 
           <input
-            id="administrador"
+            id="editarAdministrador"
             type="text"
             placeholder="Nombre del administrador"
           >
@@ -895,12 +1230,12 @@
 
         <div class="cliente-form-field">
 
-          <label for="dniAdministrador">
+          <label for="editarDniAdministrador">
             DNI Administrador:
           </label>
 
           <input
-            id="dniAdministrador"
+            id="editarDniAdministrador"
             type="text"
             placeholder="DNI del administrador"
           >
@@ -910,12 +1245,12 @@
 
         <div class="cliente-form-field">
 
-          <label for="email">
+          <label for="editarEmail">
             Email:
           </label>
 
           <input
-            id="email"
+            id="editarEmail"
             type="email"
             placeholder="correo@ejemplo.com"
           >
@@ -925,12 +1260,12 @@
 
         <div class="cliente-form-field">
 
-          <label for="telefono">
+          <label for="editarTelefono">
             Teléfono:
           </label>
 
           <input
-            id="telefono"
+            id="editarTelefono"
             type="tel"
             placeholder="Teléfono"
           >
@@ -951,11 +1286,11 @@
 
         <div class="cliente-form-field">
 
-          <label for="empresaSelect">
+          <label for="editarEmpresaSelect">
             Empresa:
           </label>
 
-          <select id="empresaSelect">
+          <select id="editarEmpresaSelect">
 
             <option value="">
               Selecciona una empresa
@@ -968,11 +1303,11 @@
 
         <div class="cliente-form-field">
 
-          <label for="oficinaSelect">
+          <label for="editarOficinaSelect">
             Oficina:
           </label>
 
-          <select id="oficinaSelect">
+          <select id="editarOficinaSelect">
 
             <option value="">
               Selecciona una oficina
@@ -985,21 +1320,32 @@
       </div>
 
 
+      <!-- ACCIONES -->
+
       <div class="cliente-form-actions">
 
         <button
-          id="crearCliente"
+          id="guardarCambiosCliente"
           class="btn"
           type="button"
         >
-          Crear cliente
+          Guardar cambios
+        </button>
+
+
+        <button
+          id="cancelarEdicionCliente"
+          class="btn btn-secondary"
+          type="button"
+        >
+          Cancelar
         </button>
 
       </div>
 
 
       <p
-        id="crearMessage"
+        id="editarMessage"
         class="message"
       ></p>
 
@@ -1010,380 +1356,143 @@
 </section>
 
 
+<!-- ===================================================
+     LISTADO DE CLIENTES
+     =================================================== -->
 
-        <!-- ===================================================
-         EDITAR CLIENTE
-         =================================================== -->
+<section class="dashboard-section">
 
-    <section
-      id="editarClienteSection"
-      class="dashboard-section"
-      style="display: none;"
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    "
+  >
+
+    <h2>
+      Clientes
+    </h2>
+
+
+    <button
+      id="recargarClientes"
+      class="btn"
+      type="button"
     >
+      Recargar clientes
+    </button>
 
-      <div class="form-card">
+  </div>
 
-        <div class="editar-cliente-header">
 
-          <div>
+        <div class="clientes-filtros">
 
-            <h3>
-              Editar cliente
-            </h3>
+    <div class="cliente-filtro-buscador">
 
-            <p>
-              Modifica los datos y la asignación del cliente.
-            </p>
+      <label for="buscarClientes">
+        Buscar cliente
+      </label>
 
-          </div>
-
-        </div>
-
-
-        <input
-          id="editarClienteId"
-          type="hidden"
-        >
-
-
-        <div class="cliente-form-completo">
-
-          <!-- DATOS DEL CLIENTE -->
-
-          <div class="cliente-form-section-title">
-            Datos del cliente
-          </div>
-
-
-          <div class="cliente-form-grid">
-
-            <div class="cliente-form-field">
-
-              <label for="editarNombre">
-                Nombre:
-              </label>
-
-              <input
-                id="editarNombre"
-                type="text"
-                placeholder="Nombre completo"
-              >
-
-            </div>
-
-
-            <div class="cliente-form-field">
-
-              <label for="editarCif">
-                CIF:
-              </label>
-
-              <input
-                id="editarCif"
-                type="text"
-                placeholder="CIF"
-              >
-
-            </div>
-
-
-            <div class="cliente-form-field">
-
-              <label for="editarDireccionFiscal">
-                Dirección Fiscal:
-              </label>
-
-              <input
-                id="editarDireccionFiscal"
-                type="text"
-                placeholder="Dirección fiscal"
-              >
-
-            </div>
-
-
-            <div class="cliente-form-field">
-
-              <label for="editarAdministrador">
-                Administrador:
-              </label>
-
-              <input
-                id="editarAdministrador"
-                type="text"
-                placeholder="Nombre del administrador"
-              >
-
-            </div>
-
-
-            <div class="cliente-form-field">
-
-              <label for="editarDniAdministrador">
-                DNI Administrador:
-              </label>
-
-              <input
-                id="editarDniAdministrador"
-                type="text"
-                placeholder="DNI del administrador"
-              >
-
-            </div>
-
-
-            <div class="cliente-form-field">
-
-              <label for="editarEmail">
-                Email:
-              </label>
-
-              <input
-                id="editarEmail"
-                type="email"
-                placeholder="correo@ejemplo.com"
-              >
-
-            </div>
-
-
-            <div class="cliente-form-field">
-
-              <label for="editarTelefono">
-                Teléfono:
-              </label>
-
-              <input
-                id="editarTelefono"
-                type="tel"
-                placeholder="Teléfono"
-              >
-
-            </div>
-
-          </div>
-
-
-          <!-- ASIGNACIÓN -->
-
-          <div class="cliente-form-section-title">
-            Asignación
-          </div>
-
-
-          <div class="cliente-form-grid">
-
-            <div class="cliente-form-field">
-
-              <label for="editarEmpresaSelect">
-                Empresa:
-              </label>
-
-              <select id="editarEmpresaSelect">
-
-                <option value="">
-                  Selecciona una empresa
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="cliente-form-field">
-
-              <label for="editarOficinaSelect">
-                Oficina:
-              </label>
-
-              <select id="editarOficinaSelect">
-
-                <option value="">
-                  Selecciona una oficina
-                </option>
-
-              </select>
-
-            </div>
-
-          </div>
-
-
-          <!-- ACCIONES -->
-
-          <div class="cliente-form-actions">
-
-            <button
-              id="guardarCambiosCliente"
-              class="btn"
-              type="button"
-            >
-              Guardar cambios
-            </button>
-
-
-            <button
-              id="cancelarEdicionCliente"
-              class="btn btn-secondary"
-              type="button"
-            >
-              Cancelar
-            </button>
-
-          </div>
-
-
-          <p
-            id="editarMessage"
-            class="message"
-          ></p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         LISTADO DE CLIENTES
-         =================================================== -->
-
-    <section class="dashboard-section">
-
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 10px;
-          flex-wrap: wrap;
-        "
+      <input
+        id="buscarClientes"
+        type="search"
+        placeholder="Nombre, CIF, email o administrador..."
+        autocomplete="off"
       >
 
-        <h2>
-          Clientes
-        </h2>
+    </div>
 
 
-        <button
-          id="recargarClientes"
-          class="btn"
-          type="button"
-        >
-          Recargar clientes
-        </button>
+    <div class="cliente-filtro-campo">
 
-      </div>
+      <label for="filtroEmpresa">
+        Empresa
+      </label>
 
+      <select id="filtroEmpresa">
 
-            <div class="clientes-filtros">
+        <option value="">
+          Todas las empresas
+        </option>
 
-        <div class="cliente-filtro-buscador">
+      </select>
 
-          <label for="buscarClientes">
-            Buscar cliente
-          </label>
-
-          <input
-            id="buscarClientes"
-            type="search"
-            placeholder="Nombre, CIF, email o administrador..."
-            autocomplete="off"
-          >
-
-        </div>
+    </div>
 
 
-        <div class="cliente-filtro-campo">
+    <div class="cliente-filtro-campo">
 
-          <label for="filtroEmpresa">
-            Empresa
-          </label>
+      <label for="filtroOficina">
+        Oficina
+      </label>
 
-          <select id="filtroEmpresa">
+      <select id="filtroOficina">
 
-            <option value="">
-              Todas las empresas
-            </option>
+        <option value="">
+          Todas las oficinas
+        </option>
 
-          </select>
+      </select>
 
-        </div>
-
-
-        <div class="cliente-filtro-campo">
-
-          <label for="filtroOficina">
-            Oficina
-          </label>
-
-          <select id="filtroOficina">
-
-            <option value="">
-              Todas las oficinas
-            </option>
-
-          </select>
-
-        </div>
+    </div>
 
 
-        <div class="cliente-filtro-campo">
+    <div class="cliente-filtro-campo">
 
-          <label for="filtroTrabajador">
-            Trabajador
-          </label>
+      <label for="filtroTrabajador">
+        Trabajador
+      </label>
 
-          <select id="filtroTrabajador">
+      <select id="filtroTrabajador">
 
-            <option value="">
-              Todos los trabajadores
-            </option>
+        <option value="">
+          Todos los trabajadores
+        </option>
 
-            <option value="sin-asignar">
-              Sin trabajador asignado
-            </option>
+        <option value="sin-asignar">
+          Sin trabajador asignado
+        </option>
 
-          </select>
+      </select>
 
-        </div>
-
-
-        <div class="cliente-filtros-acciones">
-
-          <button
-            id="limpiarFiltrosClientes"
-            class="btn btn-secondary"
-            type="button"
-          >
-            Limpiar filtros
-          </button>
-
-        </div>
-
-      </div>
+    </div>
 
 
-      <p
-        id="listadoMessage"
-        class="message"
-      ></p>
+    <div class="cliente-filtros-acciones">
 
-
-      <div
-        id="clientesContainer"
+      <button
+        id="limpiarFiltrosClientes"
+        class="btn btn-secondary"
+        type="button"
       >
+        Limpiar filtros
+      </button>
 
-        Cargando clientes...
+    </div>
 
-      </div>
-    </section>
+  </div>
 
+
+  <p
+    id="listadoMessage"
+    class="message"
+  ></p>
+
+
+  <div
+    id="clientesContainer"
+  >
+
+    Cargando clientes...
+
+  </div>
+</section>
+```
 
   </main>
-
-
 
   <!-- =====================================================
        PIE
@@ -1391,19 +1500,17 @@
 
   <footer class="portal-footer">
 
-    Kit Gestión Asesoría · Gestión Interna
+```
+Kit Gestión Asesoría · Gestión Interna
+```
 
   </footer>
-
-
 
   <!-- =====================================================
        JAVASCRIPT COMÚN
        ===================================================== -->
 
   <script src="../../js/comun.js"></script>
-
-
 
   <!-- =====================================================
        JAVASCRIPT DEL MÓDULO
@@ -1472,6 +1579,54 @@
       document.getElementById(
         "crearMessage"
       );
+
+
+    const crearAccesoPortal =
+      document.getElementById(
+        "crearAccesoPortal"
+      );
+
+
+    const campoPasswordPortal =
+      document.getElementById(
+        "campoPasswordPortal"
+      );
+
+
+    const passwordPortal =
+      document.getElementById(
+        "passwordPortal"
+      );
+
+
+
+    // =====================================================
+    // MOSTRAR / OCULTAR CONTRASEÑA DEL PORTAL
+    // =====================================================
+
+    crearAccesoPortal.addEventListener(
+      "change",
+      () => {
+
+        if (
+          crearAccesoPortal.checked
+        ) {
+
+          campoPasswordPortal.style.display =
+            "block";
+
+        } else {
+
+          campoPasswordPortal.style.display =
+            "none";
+
+          passwordPortal.value =
+            "";
+
+        }
+
+      }
+    );
 
 
 
@@ -1946,7 +2101,7 @@
 
 
 
-        // =====================================================
+    // =====================================================
     // CARGAR CLIENTES
     // =====================================================
 
@@ -2044,9 +2199,9 @@
 
     }
 
-  
 
-        // =====================================================
+
+    // =====================================================
     // CARGAR OPCIONES DE FILTROS
     // =====================================================
 
@@ -3039,6 +3194,14 @@
         oficinaSelect.value;
 
 
+      const crearAcceso =
+        crearAccesoPortal.checked;
+
+
+      const password =
+        passwordPortal.value;
+
+
       crearMessage.textContent =
         "";
 
@@ -3052,6 +3215,18 @@
 
         crearMessage.textContent =
           "Nombre, email, empresa y oficina son obligatorios.";
+
+        return;
+      }
+
+
+      if (
+        crearAcceso &&
+        password.length < 8
+      ) {
+
+        crearMessage.textContent =
+          "La contraseña debe tener al menos 8 caracteres.";
 
         return;
       }
@@ -3072,6 +3247,10 @@
 
 
       try {
+
+        // =================================================
+        // CREAR CLIENTE
+        // =================================================
 
         const respuesta =
           await peticionAPI(
@@ -3115,6 +3294,61 @@
           return;
         }
 
+
+        // =================================================
+        // CREAR ACCESO AL PORTAL SI SE HA SOLICITADO
+        // =================================================
+
+        if (
+          crearAcceso
+        ) {
+
+          boton.textContent =
+            "Creando acceso...";
+
+
+          const respuestaAcceso =
+            await peticionAPI(
+              `/api/clientes/${datos.cliente.id}/crear-acceso`,
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  password
+                })
+              }
+            );
+
+
+          const datosAcceso =
+            await respuestaAcceso.json();
+
+
+          if (
+            !respuestaAcceso.ok ||
+            !datosAcceso.ok
+          ) {
+
+            crearMessage.textContent =
+              datosAcceso.message ||
+              "El cliente se ha creado, pero no se ha podido crear su acceso al Portal.";
+
+            await cargarClientes();
+
+            return;
+          }
+
+        }
+
+
+        // =================================================
+        // LIMPIAR FORMULARIO
+        // =================================================
 
         document
           .getElementById(
@@ -3184,8 +3418,31 @@
           `;
 
 
-        crearMessage.textContent =
-          "Cliente creado correctamente.";
+        crearAccesoPortal.checked =
+          false;
+
+
+        campoPasswordPortal.style.display =
+          "none";
+
+
+        passwordPortal.value =
+          "";
+
+
+        if (
+          crearAcceso
+        ) {
+
+          crearMessage.textContent =
+            "Cliente y acceso al Portal creados correctamente.";
+
+        } else {
+
+          crearMessage.textContent =
+            "Cliente creado correctamente.";
+
+        }
 
 
         await cargarClientes();
@@ -3802,8 +4059,6 @@
 
   </script>
 
-
 </body>
 
 </html>
-
