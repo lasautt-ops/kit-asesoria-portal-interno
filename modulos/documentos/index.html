@@ -227,148 +227,151 @@
     </section>
 
 
+<!-- ===================================================
+     LISTADO
+     =================================================== -->
 
-    <!-- ===================================================
-         LISTADO
-         =================================================== -->
-
-    <section class="dashboard-section documentos-list-section">
-
-
-      <div class="documentos-section-header documentos-list-header">
-
-        <div>
-
-          <h2>
-            Documentos
-          </h2>
-
-          <p>
-            Consulta y gestiona los documentos disponibles.
-          </p>
-
-        </div>
+<section class="dashboard-section documentos-list-section">
 
 
-        <button
-          id="recargarDocumentos"
-          class="btn documentos-reload-button"
-          type="button"
-        >
-          Recargar documentos
-        </button>
+  <div class="documentos-section-header documentos-list-header">
 
-      </div>
+    <div>
 
+      <h2>
+        Documentos
+      </h2>
 
+      <p>
+        Consulta y gestiona los documentos disponibles.
+      </p>
 
-      <!-- =================================================
-           FILTROS
-           ================================================= -->
-
-      <div class="documentos-filters">
+    </div>
 
 
-        <!-- EMPRESA -->
+    <button
+      id="recargarDocumentos"
+      class="btn documentos-reload-button"
+      type="button"
+    >
+      Recargar documentos
+    </button>
 
-        <div class="documento-filter">
-
-          <label for="filtroEmpresa">
-            Empresa
-          </label>
-
-          <select id="filtroEmpresa">
-
-            <option value="">
-              Todas las empresas
-            </option>
-
-          </select>
-
-        </div>
+  </div>
 
 
 
-        <!-- OFICINA -->
+  <!-- =================================================
+       FILTROS
+       ================================================= -->
 
-        <div class="documento-filter">
-
-          <label for="filtroOficina">
-            Oficina
-          </label>
-
-          <select
-            id="filtroOficina"
-            disabled
-          >
-
-            <option value="">
-              Todas las oficinas
-            </option>
-
-          </select>
-
-        </div>
+  <div class="documentos-filters">
 
 
+    <!-- EMPRESA -->
 
-        <!-- CLIENTE -->
+    <div class="documento-filter">
 
-        <div class="documento-filter">
+      <label for="filtroEmpresa">
+        Empresa
+      </label>
 
-          <label for="filtroCliente">
-            Cliente
-          </label>
-
-          <select id="filtroCliente">
-
-            <option value="">
-              Todos los clientes
-            </option>
-
-          </select>
-
-        </div>
-
-
-      </div>
-
-
-
-      <!-- =================================================
-           INFORMACIÓN DE RESULTADOS
-           ================================================= -->
-
-      <p
-        id="documentosResultados"
-        class="documentos-results-info"
-      ></p>
-
-
-      <p
-        id="listadoMessage"
-        class="documentos-list-message"
-      ></p>
-
-
-
-      <!-- =================================================
-           DOCUMENTOS
-           ================================================= -->
-
-      <div
-        id="documentosContainer"
-        class="documentos-grid"
+      <select
+        id="filtroEmpresa"
       >
 
-        <div class="documentos-loading">
-          Cargando documentos...
-        </div>
+        <option value="">
+          Todas las empresas
+        </option>
 
-      </div>
+      </select>
+
+    </div>
 
 
-    </section>
+
+    <!-- OFICINA -->
+
+    <div class="documento-filter">
+
+      <label for="filtroOficina">
+        Oficina
+      </label>
+
+      <select
+        id="filtroOficina"
+        disabled
+      >
+
+        <option value="">
+          Todas las oficinas
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- CLIENTE -->
+
+    <div class="documento-filter">
+
+      <label for="filtroCliente">
+        Cliente
+      </label>
+
+      <select
+        id="filtroCliente"
+        disabled
+      >
+
+        <option value="">
+          Todos los clientes
+        </option>
+
+      </select>
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- =================================================
+       RESULTADOS
+       ================================================= -->
+
+  <p
+    id="documentosResultados"
+    class="documentos-results-info"
+  >
+    Todos los documentos
+  </p>
+
+
+
+  <p
+    id="listadoMessage"
+    class="documentos-list-message"
+  ></p>
+
+
+
+  <div
+    id="documentosContainer"
+    class="documentos-grid"
+  >
+
+    <div class="documentos-loading">
+      Cargando documentos...
+    </div>
+
+  </div>
+
+
+</section>
 
 
   </main>
