@@ -545,134 +545,581 @@
     }
 
 
+// =====================================================
+// FILTROS
+// =====================================================
 
-    // =====================================================
-    // CARGAR CLIENTES
-    // =====================================================
+let empresas = [];
 
-    async function cargarClientes() {
+let oficinas = [];
 
-      const select =
-        document.getElementById(
-          "clienteId"
-        );
+let clientes = [];
 
-
-      const filtroCliente =
-        document.getElementById(
-          "filtroCliente"
-        );
+let documentos = [];
 
 
-      try {
 
-        const respuesta =
-          await peticionAPI(
-            "/api/clientes",
-            {
-              method: "GET"
-            }
+// =====================================================
+// CARGAR EMPRESAS
+// =====================================================
+
+async function cargarEmpresas() {
+
+  const select =
+    document.getElementById(
+      "filtroEmpresa"
+    );
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        "/api/empresas",
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      select.innerHTML =
+        `<option value="">
+          No se han podido cargar las empresas
+        </option>`;
+
+      return;
+    }
+
+
+    empresas =
+      Array.isArray(
+        datos.empresas
+      )
+        ? datos.empresas
+        : [];
+
+
+    select.innerHTML =
+      `<option value="">
+        Todas las empresas
+      </option>`;
+
+
+    empresas.forEach(
+      (empresa) => {
+
+        const option =
+          document.createElement(
+            "option"
           );
 
 
-        const datos =
-          await respuesta.json();
+        option.value =
+          empresa.id;
 
 
-        if (
-          !respuesta.ok ||
-          !datos.ok
-        ) {
-
-          select.innerHTML =
-            `<option value="">
-              No se han podido cargar los clientes
-            </option>`;
-
-          return;
-
-        }
+        option.textContent =
+          empresa.nombre;
 
 
-        if (
-          !Array.isArray(
-            datos.clientes
-          ) ||
-          datos.clientes.length === 0
-        ) {
-
-          select.innerHTML =
-            `<option value="">
-              No hay clientes disponibles
-            </option>`;
-
-          return;
-
-        }
-
-
-        todosLosClientes =
-          datos.clientes;
-
-
-        // -----------------------------------------------
-        // CLIENTE DEL FORMULARIO
-        // -----------------------------------------------
-
-        select.innerHTML =
-          `<option value="">
-            Selecciona un cliente
-          </option>`;
-
-
-        datos.clientes.forEach(
-          (cliente) => {
-
-            const option =
-              document.createElement(
-                "option"
-              );
-
-
-            option.value =
-              cliente.id;
-
-
-            option.textContent =
-              `${cliente.nombre} · ${cliente.email}`;
-
-
-            select.appendChild(
-              option
-            );
-
-          }
+        select.appendChild(
+          option
         );
-
-
-        // -----------------------------------------------
-        // CLIENTE DEL FILTRO
-        // -----------------------------------------------
-
-        actualizarFiltroClientes();
-
-      } catch (error) {
-
-        console.error(
-          "Error cargando clientes:",
-          error
-        );
-
-
-        select.innerHTML =
-          `<option value="">
-            Error cargando clientes
-          </option>`;
 
       }
+    );
 
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando empresas:",
+      error
+    );
+
+
+    select.innerHTML =
+      `<option value="">
+        Error cargando empresas
+      </option>`;
+
+  }
+
+}
+
+
+
+// =====================================================
+// CARGAR OFICINAS
+// =====================================================
+
+async function cargarOficinas(
+  empresaId
+) {
+
+  const select =
+    document.getElementById(
+      "filtroOficina"
+    );
+
+
+  const clienteSelect =
+    document.getElementById(
+      "filtroCliente"
+    );
+
+
+  select.innerHTML =
+    `<option value="">
+      Todas las oficinas
+    </option>`;
+
+
+  clienteSelect.innerHTML =
+    `<option value="">
+      Todos los clientes
+    </option>`;
+
+
+  select.disabled =
+    true;
+
+
+  clienteSelect.disabled =
+    true;
+
+
+  if (!empresaId) {
+
+    aplicarFiltros();
+
+    return;
+  }
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        `/api/empresas/${empresaId}/oficinas`,
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      select.innerHTML =
+        `<option value="">
+          No se han podido cargar las oficinas
+        </option>`;
+
+      aplicarFiltros();
+
+      return;
     }
 
+
+    oficinas =
+      Array.isArray(
+        datos.oficinas
+      )
+        ? datos.oficinas
+        : [];
+
+
+    oficinas.forEach(
+      (oficina) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          oficina.id;
+
+
+        option.textContent =
+          oficina.nombre;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+    select.disabled =
+      false;
+
+
+    aplicarFiltros();
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando oficinas:",
+      error
+    );
+
+
+    select.innerHTML =
+      `<option value="">
+        Error cargando oficinas
+      </option>`;
+
+    aplicarFiltros();
+
+  }
+
+}
+
+
+
+// =====================================================
+// CARGAR CLIENTES DEL FILTRO
+// =====================================================
+
+async function cargarClientesFiltro(
+  empresaId,
+  oficinaId
+) {
+
+  const select =
+    document.getElementById(
+      "filtroCliente"
+    );
+
+
+  select.innerHTML =
+    `<option value="">
+      Todos los clientes
+    </option>`;
+
+
+  select.disabled =
+    true;
+
+
+  if (
+    !empresaId ||
+    !oficinaId
+  ) {
+
+    aplicarFiltros();
+
+    return;
+  }
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        "/api/clientes",
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      select.innerHTML =
+        `<option value="">
+          No se han podido cargar los clientes
+        </option>`;
+
+      aplicarFiltros();
+
+      return;
+    }
+
+
+    clientes =
+      Array.isArray(
+        datos.clientes
+      )
+        ? datos.clientes
+        : [];
+
+
+    const clientesFiltrados =
+      clientes.filter(
+        (cliente) => {
+
+          return (
+            cliente.empresaId === empresaId &&
+            cliente.oficinaId === oficinaId
+          );
+
+        }
+      );
+
+
+    clientesFiltrados.forEach(
+      (cliente) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          cliente.id;
+
+
+        option.textContent =
+          `${cliente.nombre} · ${cliente.email}`;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+    select.disabled =
+      false;
+
+
+    aplicarFiltros();
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando clientes del filtro:",
+      error
+    );
+
+
+    select.innerHTML =
+      `<option value="">
+        Error cargando clientes
+      </option>`;
+
+    aplicarFiltros();
+
+  }
+
+}
+
+
+
+// =====================================================
+// APLICAR FILTROS
+// =====================================================
+
+function aplicarFiltros() {
+
+  const empresaId =
+    document.getElementById(
+      "filtroEmpresa"
+    ).value;
+
+
+  const oficinaId =
+    document.getElementById(
+      "filtroOficina"
+    ).value;
+
+
+  const clienteId =
+    document.getElementById(
+      "filtroCliente"
+    ).value;
+
+
+  const filtrados =
+    documentos.filter(
+      (documento) => {
+
+        const cliente =
+          documento.cliente;
+
+
+        if (
+          empresaId &&
+          cliente?.empresaId !== empresaId
+        ) {
+
+          return false;
+        }
+
+
+        if (
+          oficinaId &&
+          cliente?.oficinaId !== oficinaId
+        ) {
+
+          return false;
+        }
+
+
+        if (
+          clienteId &&
+          cliente?.id !== clienteId
+        ) {
+
+          return false;
+        }
+
+
+        return true;
+
+      }
+    );
+
+
+  renderizarDocumentos(
+    filtrados
+  );
+
+
+  const resultados =
+    document.getElementById(
+      "documentosResultados"
+    );
+
+
+  if (
+    !empresaId &&
+    !oficinaId &&
+    !clienteId
+  ) {
+
+    resultados.textContent =
+      `${documentos.length} documento${
+        documentos.length === 1
+          ? ""
+          : "s"
+      }`;
+
+    return;
+  }
+
+
+  resultados.textContent =
+    `${filtrados.length} documento${
+      filtrados.length === 1
+        ? ""
+        : "s"
+    } encontrado${
+      filtrados.length === 1
+        ? ""
+        : "s"
+    }`;
+
+}
+
+
+
+// =====================================================
+// EVENTO EMPRESA
+// =====================================================
+
+document
+  .getElementById(
+    "filtroEmpresa"
+  )
+  .addEventListener(
+    "change",
+    async (event) => {
+
+      const empresaId =
+        event.target.value;
+
+
+      await cargarOficinas(
+        empresaId
+      );
+
+    }
+  );
+
+
+
+// =====================================================
+// EVENTO OFICINA
+// =====================================================
+
+document
+  .getElementById(
+    "filtroOficina"
+  )
+  .addEventListener(
+    "change",
+    async (event) => {
+
+      const empresaId =
+        document.getElementById(
+          "filtroEmpresa"
+        ).value;
+
+
+      const oficinaId =
+        event.target.value;
+
+
+      await cargarClientesFiltro(
+        empresaId,
+        oficinaId
+      );
+
+    }
+  );
+
+
+
+// =====================================================
+// EVENTO CLIENTE
+// =====================================================
+
+document
+  .getElementById(
+    "filtroCliente"
+  )
+  .addEventListener(
+    "change",
+    () => {
+
+      aplicarFiltros();
+
+    }
+  );
 
 
     // =====================================================
