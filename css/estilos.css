@@ -4593,3 +4593,172 @@ body.modal-open {
 
   color: #9f1239 !important;
 }
+
+/* =========================================================
+   FILTROS - MÓDULO DOCUMENTOS
+   ========================================================= */
+
+.documentos-filters {
+  width: 100%;
+
+  margin: 0 0 25px;
+
+  padding: 20px 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.03);
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 16px;
+
+  align-items: end;
+}
+
+
+/* =========================================================
+   CAMPOS DEL FILTRO
+   ========================================================= */
+
+.documento-filter {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  min-width: 0;
+}
+
+
+.documento-filter label {
+  display: block;
+
+  color: #374151;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.documento-filter select,
+.documento-filter input {
+  width: 100%;
+
+  height: 42px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+
+.documento-filter select:hover,
+.documento-filter input:hover {
+  border-color: #cbd5e1;
+}
+
+
+.documento-filter select:focus,
+.documento-filter input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   FILTRO DESHABILITADO
+   ========================================================= */
+
+.documento-filter select:disabled {
+  background: #f9fafb;
+
+  color: #9ca3af;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   CONTADOR DE RESULTADOS
+   ========================================================= */
+
+.documentos-results-info {
+  margin: 0 0 15px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+
+#documentosResultados {
+  font-weight: 600;
+
+  color: #374151;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .documentos-filters {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .documentos-filters {
+    grid-template-columns: 1fr;
+
+    padding: 18px;
+
+    gap: 14px;
+  }
+
+  .documento-filter select,
+  .documento-filter input {
+    height: 44px;
+  }
+
+}
