@@ -859,7 +859,107 @@ async function cargarEmpresas() {
 
 }
 
+// =====================================================
+// CARGAR EMPRESAS PARA EL FILTRO DE AVISOS
+// =====================================================
 
+async function cargarEmpresasFiltroAvisos() {
+
+  const select =
+    document.getElementById(
+      "filtroAvisoEmpresa"
+    );
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        "/api/empresas",
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      select.innerHTML =
+        `<option value="">
+          No se han podido cargar las empresas
+        </option>`;
+
+      return;
+
+    }
+
+
+    select.innerHTML =
+      `<option value="">
+        Todas las empresas
+      </option>`;
+
+
+    if (
+      !Array.isArray(
+        datos.empresas
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    datos.empresas.forEach(
+      (empresa) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          empresa.id;
+
+
+        option.textContent =
+          empresa.nombre;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando empresas para filtros:",
+      error
+    );
+
+
+    select.innerHTML =
+      `<option value="">
+        Error cargando empresas
+      </option>`;
+
+  }
+
+}
+    
 
 // =====================================================
 // CARGAR OFICINAS
