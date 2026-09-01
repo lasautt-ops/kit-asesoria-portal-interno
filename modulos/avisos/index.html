@@ -1075,38 +1075,62 @@ document
   );
     
     // =====================================================
-    // MOSTRAR / OCULTAR CLIENTES
-    // =====================================================
+// MOSTRAR / OCULTAR DESTINATARIOS
+// =====================================================
 
-    function actualizarDestinatarios() {
+function actualizarDestinatarios() {
 
-      if (
-        tipoDestinatario.value ===
-        "TODOS"
-      ) {
-
-        clientesContainer.style.display =
-          "none";
-
-      } else {
-
-        clientesContainer.style.display =
-          "flex";
-
-      }
-
-    }
+  const tipo =
+    document.getElementById(
+      "tipoDestinatario"
+    ).value;
 
 
-    tipoDestinatario
-      .addEventListener(
-        "change",
-        actualizarDestinatarios
-      );
+  const empresaContainer =
+    document.getElementById(
+      "empresaContainer"
+    );
 
 
-    actualizarDestinatarios();
+  const oficinaContainer =
+    document.getElementById(
+      "oficinaContainer"
+    );
 
+
+  const clientesContainer =
+    document.getElementById(
+      "clientesContainer"
+    );
+
+
+  if (
+    tipo === "TODOS"
+  ) {
+
+    empresaContainer.style.display =
+      "none";
+
+    oficinaContainer.style.display =
+      "none";
+
+    clientesContainer.style.display =
+      "none";
+
+  } else {
+
+    empresaContainer.style.display =
+      "flex";
+
+    oficinaContainer.style.display =
+      "flex";
+
+    clientesContainer.style.display =
+      "flex";
+
+  }
+
+}
 
     // =====================================================
     // CREAR AVISO
