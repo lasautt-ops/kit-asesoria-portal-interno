@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
 
   <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Avisos - Gestión Interna</title>
 
@@ -21,7 +19,9 @@ content="width=device-width, initial-scale=1.0"
 
 </head>
 
+
 <body>
+
 
   <!-- =====================================================
        CABECERA
@@ -29,258 +29,451 @@ content="width=device-width, initial-scale=1.0"
 
   <header class="portal-header">
 
-```
-<div class="portal-header-left">
+    <div class="portal-header-left">
 
-  <h1>
-    Avisos
-  </h1>
+      <h1>
+        Avisos
+      </h1>
 
-  <p id="usuarioCabecera">
-    Cargando...
-  </p>
+      <p id="usuarioCabecera">
+        Cargando...
+      </p>
 
-</div>
+    </div>
 
 
-<div class="portal-header-right">
+    <div class="portal-header-right">
 
-  <button
-    id="volver"
-    class="btn"
-    type="button"
-  >
-    Volver
-  </button>
+      <button
+        id="volver"
+        class="btn"
+        type="button"
+      >
+        ← Volver
+      </button>
 
-  <button
-    id="cerrarSesion"
-    class="btn btn-danger"
-    type="button"
-  >
-    Cerrar sesión
-  </button>
 
-</div>
-```
+      <button
+        id="cerrarSesion"
+        class="btn btn-danger"
+        type="button"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
 
   </header>
+
+
 
   <!-- =====================================================
        CONTENIDO
        ===================================================== -->
 
-  <main class="portal-container">
-
-```
-<section class="welcome-section">
-
-  <h2 id="bienvenida">
-    Gestión de avisos
-  </h2>
-
-  <p>
-    Crea, publica y archiva avisos para los clientes.
-  </p>
-
-</section>
+  <main class="portal-container avisos-page">
 
 
+    <!-- ===================================================
+         BIENVENIDA
+         =================================================== -->
 
-<!-- =====================================================
-     CREAR AVISO
-     ===================================================== -->
+    <section class="avisos-welcome">
 
-<section class="dashboard-section">
+      <div>
 
-  <h2>
-    Crear aviso
-  </h2>
+        <span class="avisos-welcome-label">
+          COMUNICACIÓN
+        </span>
+
+        <h2 id="bienvenida">
+          Gestión de avisos
+        </h2>
+
+        <p>
+          Crea, publica y archiva avisos para los clientes.
+        </p>
+
+      </div>
+
+    </section>
 
 
-  <form id="formAviso">
+
+    <!-- ===================================================
+         CREAR AVISO
+         =================================================== -->
+
+    <section class="dashboard-section avisos-create-section">
 
 
-    <div>
+      <div class="avisos-section-header">
 
-      <label for="titulo">
-        Título
-      </label>
+        <div>
 
-      <input
-        type="text"
-        id="titulo"
-        required
+          <span class="avisos-section-label">
+            NUEVO AVISO
+          </span>
+
+          <h2>
+            Crear aviso
+          </h2>
+
+          <p>
+            Redacta la información y selecciona quién recibirá el aviso.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="aviso-form-card">
+
+        <form id="formAviso">
+
+
+          <!-- =================================================
+               INFORMACIÓN PRINCIPAL
+               ================================================= -->
+
+          <div class="aviso-form-block">
+
+            <div class="aviso-form-block-title">
+
+              <span>
+                01
+              </span>
+
+              <div>
+
+                <h3>
+                  Información del aviso
+                </h3>
+
+                <p>
+                  Introduce el título y el contenido del mensaje.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="aviso-form-grid">
+
+
+              <!-- TÍTULO -->
+
+              <div class="aviso-field aviso-field-full">
+
+                <label for="titulo">
+                  Título
+                </label>
+
+                <input
+                  type="text"
+                  id="titulo"
+                  placeholder="Ej.: Documentación pendiente"
+                  required
+                >
+
+              </div>
+
+
+
+              <!-- CONTENIDO -->
+
+              <div class="aviso-field aviso-field-full">
+
+                <label for="contenido">
+                  Contenido
+                </label>
+
+                <textarea
+                  id="contenido"
+                  rows="6"
+                  placeholder="Escribe aquí el contenido del aviso..."
+                  required
+                ></textarea>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- =================================================
+               CONFIGURACIÓN
+               ================================================= -->
+
+          <div class="aviso-form-block">
+
+            <div class="aviso-form-block-title">
+
+              <span>
+                02
+              </span>
+
+              <div>
+
+                <h3>
+                  Configuración
+                </h3>
+
+                <p>
+                  Define el tipo, prioridad y fecha de caducidad.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="aviso-form-grid">
+
+
+              <!-- TIPO -->
+
+              <div class="aviso-field">
+
+                <label for="tipo">
+                  Tipo
+                </label>
+
+                <select id="tipo">
+
+                  <option value="GENERAL">
+                    General
+                  </option>
+
+                  <option value="DOCUMENTACION">
+                    Documentación
+                  </option>
+
+                  <option value="IMPORTANTE">
+                    Importante
+                  </option>
+
+                  <option value="PLAZO">
+                    Plazo
+                  </option>
+
+                  <option value="INFORMACION">
+                    Información
+                  </option>
+
+                </select>
+
+              </div>
+
+
+
+              <!-- PRIORIDAD -->
+
+              <div class="aviso-field">
+
+                <label for="prioridad">
+                  Prioridad
+                </label>
+
+                <select id="prioridad">
+
+                  <option value="NORMAL">
+                    Normal
+                  </option>
+
+                  <option value="ALTA">
+                    Alta
+                  </option>
+
+                  <option value="URGENTE">
+                    Urgente
+                  </option>
+
+                </select>
+
+              </div>
+
+
+
+              <!-- DESTINATARIOS -->
+
+              <div class="aviso-field">
+
+                <label for="tipoDestinatario">
+                  Destinatarios
+                </label>
+
+                <select id="tipoDestinatario">
+
+                  <option value="CLIENTES">
+                    Clientes concretos
+                  </option>
+
+                  <option value="TODOS">
+                    Todos los clientes
+                  </option>
+
+                </select>
+
+              </div>
+
+
+
+              <!-- CADUCIDAD -->
+
+              <div class="aviso-field">
+
+                <label for="fechaCaducidad">
+                  Fecha de caducidad
+                </label>
+
+                <input
+                  type="datetime-local"
+                  id="fechaCaducidad"
+                >
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- =================================================
+               CLIENTES
+               ================================================= -->
+
+          <div
+            id="clientesContainer"
+            class="aviso-form-block aviso-clientes-block"
+          >
+
+            <div class="aviso-form-block-title">
+
+              <span>
+                03
+              </span>
+
+              <div>
+
+                <h3>
+                  Seleccionar clientes
+                </h3>
+
+                <p>
+                  Selecciona uno o varios clientes que recibirán el aviso.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="aviso-field">
+
+              <label for="clienteIds">
+                Clientes
+              </label>
+
+              <select
+                id="clienteIds"
+                multiple
+                size="6"
+              ></select>
+
+              <small class="aviso-field-help">
+                Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
+              </small>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- =================================================
+               ACCIONES
+               ================================================= -->
+
+          <div class="aviso-form-actions">
+
+            <button
+              type="submit"
+              class="btn aviso-create-button"
+            >
+              Crear aviso
+            </button>
+
+          </div>
+
+
+          <p
+            id="mensajeFormulario"
+            class="aviso-form-message"
+          ></p>
+
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LISTADO
+         =================================================== -->
+
+    <section class="dashboard-section avisos-list-section">
+
+
+      <div class="avisos-section-header avisos-list-header">
+
+        <div>
+
+          <span class="avisos-section-label">
+            HISTORIAL
+          </span>
+
+          <h2>
+            Avisos
+          </h2>
+
+          <p>
+            Consulta el estado y los destinatarios de los avisos creados.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <div
+        id="listaAvisos"
+        class="avisos-grid"
       >
 
-    </div>
+        <div class="avisos-loading">
+          Cargando avisos...
+        </div>
+
+      </div>
 
 
-    <div>
+    </section>
 
-      <label for="contenido">
-        Contenido
-      </label>
-
-      <textarea
-        id="contenido"
-        rows="5"
-        required
-      ></textarea>
-
-    </div>
-
-
-    <div>
-
-      <label for="tipo">
-        Tipo
-      </label>
-
-      <select id="tipo">
-
-        <option value="GENERAL">
-          General
-        </option>
-
-        <option value="DOCUMENTACION">
-          Documentación
-        </option>
-
-        <option value="IMPORTANTE">
-          Importante
-        </option>
-
-        <option value="PLAZO">
-          Plazo
-        </option>
-
-        <option value="INFORMACION">
-          Información
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div>
-
-      <label for="prioridad">
-        Prioridad
-      </label>
-
-      <select id="prioridad">
-
-        <option value="NORMAL">
-          Normal
-        </option>
-
-        <option value="ALTA">
-          Alta
-        </option>
-
-        <option value="URGENTE">
-          Urgente
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div>
-
-      <label for="tipoDestinatario">
-        Destinatarios
-      </label>
-
-      <select id="tipoDestinatario">
-
-        <option value="CLIENTES">
-          Clientes concretos
-        </option>
-
-        <option value="TODOS">
-          Todos los clientes
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div id="clientesContainer">
-
-      <label for="clienteIds">
-        Seleccionar clientes
-      </label>
-
-      <select
-        id="clienteIds"
-        multiple
-        size="6"
-      ></select>
-
-      <small>
-        Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
-      </small>
-
-    </div>
-
-
-    <div>
-
-      <label for="fechaCaducidad">
-        Fecha de caducidad
-      </label>
-
-      <input
-        type="datetime-local"
-        id="fechaCaducidad"
-      >
-
-    </div>
-
-
-    <button
-      type="submit"
-      class="btn"
-    >
-      Crear aviso
-    </button>
-
-
-  </form>
-
-
-  <p id="mensajeFormulario"></p>
-
-</section>
-
-
-
-<!-- =====================================================
-     LISTADO DE AVISOS
-     ===================================================== -->
-
-<section class="dashboard-section">
-
-  <h2>
-    Avisos
-  </h2>
-
-
-  <div id="listaAvisos">
-
-    Cargando avisos...
-
-  </div>
-
-</section>
-```
 
   </main>
+
+
 
   <!-- =====================================================
        PIE
@@ -288,11 +481,11 @@ content="width=device-width, initial-scale=1.0"
 
   <footer class="portal-footer">
 
-```
-Kit Gestión Asesoría · Gestión Interna
-```
+    Kit Gestión Asesoría · Gestión Interna
 
   </footer>
+
+
 
   <!-- =====================================================
        JAVASCRIPT COMÚN
@@ -300,11 +493,14 @@ Kit Gestión Asesoría · Gestión Interna
 
   <script src="../../js/comun.js"></script>
 
+
+
   <!-- =====================================================
        JAVASCRIPT DEL MÓDULO
        ===================================================== -->
 
   <script>
+
 
     // =====================================================
     // COMPROBAR SESIÓN
@@ -433,22 +629,29 @@ Kit Gestión Asesoría · Gestión Interna
         clienteIds.innerHTML = "";
 
 
-        datos.clientes.forEach(cliente => {
+        datos.clientes.forEach(
+          cliente => {
 
-          const opcion =
-            document.createElement("option");
+            const opcion =
+              document.createElement(
+                "option"
+              );
 
-          opcion.value =
-            cliente.id;
 
-          opcion.textContent =
-            `${cliente.nombre} · ${cliente.email}`;
+            opcion.value =
+              cliente.id;
 
-          clienteIds.appendChild(
-            opcion
-          );
 
-        });
+            opcion.textContent =
+              `${cliente.nombre} · ${cliente.email}`;
+
+
+            clienteIds.appendChild(
+              opcion
+            );
+
+          }
+        );
 
       } catch (error) {
 
@@ -456,6 +659,7 @@ Kit Gestión Asesoría · Gestión Interna
           "Error cargando clientes:",
           error
         );
+
 
         clienteIds.innerHTML =
           `<option value="">
@@ -622,7 +826,10 @@ Kit Gestión Asesoría · Gestión Interna
               await respuesta.json();
 
 
-            if (!respuesta.ok || !resultado.ok) {
+            if (
+              !respuesta.ok ||
+              !resultado.ok
+            ) {
 
               throw new Error(
                 resultado.message ||
@@ -651,6 +858,7 @@ Kit Gestión Asesoría · Gestión Interna
               error
             );
 
+
             mensajeFormulario.textContent =
               error.message;
 
@@ -667,8 +875,10 @@ Kit Gestión Asesoría · Gestión Interna
 
     async function cargarAvisos() {
 
-      listaAvisos.textContent =
-        "Cargando avisos...";
+      listaAvisos.innerHTML =
+        `<div class="avisos-loading">
+          Cargando avisos...
+        </div>`;
 
 
       try {
@@ -693,7 +903,10 @@ Kit Gestión Asesoría · Gestión Interna
           await respuesta.json();
 
 
-        if (!respuesta.ok || !datos.ok) {
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
 
           throw new Error(
             datos.message ||
@@ -708,8 +921,22 @@ Kit Gestión Asesoría · Gestión Interna
           datos.avisos.length === 0
         ) {
 
-          listaAvisos.textContent =
-            "No hay avisos.";
+          listaAvisos.innerHTML =
+            `<div class="avisos-empty">
+
+              <div class="avisos-empty-icon">
+                🔔
+              </div>
+
+              <h3>
+                No hay avisos
+              </h3>
+
+              <p>
+                Todavía no se han creado avisos.
+              </p>
+
+            </div>`;
 
           return;
 
@@ -729,8 +956,171 @@ Kit Gestión Asesoría · Gestión Interna
 
 
             tarjeta.className =
-              "module-card";
+              "aviso-card";
 
+
+
+            // =================================================
+            // CABECERA
+            // =================================================
+
+            const tarjetaHeader =
+              document.createElement(
+                "div"
+              );
+
+
+            tarjetaHeader.className =
+              "aviso-card-header";
+
+
+
+            const titulo =
+              document.createElement(
+                "h3"
+              );
+
+
+            titulo.textContent =
+              aviso.titulo ||
+              "Sin título";
+
+
+
+            // ESTADO
+
+            const estado =
+              document.createElement(
+                "span"
+              );
+
+
+            estado.className =
+              `aviso-badge aviso-estado-${(
+                aviso.estado ||
+                ""
+              ).toLowerCase()}`;
+
+
+            estado.textContent =
+              aviso.estado ||
+              "-";
+
+
+            tarjetaHeader.appendChild(
+              titulo
+            );
+
+
+            tarjetaHeader.appendChild(
+              estado
+            );
+
+
+            tarjeta.appendChild(
+              tarjetaHeader
+            );
+
+
+
+            // =================================================
+            // CONTENIDO
+            // =================================================
+
+            const contenido =
+              document.createElement(
+                "p"
+              );
+
+
+            contenido.className =
+              "aviso-card-content";
+
+
+            contenido.textContent =
+              aviso.contenido ||
+              "-";
+
+
+            tarjeta.appendChild(
+              contenido
+            );
+
+
+
+            // =================================================
+            // INFORMACIÓN
+            // =================================================
+
+            const informacion =
+              document.createElement(
+                "div"
+              );
+
+
+            informacion.className =
+              "aviso-card-info";
+
+
+
+            // TIPO
+
+            const tipo =
+              document.createElement(
+                "div"
+              );
+
+
+            tipo.className =
+              "aviso-info-item";
+
+
+            tipo.innerHTML =
+              `<span class="aviso-info-label">
+                Tipo
+              </span>
+              <strong>
+                ${aviso.tipo || "-"}
+              </strong>`;
+
+
+            informacion.appendChild(
+              tipo
+            );
+
+
+
+            // PRIORIDAD
+
+            const prioridad =
+              document.createElement(
+                "div"
+              );
+
+
+            prioridad.className =
+              "aviso-info-item";
+
+
+            prioridad.innerHTML =
+              `<span class="aviso-info-label">
+                Prioridad
+              </span>
+              <strong class="aviso-prioridad-${(
+                aviso.prioridad ||
+                ""
+              ).toLowerCase()}">
+                ${aviso.prioridad || "-"}
+              </strong>`;
+
+
+            informacion.appendChild(
+              prioridad
+            );
+
+
+
+            // DESTINATARIOS
 
             const destinatarios =
               aviso.tipoDestinatario ===
@@ -741,50 +1131,70 @@ Kit Gestión Asesoría · Gestión Interna
                 : `${aviso.destinatarios.length} cliente(s)`;
 
 
-            tarjeta.innerHTML = `
+            const destinatariosInfo =
+              document.createElement(
+                "div"
+              );
 
-              <div>
 
-                <h3>
-                  ${aviso.titulo}
-                </h3>
+            destinatariosInfo.className =
+              "aviso-info-item";
 
-                <p>
-                  ${aviso.contenido}
-                </p>
 
-                <p>
-                  <strong>Tipo:</strong>
-                  ${aviso.tipo}
-                </p>
+            destinatariosInfo.innerHTML =
+              `<span class="aviso-info-label">
+                Destinatarios
+              </span>
+              <strong>
+                ${destinatarios}
+              </strong>`;
 
-                <p>
-                  <strong>Prioridad:</strong>
-                  ${aviso.prioridad}
-                </p>
 
-                <p>
-                  <strong>Estado:</strong>
-                  ${aviso.estado}
-                </p>
+            informacion.appendChild(
+              destinatariosInfo
+            );
 
-                <p>
-                  <strong>Destinatarios:</strong>
-                  ${destinatarios}
-                </p>
 
-                <p>
-                  <strong>Creado por:</strong>
-                  ${aviso.creadoPorUsuario
+
+            // CREADO POR
+
+            const creadoPor =
+              document.createElement(
+                "div"
+              );
+
+
+            creadoPor.className =
+              "aviso-info-item";
+
+
+            creadoPor.innerHTML =
+              `<span class="aviso-info-label">
+                Creado por
+              </span>
+              <strong>
+                ${
+                  aviso.creadoPorUsuario
                     ? aviso.creadoPorUsuario.nombre
                     : "-"
-                  }
-                </p>
+                }
+              </strong>`;
 
-              </div>
 
-            `;
+            informacion.appendChild(
+              creadoPor
+            );
 
+
+            tarjeta.appendChild(
+              informacion
+            );
+
+
+
+            // =================================================
+            // ACCIONES
+            // =================================================
 
             const acciones =
               document.createElement(
@@ -792,8 +1202,9 @@ Kit Gestión Asesoría · Gestión Interna
               );
 
 
-            acciones.style.marginTop =
-              "15px";
+            acciones.className =
+              "aviso-card-actions";
+
 
 
             // PUBLICAR
@@ -812,8 +1223,10 @@ Kit Gestión Asesoría · Gestión Interna
               botonPublicar.type =
                 "button";
 
+
               botonPublicar.className =
-                "btn";
+                "btn aviso-action-button aviso-publish-button";
+
 
               botonPublicar.textContent =
                 "Publicar";
@@ -836,6 +1249,7 @@ Kit Gestión Asesoría · Gestión Interna
             }
 
 
+
             // ARCHIVAR
 
             if (
@@ -852,8 +1266,10 @@ Kit Gestión Asesoría · Gestión Interna
               botonArchivar.type =
                 "button";
 
+
               botonArchivar.className =
-                "btn btn-danger";
+                "btn btn-danger aviso-action-button";
+
 
               botonArchivar.textContent =
                 "Archivar";
@@ -876,9 +1292,15 @@ Kit Gestión Asesoría · Gestión Interna
             }
 
 
-            tarjeta.appendChild(
-              acciones
-            );
+            if (
+              acciones.children.length > 0
+            ) {
+
+              tarjeta.appendChild(
+                acciones
+              );
+
+            }
 
 
             listaAvisos.appendChild(
@@ -895,8 +1317,11 @@ Kit Gestión Asesoría · Gestión Interna
           error
         );
 
-        listaAvisos.textContent =
-          error.message;
+
+        listaAvisos.innerHTML =
+          `<div class="avisos-error">
+            ${error.message}
+          </div>`;
 
       }
 
@@ -968,6 +1393,7 @@ Kit Gestión Asesoría · Gestión Interna
           "Error publicando aviso:",
           error
         );
+
 
         alert(
           error.message
@@ -1044,6 +1470,7 @@ Kit Gestión Asesoría · Gestión Interna
           error
         );
 
+
         alert(
           error.message
         );
@@ -1062,7 +1489,9 @@ Kit Gestión Asesoría · Gestión Interna
 
     cargarAvisos();
 
+
   </script>
+
 
 </body>
 
