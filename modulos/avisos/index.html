@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Avisos - Gestión Interna</title>
 
@@ -19,9 +21,7 @@
 
 </head>
 
-
-<body>
-
+<body class="avisos-page">
 
   <!-- =====================================================
        CABECERA
@@ -29,43 +29,42 @@
 
   <header class="portal-header">
 
-    <div class="portal-header-left">
+```
+<div class="portal-header-left">
 
-      <h1>
-        Avisos
-      </h1>
+  <h1>
+    Avisos
+  </h1>
 
-      <p id="usuarioCabecera">
-        Cargando...
-      </p>
+  <p id="usuarioCabecera">
+    Cargando...
+  </p>
 
-    </div>
-
-
-    <div class="portal-header-right">
-
-      <button
-        id="volver"
-        class="btn"
-        type="button"
-      >
-        ← Volver
-      </button>
+</div>
 
 
-      <button
-        id="cerrarSesion"
-        class="btn btn-danger"
-        type="button"
-      >
-        Cerrar sesión
-      </button>
+<div class="portal-header-right">
 
-    </div>
+  <button
+    id="volver"
+    class="btn"
+    type="button"
+  >
+    Volver
+  </button>
+
+  <button
+    id="cerrarSesion"
+    class="btn btn-danger"
+    type="button"
+  >
+    Cerrar sesión
+  </button>
+
+</div>
+```
 
   </header>
-
-
 
   <!-- =====================================================
        CONTENIDO
@@ -73,55 +72,175 @@
 
   <main class="portal-container avisos-page">
 
+```
+<!-- =====================================================
+     BIENVENIDA
+     ===================================================== -->
 
-    <!-- ===================================================
-         BIENVENIDA
-         =================================================== -->
+<section class="avisos-welcome">
 
-    <section class="avisos-welcome">
+  <span class="avisos-welcome-label">
+    Gestión interna
+  </span>
 
-      <div>
+  <h2 id="bienvenida">
+    Gestión de avisos
+  </h2>
 
-        <span class="avisos-welcome-label">
-          COMUNICACIÓN
-        </span>
+  <p>
+    Crea, publica y archiva avisos para los clientes.
+  </p>
 
-        <h2 id="bienvenida">
-          Gestión de avisos
-        </h2>
-
-        <p>
-          Crea, publica y archiva avisos para los clientes.
-        </p>
-
-      </div>
-
-    </section>
+</section>
 
 
 
-    <!-- ===================================================
-         CREAR AVISO
-         =================================================== -->
+<!-- =====================================================
+     CREAR AVISO
+     ===================================================== -->
 
-    <section class="dashboard-section avisos-create-section">
+<section class="dashboard-section">
+
+  <div class="avisos-section-header">
+
+    <span class="avisos-section-label">
+      Comunicación
+    </span>
+
+    <h2>
+      Crear aviso
+    </h2>
+
+    <p>
+      Introduce la información del aviso y selecciona sus destinatarios.
+    </p>
+
+  </div>
 
 
-      <div class="avisos-section-header">
+  <div class="aviso-form-card">
 
-        <div>
+    <form id="formAviso">
 
-          <span class="avisos-section-label">
-            NUEVO AVISO
+
+      <!-- =================================================
+           BLOQUE 1 · INFORMACIÓN
+           ================================================= -->
+
+      <div class="aviso-form-block">
+
+        <div class="aviso-form-block-title">
+
+          <span>
+            1
           </span>
 
-          <h2>
-            Crear aviso
-          </h2>
+          <div>
 
-          <p>
-            Redacta la información y selecciona quién recibirá el aviso.
-          </p>
+            <h3>
+              Información del aviso
+            </h3>
+
+            <p>
+              Define el contenido y la clasificación del aviso.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="aviso-form-grid">
+
+
+          <div class="aviso-field aviso-field-full">
+
+            <label for="titulo">
+              Título
+            </label>
+
+            <input
+              type="text"
+              id="titulo"
+              required
+              placeholder="Título del aviso"
+            >
+
+          </div>
+
+
+          <div class="aviso-field aviso-field-full">
+
+            <label for="contenido">
+              Contenido
+            </label>
+
+            <textarea
+              id="contenido"
+              rows="5"
+              required
+              placeholder="Escribe el contenido del aviso..."
+            ></textarea>
+
+          </div>
+
+
+          <div class="aviso-field">
+
+            <label for="tipo">
+              Tipo
+            </label>
+
+            <select id="tipo">
+
+              <option value="GENERAL">
+                General
+              </option>
+
+              <option value="DOCUMENTACION">
+                Documentación
+              </option>
+
+              <option value="IMPORTANTE">
+                Importante
+              </option>
+
+              <option value="PLAZO">
+                Plazo
+              </option>
+
+              <option value="INFORMACION">
+                Información
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="aviso-field">
+
+            <label for="prioridad">
+              Prioridad
+            </label>
+
+            <select id="prioridad">
+
+              <option value="NORMAL">
+                Normal
+              </option>
+
+              <option value="ALTA">
+                Alta
+              </option>
+
+              <option value="URGENTE">
+                Urgente
+              </option>
+
+            </select>
+
+          </div>
 
         </div>
 
@@ -129,326 +248,132 @@
 
 
 
-      <div class="aviso-form-card">
+      <!-- =================================================
+           BLOQUE 2 · DESTINATARIOS
+           ================================================= -->
 
-        <form id="formAviso">
+      <div class="aviso-form-block">
 
+        <div class="aviso-form-block-title">
 
-          <!-- =================================================
-               INFORMACIÓN PRINCIPAL
-               ================================================= -->
+          <span>
+            2
+          </span>
 
-          <div class="aviso-form-block">
+          <div>
 
-            <div class="aviso-form-block-title">
+            <h3>
+              Destinatarios
+            </h3>
 
-              <span>
-                01
-              </span>
-
-              <div>
-
-                <h3>
-                  Información del aviso
-                </h3>
-
-                <p>
-                  Introduce el título y el contenido del mensaje.
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="aviso-form-grid">
-
-
-              <!-- TÍTULO -->
-
-              <div class="aviso-field aviso-field-full">
-
-                <label for="titulo">
-                  Título
-                </label>
-
-                <input
-                  type="text"
-                  id="titulo"
-                  placeholder="Ej.: Documentación pendiente"
-                  required
-                >
-
-              </div>
-
-
-
-              <!-- CONTENIDO -->
-
-              <div class="aviso-field aviso-field-full">
-
-                <label for="contenido">
-                  Contenido
-                </label>
-
-                <textarea
-                  id="contenido"
-                  rows="6"
-                  placeholder="Escribe aquí el contenido del aviso..."
-                  required
-                ></textarea>
-
-              </div>
-
-            </div>
+            <p>
+              Decide quién recibirá el aviso.
+            </p>
 
           </div>
 
+        </div>
 
 
-          <!-- =================================================
-               CONFIGURACIÓN
-               ================================================= -->
-
-          <div class="aviso-form-block">
-
-            <div class="aviso-form-block-title">
-
-              <span>
-                02
-              </span>
-
-              <div>
-
-                <h3>
-                  Configuración
-                </h3>
-
-                <p>
-                  Define el tipo, prioridad y fecha de caducidad.
-                </p>
-
-              </div>
-
-            </div>
+        <div class="aviso-form-grid">
 
 
-            <div class="aviso-form-grid">
+          <div class="aviso-field aviso-field-full">
 
+            <label for="tipoDestinatario">
+              Destinatarios
+            </label>
 
-              <!-- TIPO -->
+            <select id="tipoDestinatario">
 
-              <div class="aviso-field">
+              <option value="CLIENTES">
+                Clientes concretos
+              </option>
 
-                <label for="tipo">
-                  Tipo
-                </label>
+              <option value="TODOS">
+                Todos los clientes
+              </option>
 
-                <select id="tipo">
-
-                  <option value="GENERAL">
-                    General
-                  </option>
-
-                  <option value="DOCUMENTACION">
-                    Documentación
-                  </option>
-
-                  <option value="IMPORTANTE">
-                    Importante
-                  </option>
-
-                  <option value="PLAZO">
-                    Plazo
-                  </option>
-
-                  <option value="INFORMACION">
-                    Información
-                  </option>
-
-                </select>
-
-              </div>
-
-
-
-              <!-- PRIORIDAD -->
-
-              <div class="aviso-field">
-
-                <label for="prioridad">
-                  Prioridad
-                </label>
-
-                <select id="prioridad">
-
-                  <option value="NORMAL">
-                    Normal
-                  </option>
-
-                  <option value="ALTA">
-                    Alta
-                  </option>
-
-                  <option value="URGENTE">
-                    Urgente
-                  </option>
-
-                </select>
-
-              </div>
-
-
-
-              <!-- DESTINATARIOS -->
-
-              <div class="aviso-field">
-
-                <label for="tipoDestinatario">
-                  Destinatarios
-                </label>
-
-                <select id="tipoDestinatario">
-
-                  <option value="CLIENTES">
-                    Clientes concretos
-                  </option>
-
-                  <option value="TODOS">
-                    Todos los clientes
-                  </option>
-
-                </select>
-
-              </div>
-
-
-
-              <!-- CADUCIDAD -->
-
-              <div class="aviso-field">
-
-                <label for="fechaCaducidad">
-                  Fecha de caducidad
-                </label>
-
-                <input
-                  type="datetime-local"
-                  id="fechaCaducidad"
-                >
-
-              </div>
-
-            </div>
+            </select>
 
           </div>
 
-
-
-          <!-- =================================================
-               CLIENTES
-               ================================================= -->
 
           <div
             id="clientesContainer"
-            class="aviso-form-block aviso-clientes-block"
+            class="aviso-field aviso-field-full"
           >
 
-            <div class="aviso-form-block-title">
+            <label for="clienteIds">
+              Seleccionar clientes
+            </label>
 
-              <span>
-                03
-              </span>
+            <select
+              id="clienteIds"
+              multiple
+              size="6"
+            ></select>
 
-              <div>
-
-                <h3>
-                  Seleccionar clientes
-                </h3>
-
-                <p>
-                  Selecciona uno o varios clientes que recibirán el aviso.
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="aviso-field">
-
-              <label for="clienteIds">
-                Clientes
-              </label>
-
-              <select
-                id="clienteIds"
-                multiple
-                size="6"
-              ></select>
-
-              <small class="aviso-field-help">
-                Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
-              </small>
-
-            </div>
+            <span class="aviso-field-help">
+              Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
+            </span>
 
           </div>
 
 
-
-          <!-- =================================================
-               ACCIONES
-               ================================================= -->
-
-          <div class="aviso-form-actions">
-
-            <button
-              type="submit"
-              class="btn aviso-create-button"
-            >
-              Crear aviso
-            </button>
-
-          </div>
-
-
-          <p
-            id="mensajeFormulario"
-            class="aviso-form-message"
-          ></p>
-
-
-        </form>
+        </div>
 
       </div>
 
-    </section>
 
 
+      <!-- =================================================
+           BLOQUE 3 · CADUCIDAD
+           ================================================= -->
 
-    <!-- ===================================================
-         LISTADO
-         =================================================== -->
+      <div class="aviso-form-block">
 
-    <section class="dashboard-section avisos-list-section">
+        <div class="aviso-form-block-title">
 
-
-      <div class="avisos-section-header avisos-list-header">
-
-        <div>
-
-          <span class="avisos-section-label">
-            HISTORIAL
+          <span>
+            3
           </span>
 
-          <h2>
-            Avisos
-          </h2>
+          <div>
 
-          <p>
-            Consulta el estado y los destinatarios de los avisos creados.
-          </p>
+            <h3>
+              Caducidad
+            </h3>
+
+            <p>
+              Opcionalmente puedes establecer una fecha de caducidad.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="aviso-form-grid">
+
+
+          <div class="aviso-field">
+
+            <label for="fechaCaducidad">
+              Fecha de caducidad
+            </label>
+
+            <input
+              type="datetime-local"
+              id="fechaCaducidad"
+            >
+
+            <span class="aviso-field-help">
+              Déjalo vacío si el aviso no tiene fecha de caducidad.
+            </span>
+
+          </div>
+
 
         </div>
 
@@ -456,24 +381,74 @@
 
 
 
-      <div
-        id="listaAvisos"
-        class="avisos-grid"
-      >
+      <!-- =================================================
+           ACCIONES
+           ================================================= -->
 
-        <div class="avisos-loading">
-          Cargando avisos...
-        </div>
+      <div class="aviso-form-actions">
+
+        <button
+          type="submit"
+          class="btn aviso-create-button"
+        >
+          Crear aviso
+        </button>
 
       </div>
 
 
-    </section>
+      <p
+        id="mensajeFormulario"
+        class="aviso-form-message"
+      ></p>
 
+
+    </form>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LISTADO DE AVISOS
+     ===================================================== -->
+
+<section class="avisos-list-section">
+
+  <div class="avisos-section-header">
+
+    <span class="avisos-section-label">
+      Avisos existentes
+    </span>
+
+    <h2>
+      Avisos
+    </h2>
+
+    <p>
+      Consulta, publica o archiva los avisos existentes.
+    </p>
+
+  </div>
+
+
+  <div
+    id="listaAvisos"
+    class="avisos-grid"
+  >
+
+    <div class="avisos-loading">
+      Cargando avisos...
+    </div>
+
+  </div>
+
+</section>
+```
 
   </main>
-
-
 
   <!-- =====================================================
        PIE
@@ -481,19 +456,17 @@
 
   <footer class="portal-footer">
 
-    Kit Gestión Asesoría · Gestión Interna
+```
+Kit Gestión Asesoría · Gestión Interna
+```
 
   </footer>
-
-
 
   <!-- =====================================================
        JAVASCRIPT COMÚN
        ===================================================== -->
 
   <script src="../../js/comun.js"></script>
-
-
 
   <!-- =====================================================
        JAVASCRIPT DEL MÓDULO
@@ -629,29 +602,25 @@
         clienteIds.innerHTML = "";
 
 
-        datos.clientes.forEach(
-          cliente => {
+        datos.clientes.forEach(cliente => {
 
-            const opcion =
-              document.createElement(
-                "option"
-              );
+          const opcion =
+            document.createElement("option");
 
 
-            opcion.value =
-              cliente.id;
+          opcion.value =
+            cliente.id;
 
 
-            opcion.textContent =
-              `${cliente.nombre} · ${cliente.email}`;
+          opcion.textContent =
+            `${cliente.nombre} · ${cliente.email}`;
 
 
-            clienteIds.appendChild(
-              opcion
-            );
+          clienteIds.appendChild(
+            opcion
+          );
 
-          }
-        );
+        });
 
       } catch (error) {
 
@@ -689,7 +658,7 @@
       } else {
 
         clientesContainer.style.display =
-          "block";
+          "flex";
 
       }
 
@@ -876,9 +845,11 @@
     async function cargarAvisos() {
 
       listaAvisos.innerHTML =
-        `<div class="avisos-loading">
-          Cargando avisos...
-        </div>`;
+        `
+          <div class="avisos-loading">
+            Cargando avisos...
+          </div>
+        `;
 
 
       try {
@@ -922,21 +893,23 @@
         ) {
 
           listaAvisos.innerHTML =
-            `<div class="avisos-empty">
+            `
+              <div class="avisos-empty">
 
-              <div class="avisos-empty-icon">
-                🔔
+                <div class="avisos-empty-icon">
+                  📢
+                </div>
+
+                <h3>
+                  No hay avisos
+                </h3>
+
+                <p>
+                  Todavía no se ha creado ningún aviso.
+                </p>
+
               </div>
-
-              <h3>
-                No hay avisos
-              </h3>
-
-              <p>
-                Todavía no se han creado avisos.
-              </p>
-
-            </div>`;
+            `;
 
           return;
 
@@ -959,169 +932,6 @@
               "aviso-card";
 
 
-
-            // =================================================
-            // CABECERA
-            // =================================================
-
-            const tarjetaHeader =
-              document.createElement(
-                "div"
-              );
-
-
-            tarjetaHeader.className =
-              "aviso-card-header";
-
-
-
-            const titulo =
-              document.createElement(
-                "h3"
-              );
-
-
-            titulo.textContent =
-              aviso.titulo ||
-              "Sin título";
-
-
-
-            // ESTADO
-
-            const estado =
-              document.createElement(
-                "span"
-              );
-
-
-            estado.className =
-              `aviso-badge aviso-estado-${(
-                aviso.estado ||
-                ""
-              ).toLowerCase()}`;
-
-
-            estado.textContent =
-              aviso.estado ||
-              "-";
-
-
-            tarjetaHeader.appendChild(
-              titulo
-            );
-
-
-            tarjetaHeader.appendChild(
-              estado
-            );
-
-
-            tarjeta.appendChild(
-              tarjetaHeader
-            );
-
-
-
-            // =================================================
-            // CONTENIDO
-            // =================================================
-
-            const contenido =
-              document.createElement(
-                "p"
-              );
-
-
-            contenido.className =
-              "aviso-card-content";
-
-
-            contenido.textContent =
-              aviso.contenido ||
-              "-";
-
-
-            tarjeta.appendChild(
-              contenido
-            );
-
-
-
-            // =================================================
-            // INFORMACIÓN
-            // =================================================
-
-            const informacion =
-              document.createElement(
-                "div"
-              );
-
-
-            informacion.className =
-              "aviso-card-info";
-
-
-
-            // TIPO
-
-            const tipo =
-              document.createElement(
-                "div"
-              );
-
-
-            tipo.className =
-              "aviso-info-item";
-
-
-            tipo.innerHTML =
-              `<span class="aviso-info-label">
-                Tipo
-              </span>
-              <strong>
-                ${aviso.tipo || "-"}
-              </strong>`;
-
-
-            informacion.appendChild(
-              tipo
-            );
-
-
-
-            // PRIORIDAD
-
-            const prioridad =
-              document.createElement(
-                "div"
-              );
-
-
-            prioridad.className =
-              "aviso-info-item";
-
-
-            prioridad.innerHTML =
-              `<span class="aviso-info-label">
-                Prioridad
-              </span>
-              <strong class="aviso-prioridad-${(
-                aviso.prioridad ||
-                ""
-              ).toLowerCase()}">
-                ${aviso.prioridad || "-"}
-              </strong>`;
-
-
-            informacion.appendChild(
-              prioridad
-            );
-
-
-
-            // DESTINATARIOS
-
             const destinatarios =
               aviso.tipoDestinatario ===
               "TODOS"
@@ -1131,70 +941,101 @@
                 : `${aviso.destinatarios.length} cliente(s)`;
 
 
-            const destinatariosInfo =
-              document.createElement(
-                "div"
-              );
+            const prioridadClase =
+              aviso.prioridad === "URGENTE"
+                ? "aviso-prioridad-urgente"
+                : aviso.prioridad === "ALTA"
+                  ? "aviso-prioridad-alta"
+                  : "aviso-prioridad-normal";
 
 
-            destinatariosInfo.className =
-              "aviso-info-item";
+            tarjeta.innerHTML = `
+
+              <div class="aviso-card-header">
+
+                <div>
+
+                  <h3>
+                    ${aviso.titulo}
+                  </h3>
+
+                </div>
+
+                <span class="aviso-badge">
+                  ${aviso.estado}
+                </span>
+
+              </div>
 
 
-            destinatariosInfo.innerHTML =
-              `<span class="aviso-info-label">
-                Destinatarios
-              </span>
-              <strong>
-                ${destinatarios}
-              </strong>`;
+              <p class="aviso-card-content">
+                ${aviso.contenido}
+              </p>
 
 
-            informacion.appendChild(
-              destinatariosInfo
-            );
+              <div class="aviso-card-info">
 
 
+                <div class="aviso-info-item">
 
-            // CREADO POR
+                  <span class="aviso-info-label">
+                    Tipo
+                  </span>
 
-            const creadoPor =
-              document.createElement(
-                "div"
-              );
+                  <strong>
+                    ${aviso.tipo}
+                  </strong>
 
-
-            creadoPor.className =
-              "aviso-info-item";
-
-
-            creadoPor.innerHTML =
-              `<span class="aviso-info-label">
-                Creado por
-              </span>
-              <strong>
-                ${
-                  aviso.creadoPorUsuario
-                    ? aviso.creadoPorUsuario.nombre
-                    : "-"
-                }
-              </strong>`;
+                </div>
 
 
-            informacion.appendChild(
-              creadoPor
-            );
+                <div class="aviso-info-item">
+
+                  <span class="aviso-info-label">
+                    Prioridad
+                  </span>
+
+                  <strong class="${prioridadClase}">
+                    ${aviso.prioridad}
+                  </strong>
+
+                </div>
 
 
-            tarjeta.appendChild(
-              informacion
-            );
+                <div class="aviso-info-item">
+
+                  <span class="aviso-info-label">
+                    Destinatarios
+                  </span>
+
+                  <strong>
+                    ${destinatarios}
+                  </strong>
+
+                </div>
 
 
+                <div class="aviso-info-item">
 
-            // =================================================
-            // ACCIONES
-            // =================================================
+                  <span class="aviso-info-label">
+                    Creado por
+                  </span>
+
+                  <strong>
+                    ${
+                      aviso.creadoPorUsuario
+                        ? aviso.creadoPorUsuario.nombre
+                        : "-"
+                    }
+                  </strong>
+
+                </div>
+
+
+              </div>
+
+            `;
+
 
             const acciones =
               document.createElement(
@@ -1207,7 +1048,9 @@
 
 
 
+            // =================================================
             // PUBLICAR
+            // =================================================
 
             if (
               aviso.estado ===
@@ -1225,7 +1068,7 @@
 
 
               botonPublicar.className =
-                "btn aviso-action-button aviso-publish-button";
+                "btn aviso-action-button";
 
 
               botonPublicar.textContent =
@@ -1250,7 +1093,9 @@
 
 
 
+            // =================================================
             // ARCHIVAR
+            // =================================================
 
             if (
               aviso.estado !==
@@ -1292,9 +1137,7 @@
             }
 
 
-            if (
-              acciones.children.length > 0
-            ) {
+            if (acciones.children.length > 0) {
 
               tarjeta.appendChild(
                 acciones
@@ -1319,9 +1162,11 @@
 
 
         listaAvisos.innerHTML =
-          `<div class="avisos-error">
-            ${error.message}
-          </div>`;
+          `
+            <div class="avisos-error">
+              ${error.message}
+            </div>
+          `;
 
       }
 
@@ -1489,9 +1334,7 @@
 
     cargarAvisos();
 
-
   </script>
-
 
 </body>
 
