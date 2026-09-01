@@ -94,7 +94,6 @@ content="width=device-width, initial-scale=1.0"
 </section>
 
 
-
 <!-- =====================================================
      CREAR AVISO
      ===================================================== -->
@@ -151,7 +150,6 @@ content="width=device-width, initial-scale=1.0"
 
 
         <div class="aviso-form-grid">
-
 
           <div class="aviso-field aviso-field-full">
 
@@ -247,7 +245,6 @@ content="width=device-width, initial-scale=1.0"
       </div>
 
 
-
       <!-- =================================================
            BLOQUE 2 · DESTINATARIOS
            ================================================= -->
@@ -276,7 +273,6 @@ content="width=device-width, initial-scale=1.0"
 
 
         <div class="aviso-form-grid">
-
 
           <div class="aviso-field aviso-field-full">
 
@@ -320,11 +316,9 @@ content="width=device-width, initial-scale=1.0"
 
           </div>
 
-
         </div>
 
       </div>
-
 
 
       <!-- =================================================
@@ -356,7 +350,6 @@ content="width=device-width, initial-scale=1.0"
 
         <div class="aviso-form-grid">
 
-
           <div class="aviso-field">
 
             <label for="fechaCaducidad">
@@ -374,11 +367,9 @@ content="width=device-width, initial-scale=1.0"
 
           </div>
 
-
         </div>
 
       </div>
-
 
 
       <!-- =================================================
@@ -408,7 +399,6 @@ content="width=device-width, initial-scale=1.0"
   </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -474,7 +464,6 @@ Kit Gestión Asesoría · Gestión Interna
 
   <script>
 
-
     // =====================================================
     // COMPROBAR SESIÓN
     // =====================================================
@@ -486,7 +475,6 @@ Kit Gestión Asesoría · Gestión Interna
       );
 
     }
-
 
 
     // =====================================================
@@ -509,7 +497,6 @@ Kit Gestión Asesoría · Gestión Interna
         `Gestión de avisos · ${usuario.nombre}`;
 
 
-
     // =====================================================
     // VOLVER
     // =====================================================
@@ -527,7 +514,6 @@ Kit Gestión Asesoría · Gestión Interna
       );
 
 
-
     // =====================================================
     // CERRAR SESIÓN
     // =====================================================
@@ -538,7 +524,6 @@ Kit Gestión Asesoría · Gestión Interna
         "click",
         cerrarSesion
       );
-
 
 
     // =====================================================
@@ -564,7 +549,6 @@ Kit Gestión Asesoría · Gestión Interna
       document.getElementById("mensajeFormulario");
 
 
-
     // =====================================================
     // CARGAR CLIENTES
     // =====================================================
@@ -574,14 +558,8 @@ Kit Gestión Asesoría · Gestión Interna
       try {
 
         const respuesta =
-          await fetch(
-            "/api/clientes",
-            {
-              headers: {
-                "Authorization":
-                  `Bearer ${localStorage.getItem("token")}`
-              }
-            }
+          await peticionAPI(
+            "/api/clientes"
           );
 
 
@@ -589,7 +567,10 @@ Kit Gestión Asesoría · Gestión Interna
           await respuesta.json();
 
 
-        if (!respuesta.ok || !datos.ok) {
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
 
           throw new Error(
             datos.message ||
@@ -599,28 +580,50 @@ Kit Gestión Asesoría · Gestión Interna
         }
 
 
-        clienteIds.innerHTML = "";
+        clienteIds.innerHTML =
+          "";
 
 
-        datos.clientes.forEach(cliente => {
+        if (
+          !datos.clientes ||
+          datos.clientes.length === 0
+        ) {
 
-          const opcion =
-            document.createElement("option");
+          clienteIds.innerHTML =
+            `
+              <option value="">
+                No hay clientes disponibles
+              </option>
+            `;
+
+          return;
+
+        }
 
 
-          opcion.value =
-            cliente.id;
+        datos.clientes.forEach(
+          cliente => {
+
+            const opcion =
+              document.createElement(
+                "option"
+              );
 
 
-          opcion.textContent =
-            `${cliente.nombre} · ${cliente.email}`;
+            opcion.value =
+              cliente.id;
 
 
-          clienteIds.appendChild(
-            opcion
-          );
+            opcion.textContent =
+              `${cliente.nombre} · ${cliente.email}`;
 
-        });
+
+            clienteIds.appendChild(
+              opcion
+            );
+
+          }
+        );
 
       } catch (error) {
 
@@ -631,14 +634,15 @@ Kit Gestión Asesoría · Gestión Interna
 
 
         clienteIds.innerHTML =
-          `<option value="">
-             No se pudieron cargar los clientes
-           </option>`;
+          `
+            <option value="">
+              No se pudieron cargar los clientes
+            </option>
+          `;
 
       }
 
     }
-
 
 
     // =====================================================
@@ -675,7 +679,6 @@ Kit Gestión Asesoría · Gestión Interna
     actualizarDestinatarios();
 
 
-
     // =====================================================
     // CREAR AVISO
     // =====================================================
@@ -709,7 +712,8 @@ Kit Gestión Asesoría · Gestión Interna
                 clienteIds.selectedOptions
               )
               .map(
-                opcion => opcion.value
+                opcion =>
+                  opcion.value
               );
 
 
@@ -730,32 +734,35 @@ Kit Gestión Asesoría · Gestión Interna
           const datos = {
 
             titulo:
-              document.getElementById(
-                "titulo"
-              ).value.trim(),
+              document
+                .getElementById("titulo")
+                .value
+                .trim(),
 
             contenido:
-              document.getElementById(
-                "contenido"
-              ).value.trim(),
+              document
+                .getElementById("contenido")
+                .value
+                .trim(),
 
             tipo:
-              document.getElementById(
-                "tipo"
-              ).value,
+              document
+                .getElementById("tipo")
+                .value,
 
             prioridad:
-              document.getElementById(
-                "prioridad"
-              ).value,
+              document
+                .getElementById("prioridad")
+                .value,
 
             tipoDestinatario:
               destinatario,
 
             fechaCaducidad:
-              document.getElementById(
-                "fechaCaducidad"
-              ).value || null,
+              document
+                .getElementById("fechaCaducidad")
+                .value ||
+              null,
 
             clienteIds:
               seleccionados
@@ -766,27 +773,20 @@ Kit Gestión Asesoría · Gestión Interna
           try {
 
             const respuesta =
-              await fetch(
+              await peticionAPI(
                 "/api/avisos",
                 {
-
                   method: "POST",
 
                   headers: {
-
                     "Content-Type":
-                      "application/json",
-
-                    "Authorization":
-                      `Bearer ${localStorage.getItem("token")}`
-
+                      "application/json"
                   },
 
                   body:
                     JSON.stringify(
                       datos
                     )
-
                 }
               );
 
@@ -818,7 +818,7 @@ Kit Gestión Asesoría · Gestión Interna
             actualizarDestinatarios();
 
 
-            cargarAvisos();
+            await cargarAvisos();
 
           } catch (error) {
 
@@ -835,7 +835,6 @@ Kit Gestión Asesoría · Gestión Interna
 
         }
       );
-
 
 
     // =====================================================
@@ -855,18 +854,8 @@ Kit Gestión Asesoría · Gestión Interna
       try {
 
         const respuesta =
-          await fetch(
-            "/api/avisos",
-            {
-
-              headers: {
-
-                "Authorization":
-                  `Bearer ${localStorage.getItem("token")}`
-
-              }
-
-            }
+          await peticionAPI(
+            "/api/avisos"
           );
 
 
@@ -916,7 +905,8 @@ Kit Gestión Asesoría · Gestión Interna
         }
 
 
-        listaAvisos.innerHTML = "";
+        listaAvisos.innerHTML =
+          "";
 
 
         datos.avisos.forEach(
@@ -942,99 +932,106 @@ Kit Gestión Asesoría · Gestión Interna
 
 
             const prioridadClase =
-              aviso.prioridad === "URGENTE"
+              aviso.prioridad ===
+              "URGENTE"
+
                 ? "aviso-prioridad-urgente"
-                : aviso.prioridad === "ALTA"
-                  ? "aviso-prioridad-alta"
-                  : "aviso-prioridad-normal";
+
+                : aviso.prioridad ===
+                  "ALTA"
+
+                    ? "aviso-prioridad-alta"
+
+                    : "aviso-prioridad-normal";
 
 
-            tarjeta.innerHTML = `
+            tarjeta.innerHTML =
+              `
 
-              <div class="aviso-card-header">
+                <div class="aviso-card-header">
 
-                <div>
+                  <div>
 
-                  <h3>
-                    ${aviso.titulo}
-                  </h3>
+                    <h3>
+                      ${aviso.titulo}
+                    </h3>
 
-                </div>
+                  </div>
 
-                <span class="aviso-badge">
-                  ${aviso.estado}
-                </span>
-
-              </div>
-
-
-              <p class="aviso-card-content">
-                ${aviso.contenido}
-              </p>
-
-
-              <div class="aviso-card-info">
-
-
-                <div class="aviso-info-item">
-
-                  <span class="aviso-info-label">
-                    Tipo
+                  <span class="aviso-badge">
+                    ${aviso.estado}
                   </span>
 
-                  <strong>
-                    ${aviso.tipo}
-                  </strong>
-
                 </div>
 
 
-                <div class="aviso-info-item">
+                <p class="aviso-card-content">
+                  ${aviso.contenido}
+                </p>
 
-                  <span class="aviso-info-label">
-                    Prioridad
-                  </span>
 
-                  <strong class="${prioridadClase}">
-                    ${aviso.prioridad}
-                  </strong>
+                <div class="aviso-card-info">
+
+
+                  <div class="aviso-info-item">
+
+                    <span class="aviso-info-label">
+                      Tipo
+                    </span>
+
+                    <strong>
+                      ${aviso.tipo}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="aviso-info-item">
+
+                    <span class="aviso-info-label">
+                      Prioridad
+                    </span>
+
+                    <strong class="${prioridadClase}">
+                      ${aviso.prioridad}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="aviso-info-item">
+
+                    <span class="aviso-info-label">
+                      Destinatarios
+                    </span>
+
+                    <strong>
+                      ${destinatarios}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="aviso-info-item">
+
+                    <span class="aviso-info-label">
+                      Creado por
+                    </span>
+
+                    <strong>
+                      ${
+                        aviso.creadoPorUsuario
+                          ? aviso.creadoPorUsuario.nombre
+                          : "-"
+                      }
+                    </strong>
+
+                  </div>
+
 
                 </div>
 
-
-                <div class="aviso-info-item">
-
-                  <span class="aviso-info-label">
-                    Destinatarios
-                  </span>
-
-                  <strong>
-                    ${destinatarios}
-                  </strong>
-
-                </div>
-
-
-                <div class="aviso-info-item">
-
-                  <span class="aviso-info-label">
-                    Creado por
-                  </span>
-
-                  <strong>
-                    ${
-                      aviso.creadoPorUsuario
-                        ? aviso.creadoPorUsuario.nombre
-                        : "-"
-                    }
-                  </strong>
-
-                </div>
-
-
-              </div>
-
-            `;
+              `;
 
 
             const acciones =
@@ -1045,7 +1042,6 @@ Kit Gestión Asesoría · Gestión Interna
 
             acciones.className =
               "aviso-card-actions";
-
 
 
             // =================================================
@@ -1092,7 +1088,6 @@ Kit Gestión Asesoría · Gestión Interna
             }
 
 
-
             // =================================================
             // ARCHIVAR
             // =================================================
@@ -1137,7 +1132,10 @@ Kit Gestión Asesoría · Gestión Interna
             }
 
 
-            if (acciones.children.length > 0) {
+            if (
+              acciones.children.length >
+              0
+            ) {
 
               tarjeta.appendChild(
                 acciones
@@ -1173,7 +1171,6 @@ Kit Gestión Asesoría · Gestión Interna
     }
 
 
-
     // =====================================================
     // PUBLICAR AVISO
     // =====================================================
@@ -1196,19 +1193,10 @@ Kit Gestión Asesoría · Gestión Interna
       try {
 
         const respuesta =
-          await fetch(
+          await peticionAPI(
             `/api/avisos/${id}/publicar`,
             {
-
-              method: "PATCH",
-
-              headers: {
-
-                "Authorization":
-                  `Bearer ${localStorage.getItem("token")}`
-
-              }
-
+              method: "PATCH"
             }
           );
 
@@ -1230,7 +1218,7 @@ Kit Gestión Asesoría · Gestión Interna
         }
 
 
-        cargarAvisos();
+        await cargarAvisos();
 
       } catch (error) {
 
@@ -1247,7 +1235,6 @@ Kit Gestión Asesoría · Gestión Interna
       }
 
     }
-
 
 
     // =====================================================
@@ -1272,19 +1259,10 @@ Kit Gestión Asesoría · Gestión Interna
       try {
 
         const respuesta =
-          await fetch(
+          await peticionAPI(
             `/api/avisos/${id}/archivar`,
             {
-
-              method: "PATCH",
-
-              headers: {
-
-                "Authorization":
-                  `Bearer ${localStorage.getItem("token")}`
-
-              }
-
+              method: "PATCH"
             }
           );
 
@@ -1306,7 +1284,7 @@ Kit Gestión Asesoría · Gestión Interna
         }
 
 
-        cargarAvisos();
+        await cargarAvisos();
 
       } catch (error) {
 
@@ -1323,7 +1301,6 @@ Kit Gestión Asesoría · Gestión Interna
       }
 
     }
-
 
 
     // =====================================================
