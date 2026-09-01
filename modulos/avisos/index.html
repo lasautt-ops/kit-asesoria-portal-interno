@@ -1861,6 +1861,13 @@ function actualizarDestinatarios() {
 
         }
 
+        todosLosAvisos =
+          Array.isArray(
+            datos.avisos
+          )
+            ? datos.avisos
+            : [];
+        
 
         if (
           !datos.avisos ||
