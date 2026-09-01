@@ -245,116 +245,139 @@ content="width=device-width, initial-scale=1.0"
       </div>
 
 
-      <!-- =================================================
-           BLOQUE 2 · DESTINATARIOS
-           ================================================= -->
+<!-- =================================================
+     BLOQUE 2 · DESTINATARIOS
+     ================================================= -->
 
-      <div class="aviso-form-block">
+<div class="aviso-form-block">
 
-        <div class="aviso-form-block-title">
+  <div class="aviso-form-block-title">
 
-          <span>
-            2
-          </span>
+    <span>
+      2
+    </span>
 
-          <div>
+    <div>
 
-            <h3>
-              Destinatarios
-            </h3>
+      <h3>
+        Destinatarios
+      </h3>
 
-            <p>
-              Decide quién recibirá el aviso.
-            </p>
+      <p>
+        Decide quién recibirá el aviso.
+      </p>
 
-          </div>
+    </div>
 
-        </div>
-
-
-        <div class="aviso-form-grid">
-
-          <div class="aviso-field aviso-field-full">
-
-            <label for="tipoDestinatario">
-              Destinatarios
-            </label>
-
-            <select id="tipoDestinatario">
-
-              <option value="CLIENTES">
-                Clientes concretos
-              </option>
-
-              <option value="TODOS">
-                Todos los clientes
-              </option>
-
-            </select>
-
-          </div>
+  </div>
 
 
-          <div
-  id="clientesContainer"
-  class="aviso-field aviso-field-full"
->
-
-  <label for="filtroEmpresa">
-    Empresa
-  </label>
-
-  <select id="filtroEmpresa">
-
-    <option value="">
-      Selecciona una empresa
-    </option>
-
-  </select>
+  <div class="aviso-form-grid">
 
 
-  <label for="filtroOficina">
-    Oficina
-  </label>
+    <!-- TIPO DE DESTINATARIO -->
 
-  <select
-    id="filtroOficina"
-    disabled
-  >
+    <div class="aviso-field aviso-field-full">
 
-    <option value="">
-      Selecciona una oficina
-    </option>
+      <label for="tipoDestinatario">
+        Destinatarios
+      </label>
 
-  </select>
+      <select id="tipoDestinatario">
+
+        <option value="CLIENTES">
+          Clientes concretos
+        </option>
+
+        <option value="TODOS">
+          Todos los clientes
+        </option>
+
+      </select>
+
+    </div>
 
 
-  <label for="clienteIds">
-    Seleccionar clientes
-  </label>
 
-  <select
-    id="clienteIds"
-    multiple
-    size="6"
-    disabled
-  >
+    <!-- EMPRESA -->
 
-    <option value="">
-      Selecciona primero una oficina
-    </option>
+    <div
+      id="empresaContainer"
+      class="aviso-field"
+    >
 
-  </select>
+      <label for="filtroEmpresa">
+        Empresa
+      </label>
 
-  <span class="aviso-field-help">
-    Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
-  </span>
+      <select
+        id="filtroEmpresa"
+      >
+
+        <option value="">
+          Selecciona una empresa
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- OFICINA -->
+
+    <div
+      id="oficinaContainer"
+      class="aviso-field"
+    >
+
+      <label for="filtroOficina">
+        Oficina
+      </label>
+
+      <select
+        id="filtroOficina"
+        disabled
+      >
+
+        <option value="">
+          Selecciona una oficina
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- CLIENTES -->
+
+    <div
+      id="clientesContainer"
+      class="aviso-field aviso-field-full"
+    >
+
+      <label for="clienteIds">
+        Seleccionar clientes
+      </label>
+
+      <select
+        id="clienteIds"
+        multiple
+        size="6"
+        disabled
+      ></select>
+
+      <span class="aviso-field-help">
+        Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
+      </span>
+
+    </div>
+
+
+  </div>
 
 </div>
-
-        </div>
-
-      </div>
 
 
       <!-- =================================================
