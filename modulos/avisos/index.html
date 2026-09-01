@@ -2036,6 +2036,542 @@ function actualizarDestinatarios() {
             acciones.className =
               "aviso-card-actions";
 
+            // =====================================================
+// RENDERIZAR AVISOS CON FILTROS
+// =====================================================
+
+function renderizarAvisos() {
+
+  const empresaId =
+    document.getElementById(
+      "filtroAvisoEmpresa"
+    ).value;
+
+
+  const oficinaId =
+    document.getElementById(
+      "filtroAvisoOficina"
+    ).value;
+
+
+  const clienteId =
+    document.getElementById(
+      "filtroAvisoCliente"
+    ).value;
+
+
+  const avisosFiltrados =
+    todosLosAvisos.filter(
+      (aviso) => {
+
+        const destinatarios =
+          Array.isArray(
+            aviso.destinatarios
+          )
+            ? aviso.destinatarios
+            : [];
+
+
+        // =============================================
+        // AVISOS PARA TODOS
+        // =============================================
+
+        if (
+          aviso.tipoDestinatario ===
+          "TODOS"
+        ) {
+
+          if (
+            empresaId &&
+            aviso.empresaId !== empresaId
+          ) {
+
+            return false;
+
+          }
+
+
+          /*
+           * Un aviso para TODOS pertenece a toda
+           * la empresa. Por tanto:
+           *
+           * Empresa seleccionada → se filtra.
+           * Oficina seleccionada → sigue visible,
+           * porque afecta a toda la empresa.
+           * Cliente seleccionado → sigue visible,
+           * porque afecta a todos.
+           */
+
+          return true;
+
+        }
+
+
+        // =============================================
+        // AVISOS PARA CLIENTES CONCRETOS
+        // =============================================
+
+        if (
+          destinatarios.length === 0
+        ) {
+
+          return false;
+
+        }
+
+
+        const coincide =
+          destinatarios.some(
+            (destinatario) => {
+
+              const cliente =
+                destinatario.cliente;
+
+
+              if (!cliente) {
+
+                return false;
+
+              }
+
+
+              if (
+                empresaId &&
+                cliente.empresaId !== empresaId
+              ) {
+
+                return false;
+
+              }
+
+
+              if (
+                oficinaId &&
+                cliente.oficinaId !== oficinaId
+              ) {
+
+                return false;
+
+              }
+
+
+              if (
+                clienteId &&
+                cliente.id !== clienteId
+              ) {
+
+                return false;
+
+              }
+
+
+              return true;
+
+            }
+          );
+
+
+        return coincide;
+
+      }
+    );
+
+
+  // ===================================================
+  // CONTADOR
+  // ===================================================
+
+  const resultados =
+    document.getElementById(
+      "avisosResultados"
+    );
+
+
+  resultados.textContent =
+    `${avisosFiltrados.length} ${
+      avisosFiltrados.length === 1
+        ? "aviso"
+        : "avisos"
+    }`;
+
+
+  // ===================================================
+  // CONTENEDOR
+  // ===================================================
+
+  listaAvisos.innerHTML =
+    "";
+
+
+  if (
+    avisosFiltrados.length === 0
+  ) {
+
+    listaAvisos.innerHTML =
+      `
+        <div class="avisos-empty">
+
+          <div class="avisos-empty-icon">
+            📢
+          </div>
+
+          <h3>
+            No hay avisos
+          </h3>
+
+          <p>
+            No se han encontrado avisos con los filtros seleccionados.
+          </p>
+
+        </div>
+      `;
+
+    return;
+
+  }
+
+
+  // ===================================================
+  // PINTAR AVISOS
+  // ===================================================
+
+  avisosFiltrados.forEach(
+    aviso => {
+
+      const tarjeta =
+        document.createElement(
+          "article"
+        );
+
+
+      tarjeta.className =
+        "aviso-card";
+
+
+      const destinatarios =
+        aviso.tipoDestinatario ===
+        "TODOS"
+
+          ? "Todos los clientes"
+
+          : `${aviso.destinatarios.length} cliente(s)`;
+
+
+      const prioridadClase =
+        aviso.prioridad ===
+        "URGENTE"
+
+          ? "aviso-prioridad-urgente"
+
+          : aviso.prioridad ===
+            "ALTA"
+
+              ? "aviso-prioridad-alta"
+
+              : "aviso-prioridad-normal";
+
+
+      tarjeta.innerHTML =
+        `
+
+          <div class="aviso-card-header">
+
+            <div>
+
+              <h3>
+                ${aviso.titulo}
+              </h3>
+
+            </div>
+
+            <span class="aviso-badge">
+              ${aviso.estado}
+            </span>
+
+          </div>
+
+
+          <p class="aviso-card-content">
+            ${aviso.contenido}
+          </p>
+
+
+          <div class="aviso-card-info">
+
+
+            <div class="aviso-info-item">
+
+              <span class="aviso-info-label">
+                Tipo
+              </span>
+
+              <strong>
+                ${aviso.tipo}
+              </strong>
+
+            </div>
+
+
+            <div class="aviso-info-item">
+
+              <span class="aviso-info-label">
+                Prioridad
+              </span>
+
+              <strong class="${prioridadClase}">
+                ${aviso.prioridad}
+              </strong>
+
+            </div>
+
+
+            <div class="aviso-info-item">
+
+              <span class="aviso-info-label">
+                Destinatarios
+              </span>
+
+              <strong>
+                ${destinatarios}
+              </strong>
+
+            </div>
+
+
+            <div class="aviso-info-item">
+
+              <span class="aviso-info-label">
+                Creado por
+              </span>
+
+              <strong>
+                ${
+                  aviso.creadoPorUsuario
+                    ? aviso.creadoPorUsuario.nombre
+                    : "-"
+                }
+              </strong>
+
+            </div>
+
+
+          </div>
+
+        `;
+
+
+      const acciones =
+        document.createElement(
+          "div"
+        );
+
+
+      acciones.className =
+        "aviso-card-actions";
+
+
+      // PUBLICAR
+
+      if (
+        aviso.estado ===
+        "BORRADOR"
+      ) {
+
+        const botonPublicar =
+          document.createElement(
+            "button"
+          );
+
+
+        botonPublicar.type =
+          "button";
+
+
+        botonPublicar.className =
+          "btn aviso-action-button";
+
+
+        botonPublicar.textContent =
+          "Publicar";
+
+
+        botonPublicar.addEventListener(
+          "click",
+          () =>
+            publicarAviso(
+              aviso.id
+            )
+        );
+
+
+        acciones.appendChild(
+          botonPublicar
+        );
+
+      }
+
+
+      // ARCHIVAR
+
+      if (
+        aviso.estado !==
+        "ARCHIVADO"
+      ) {
+
+        const botonArchivar =
+          document.createElement(
+            "button"
+          );
+
+
+        botonArchivar.type =
+          "button";
+
+
+        botonArchivar.className =
+          "btn btn-danger aviso-action-button";
+
+
+        botonArchivar.textContent =
+          "Archivar";
+
+
+        botonArchivar.addEventListener(
+          "click",
+          () =>
+            archivarAviso(
+              aviso.id
+            )
+        );
+
+
+        acciones.appendChild(
+          botonArchivar
+        );
+
+      }
+
+
+      if (
+        acciones.children.length >
+        0
+      ) {
+
+        tarjeta.appendChild(
+          acciones
+        );
+
+      }
+
+
+      listaAvisos.appendChild(
+        tarjeta
+      );
+
+    }
+  );
+
+}
+
+            // =====================================================
+// FILTRO · EMPRESA
+// =====================================================
+
+document
+  .getElementById(
+    "filtroAvisoEmpresa"
+  )
+  .addEventListener(
+    "change",
+    async (event) => {
+
+      const empresaId =
+        event.target.value;
+
+
+      const oficinaSelect =
+        document.getElementById(
+          "filtroAvisoOficina"
+        );
+
+
+      const clienteSelect =
+        document.getElementById(
+          "filtroAvisoCliente"
+        );
+
+
+      oficinaSelect.value =
+        "";
+
+
+      clienteSelect.value =
+        "";
+
+
+      await cargarOficinasFiltroAvisos(
+        empresaId
+      );
+
+
+      actualizarClientesFiltroAvisos();
+
+
+      renderizarAvisos();
+
+    }
+  );
+
+
+
+// =====================================================
+// FILTRO · OFICINA
+// =====================================================
+
+document
+  .getElementById(
+    "filtroAvisoOficina"
+  )
+  .addEventListener(
+    "change",
+    () => {
+
+      const clienteSelect =
+        document.getElementById(
+          "filtroAvisoCliente"
+        );
+
+
+      clienteSelect.value =
+        "";
+
+
+      actualizarClientesFiltroAvisos();
+
+
+      renderizarAvisos();
+
+    }
+  );
+
+
+
+// =====================================================
+// FILTRO · CLIENTE
+// =====================================================
+
+document
+  .getElementById(
+    "filtroAvisoCliente"
+  )
+  .addEventListener(
+    "change",
+    () => {
+
+      renderizarAvisos();
+
+    }
+  );
 
             // =================================================
             // PUBLICAR
@@ -2303,6 +2839,8 @@ function actualizarDestinatarios() {
     cargarEmpresas();
 
     cargarClientes();
+
+    cargarEmpresasFiltroAvisos();
 
     cargarAvisos();
 
