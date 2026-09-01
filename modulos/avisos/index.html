@@ -670,6 +670,410 @@ async function cargarClientes() {
 
 }
 
+
+// =====================================================
+// CARGAR EMPRESAS
+// =====================================================
+
+async function cargarEmpresas() {
+
+  const select =
+    document.getElementById(
+      "filtroEmpresa"
+    );
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        "/api/empresas",
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      select.innerHTML =
+        `<option value="">
+          No se han podido cargar las empresas
+        </option>`;
+
+      return;
+
+    }
+
+
+    select.innerHTML =
+      `<option value="">
+        Selecciona una empresa
+      </option>`;
+
+
+    if (
+      !Array.isArray(
+        datos.empresas
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    datos.empresas.forEach(
+      (empresa) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          empresa.id;
+
+
+        option.textContent =
+          empresa.nombre;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando empresas:",
+      error
+    );
+
+
+    select.innerHTML =
+      `<option value="">
+        Error cargando empresas
+      </option>`;
+
+  }
+
+}
+
+
+
+// =====================================================
+// CARGAR OFICINAS
+// =====================================================
+
+async function cargarOficinas(
+  empresaId
+) {
+
+  const selectOficina =
+    document.getElementById(
+      "filtroOficina"
+    );
+
+
+  const selectCliente =
+    document.getElementById(
+      "clienteIds"
+    );
+
+
+  selectOficina.innerHTML =
+    `<option value="">
+      Selecciona una oficina
+    </option>`;
+
+
+  selectCliente.innerHTML =
+    "";
+
+
+  selectOficina.disabled =
+    true;
+
+
+  selectCliente.disabled =
+    true;
+
+
+  if (!empresaId) {
+
+    return;
+
+  }
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        `/api/empresas/${empresaId}/oficinas`,
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      selectOficina.innerHTML =
+        `<option value="">
+          No se han podido cargar las oficinas
+        </option>`;
+
+      return;
+
+    }
+
+
+    if (
+      !Array.isArray(
+        datos.oficinas
+      ) ||
+      datos.oficinas.length === 0
+    ) {
+
+      selectOficina.innerHTML =
+        `<option value="">
+          No hay oficinas disponibles
+        </option>`;
+
+      return;
+
+    }
+
+
+    datos.oficinas.forEach(
+      (oficina) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          oficina.id;
+
+
+        option.textContent =
+          oficina.nombre;
+
+
+        selectOficina.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+    selectOficina.disabled =
+      false;
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando oficinas:",
+      error
+    );
+
+
+    selectOficina.innerHTML =
+      `<option value="">
+        Error cargando oficinas
+      </option>`;
+
+  }
+
+}
+
+
+
+// =====================================================
+// ACTUALIZAR CLIENTES
+// =====================================================
+
+function actualizarClientes() {
+
+  const empresaId =
+    document.getElementById(
+      "filtroEmpresa"
+    ).value;
+
+
+  const oficinaId =
+    document.getElementById(
+      "filtroOficina"
+    ).value;
+
+
+  const selectCliente =
+    document.getElementById(
+      "clienteIds"
+    );
+
+
+  selectCliente.innerHTML =
+    "";
+
+
+  selectCliente.disabled =
+    true;
+
+
+  if (
+    !empresaId ||
+    !oficinaId
+  ) {
+
+    return;
+
+  }
+
+
+  const clientesFiltrados =
+    todosLosClientes.filter(
+      (cliente) => {
+
+        return (
+          cliente.empresaId === empresaId &&
+          cliente.oficinaId === oficinaId
+        );
+
+      }
+    );
+
+
+  clientesFiltrados.forEach(
+    (cliente) => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        cliente.id;
+
+
+      option.textContent =
+        `${cliente.nombre} · ${cliente.email || ""}`;
+
+
+      selectCliente.appendChild(
+        option
+      );
+
+    }
+  );
+
+
+  if (
+    clientesFiltrados.length > 0
+  ) {
+
+    selectCliente.disabled =
+      false;
+
+  }
+
+}
+
+
+// =====================================================
+// CAMBIO DE EMPRESA
+// =====================================================
+
+document
+  .getElementById(
+    "filtroEmpresa"
+  )
+  .addEventListener(
+    "change",
+    async (event) => {
+
+      const empresaId =
+        event.target.value;
+
+
+      const oficinaSelect =
+        document.getElementById(
+          "filtroOficina"
+        );
+
+
+      const clienteSelect =
+        document.getElementById(
+          "clienteIds"
+        );
+
+
+      oficinaSelect.innerHTML =
+        `<option value="">
+          Selecciona una oficina
+        </option>`;
+
+
+      clienteSelect.innerHTML =
+        "";
+
+
+      clienteSelect.disabled =
+        true;
+
+
+      await cargarOficinas(
+        empresaId
+      );
+
+    }
+  );
+
+
+
+// =====================================================
+// CAMBIO DE OFICINA
+// =====================================================
+
+document
+  .getElementById(
+    "filtroOficina"
+  )
+  .addEventListener(
+    "change",
+    () => {
+
+      actualizarClientes();
+
+    }
+  );
+    
     // =====================================================
     // MOSTRAR / OCULTAR CLIENTES
     // =====================================================
