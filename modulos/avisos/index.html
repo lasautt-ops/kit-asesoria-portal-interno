@@ -609,100 +609,66 @@ Kit Gestión Asesoría · Gestión Interna
 
 
     // =====================================================
-    // CARGAR CLIENTES
-    // =====================================================
+// CARGAR CLIENTES
+// =====================================================
 
-    async function cargarClientes() {
-
-      try {
-
-        const respuesta =
-          await peticionAPI(
-            "/api/clientes"
-          );
+let todosLosClientes = [];
 
 
-        const datos =
-          await respuesta.json();
+async function cargarClientes() {
 
+  try {
 
-        if (
-          !respuesta.ok ||
-          !datos.ok
-        ) {
-
-          throw new Error(
-            datos.message ||
-            "No se pudieron cargar los clientes"
-          );
-
+    const respuesta =
+      await peticionAPI(
+        "/api/clientes",
+        {
+          method: "GET"
         }
+      );
 
 
-        clienteIds.innerHTML =
-          "";
+    const datos =
+      await respuesta.json();
 
 
-        if (
-          !datos.clientes ||
-          datos.clientes.length === 0
-        ) {
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
 
-          clienteIds.innerHTML =
-            `
-              <option value="">
-                No hay clientes disponibles
-              </option>
-            `;
+      console.error(
+        "Error cargando clientes:",
+        datos.message
+      );
 
-          return;
+      todosLosClientes = [];
 
-        }
-
-
-        datos.clientes.forEach(
-          cliente => {
-
-            const opcion =
-              document.createElement(
-                "option"
-              );
-
-
-            opcion.value =
-              cliente.id;
-
-
-            opcion.textContent =
-              `${cliente.nombre} · ${cliente.email}`;
-
-
-            clienteIds.appendChild(
-              opcion
-            );
-
-          }
-        );
-
-      } catch (error) {
-
-        console.error(
-          "Error cargando clientes:",
-          error
-        );
-
-
-        clienteIds.innerHTML =
-          `
-            <option value="">
-              No se pudieron cargar los clientes
-            </option>
-          `;
-
-      }
+      return;
 
     }
 
+
+    todosLosClientes =
+      Array.isArray(
+        datos.clientes
+      )
+        ? datos.clientes
+        : [];
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando clientes:",
+      error
+    );
+
+    todosLosClientes = [];
+
+  }
+
+}
 
     // =====================================================
     // MOSTRAR / OCULTAR CLIENTES
