@@ -296,25 +296,61 @@ content="width=device-width, initial-scale=1.0"
 
 
           <div
-            id="clientesContainer"
-            class="aviso-field aviso-field-full"
-          >
+  id="clientesContainer"
+  class="aviso-field aviso-field-full"
+>
 
-            <label for="clienteIds">
-              Seleccionar clientes
-            </label>
+  <label for="filtroEmpresa">
+    Empresa
+  </label>
 
-            <select
-              id="clienteIds"
-              multiple
-              size="6"
-            ></select>
+  <select id="filtroEmpresa">
 
-            <span class="aviso-field-help">
-              Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
-            </span>
+    <option value="">
+      Selecciona una empresa
+    </option>
 
-          </div>
+  </select>
+
+
+  <label for="filtroOficina">
+    Oficina
+  </label>
+
+  <select
+    id="filtroOficina"
+    disabled
+  >
+
+    <option value="">
+      Selecciona una oficina
+    </option>
+
+  </select>
+
+
+  <label for="clienteIds">
+    Seleccionar clientes
+  </label>
+
+  <select
+    id="clienteIds"
+    multiple
+    size="6"
+    disabled
+  >
+
+    <option value="">
+      Selecciona primero una oficina
+    </option>
+
+  </select>
+
+  <span class="aviso-field-help">
+    Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
+  </span>
+
+</div>
 
         </div>
 
