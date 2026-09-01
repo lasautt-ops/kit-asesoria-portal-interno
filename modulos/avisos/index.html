@@ -962,6 +962,344 @@ async function cargarEmpresasFiltroAvisos() {
     
 
 // =====================================================
+// CARGAR EMPRESAS PARA EL FILTRO DE AVISOS
+// =====================================================
+
+async function cargarEmpresasFiltroAvisos() {
+
+  const select =
+    document.getElementById(
+      "filtroAvisoEmpresa"
+    );
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        "/api/empresas",
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      select.innerHTML =
+        `<option value="">
+          No se han podido cargar las empresas
+        </option>`;
+
+      return;
+
+    }
+
+
+    select.innerHTML =
+      `<option value="">
+        Todas las empresas
+      </option>`;
+
+
+    if (
+      !Array.isArray(
+        datos.empresas
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    datos.empresas.forEach(
+      (empresa) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          empresa.id;
+
+
+        option.textContent =
+          empresa.nombre;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando empresas para filtros:",
+      error
+    );
+
+
+    select.innerHTML =
+      `<option value="">
+        Error cargando empresas
+      </option>`;
+
+  }
+
+}
+
+
+// =====================================================
+// CARGAR OFICINAS PARA EL FILTRO DE AVISOS
+// =====================================================
+
+async function cargarOficinasFiltroAvisos(
+  empresaId
+) {
+
+  const selectOficina =
+    document.getElementById(
+      "filtroAvisoOficina"
+    );
+
+
+  const selectCliente =
+    document.getElementById(
+      "filtroAvisoCliente"
+    );
+
+
+  selectOficina.innerHTML =
+    `<option value="">
+      Todas las oficinas
+    </option>`;
+
+
+  selectCliente.innerHTML =
+    `<option value="">
+      Todos los clientes
+    </option>`;
+
+
+  selectOficina.disabled =
+    true;
+
+
+  selectCliente.disabled =
+    true;
+
+
+  if (!empresaId) {
+
+    return;
+
+  }
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        `/api/empresas/${empresaId}/oficinas`,
+        {
+          method: "GET"
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      selectOficina.innerHTML =
+        `<option value="">
+          No se han podido cargar las oficinas
+        </option>`;
+
+      return;
+
+    }
+
+
+    if (
+      !Array.isArray(
+        datos.oficinas
+      ) ||
+      datos.oficinas.length === 0
+    ) {
+
+      selectOficina.innerHTML =
+        `<option value="">
+          No hay oficinas disponibles
+        </option>`;
+
+      return;
+
+    }
+
+
+    datos.oficinas.forEach(
+      (oficina) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          oficina.id;
+
+
+        option.textContent =
+          oficina.nombre;
+
+
+        selectOficina.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+    selectOficina.disabled =
+      false;
+
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando oficinas para filtros:",
+      error
+    );
+
+
+    selectOficina.innerHTML =
+      `<option value="">
+        Error cargando oficinas
+      </option>`;
+
+  }
+
+}
+
+// =====================================================
+// ACTUALIZAR CLIENTES DEL FILTRO DE AVISOS
+// =====================================================
+
+function actualizarClientesFiltroAvisos() {
+
+  const empresaId =
+    document.getElementById(
+      "filtroAvisoEmpresa"
+    ).value;
+
+
+  const oficinaId =
+    document.getElementById(
+      "filtroAvisoOficina"
+    ).value;
+
+
+  const selectCliente =
+    document.getElementById(
+      "filtroAvisoCliente"
+    );
+
+
+  selectCliente.innerHTML =
+    `<option value="">
+      Todos los clientes
+    </option>`;
+
+
+  selectCliente.disabled =
+    true;
+
+
+  if (
+    !empresaId ||
+    !oficinaId
+  ) {
+
+    return;
+
+  }
+
+
+  const clientesFiltrados =
+    clientesParaFiltros.filter(
+      (cliente) => {
+
+        return (
+          cliente.empresaId === empresaId &&
+          cliente.oficinaId === oficinaId
+        );
+
+      }
+    );
+
+
+  clientesFiltrados.forEach(
+    (cliente) => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        cliente.id;
+
+
+      option.textContent =
+        `${cliente.nombre} · ${cliente.email || ""}`;
+
+
+      selectCliente.appendChild(
+        option
+      );
+
+    }
+  );
+
+
+  if (
+    clientesFiltrados.length > 0
+  ) {
+
+    selectCliente.disabled =
+      false;
+
+  }
+
+}
+
+
+
+    
+// =====================================================
 // CARGAR OFICINAS
 // =====================================================
 
