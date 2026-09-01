@@ -4762,3 +4762,442 @@ body.modal-open {
   }
 
 }
+
+
+/* =========================================================
+   AVISOS
+   ========================================================= */
+
+.avisos-page {
+  padding-bottom: 40px;
+}
+
+
+/* =========================================================
+   BIENVENIDA
+   ========================================================= */
+
+.avisos-welcome {
+  margin-bottom: 24px;
+}
+
+
+.avisos-welcome-label,
+.avisos-section-label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+
+.avisos-welcome h2 {
+  margin: 0 0 8px;
+}
+
+
+.avisos-welcome p {
+  margin: 0;
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   CABECERAS DE SECCIÓN
+   ========================================================= */
+
+.avisos-section-header {
+  margin-bottom: 24px;
+}
+
+
+.avisos-section-header h2 {
+  margin: 0 0 6px;
+}
+
+
+.avisos-section-header p {
+  margin: 0;
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.aviso-form-card {
+  padding: 26px;
+  border-radius: 16px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+
+.aviso-form-block {
+  padding-bottom: 26px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+
+.aviso-form-block:last-of-type {
+  margin-bottom: 0;
+}
+
+
+.aviso-form-block-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+
+.aviso-form-block-title > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+
+.aviso-form-block-title h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+
+.aviso-form-block-title p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+
+
+.aviso-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+
+.aviso-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.aviso-field-full {
+  grid-column: 1 / -1;
+}
+
+
+.aviso-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+
+.aviso-field input,
+.aviso-field textarea,
+.aviso-field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 9px;
+  background: #fff;
+  font: inherit;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.aviso-field input:focus,
+.aviso-field textarea:focus,
+.aviso-field select:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+
+.aviso-field textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+
+.aviso-field select[multiple] {
+  min-height: 150px;
+}
+
+
+.aviso-field-help {
+  font-size: 0.78rem;
+  opacity: 0.6;
+}
+
+
+.aviso-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+
+.aviso-create-button {
+  min-width: 150px;
+}
+
+
+.aviso-form-message {
+  margin: 14px 0 0;
+  text-align: right;
+  font-size: 0.88rem;
+}
+
+
+/* =========================================================
+   LISTADO
+   ========================================================= */
+
+.avisos-list-section {
+  margin-top: 28px;
+}
+
+
+.avisos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+
+/* =========================================================
+   TARJETA
+   ========================================================= */
+
+.aviso-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 22px;
+  border-radius: 16px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.05);
+}
+
+
+.aviso-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+
+.aviso-card-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+
+.aviso-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.07);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+
+.aviso-card-content {
+  margin: 0 0 20px;
+  line-height: 1.55;
+  white-space: pre-line;
+  opacity: 0.8;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DE LA TARJETA
+   ========================================================= */
+
+.aviso-card-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 15px 0;
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+
+.aviso-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+
+.aviso-info-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+}
+
+
+.aviso-info-item strong {
+  font-size: 0.82rem;
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   PRIORIDADES
+   ========================================================= */
+
+.aviso-prioridad-normal {
+  font-weight: 600;
+}
+
+
+.aviso-prioridad-alta {
+  font-weight: 700;
+}
+
+
+.aviso-prioridad-urgente {
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.aviso-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 16px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+
+.aviso-action-button {
+  padding: 7px 12px;
+  min-height: auto;
+  font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   ESTADOS VACÍOS / CARGA / ERROR
+   ========================================================= */
+
+.avisos-loading,
+.avisos-empty,
+.avisos-error {
+  grid-column: 1 / -1;
+  padding: 45px 20px;
+  text-align: center;
+  border-radius: 16px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+
+.avisos-empty-icon {
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+
+.avisos-empty h3 {
+  margin: 0 0 6px;
+}
+
+
+.avisos-empty p {
+  margin: 0;
+  opacity: 0.65;
+}
+
+
+.avisos-error {
+  opacity: 0.8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .avisos-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .aviso-form-card {
+    padding: 18px;
+  }
+
+
+  .aviso-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .aviso-field-full {
+    grid-column: auto;
+  }
+
+
+  .aviso-card-info {
+    grid-template-columns: 1fr;
+  }
+
+
+  .aviso-card-header {
+    flex-direction: column;
+  }
+
+
+  .aviso-card-actions {
+    justify-content: flex-start;
+  }
+
+}
