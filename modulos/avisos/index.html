@@ -482,6 +482,89 @@ content="width=device-width, initial-scale=1.0"
 
   </div>
 
+    <!-- =================================================
+       FILTROS DEL LISTADO
+       ================================================= -->
+
+  <div class="avisos-filters">
+
+
+    <!-- EMPRESA -->
+
+    <div class="aviso-filter">
+
+      <label for="filtroAvisoEmpresa">
+        Empresa
+      </label>
+
+      <select
+        id="filtroAvisoEmpresa"
+      >
+
+        <option value="">
+          Todas las empresas
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- OFICINA -->
+
+    <div class="aviso-filter">
+
+      <label for="filtroAvisoOficina">
+        Oficina
+      </label>
+
+      <select
+        id="filtroAvisoOficina"
+        disabled
+      >
+
+        <option value="">
+          Todas las oficinas
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- CLIENTE -->
+
+    <div class="aviso-filter">
+
+      <label for="filtroAvisoCliente">
+        Cliente
+      </label>
+
+      <select
+        id="filtroAvisoCliente"
+        disabled
+      >
+
+        <option value="">
+          Todos los clientes
+        </option>
+
+      </select>
+
+    </div>
+
+
+  </div>
+
+
+  <p
+    id="avisosResultados"
+    class="avisos-results-info"
+  >
+    Todos los avisos
+  </p>
 
   <div
     id="listaAvisos"
