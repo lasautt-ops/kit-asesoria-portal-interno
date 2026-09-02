@@ -4986,6 +4986,66 @@ body.modal-open {
   gap: 20px;
 }
 
+/* =========================================================
+   FILTROS DEL LISTADO
+   ========================================================= */
+
+.avisos-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 14px;
+  border-radius: 16px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.05);
+}
+
+
+.aviso-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+
+.aviso-filter label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+
+.aviso-filter select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 9px;
+  background: #fff;
+  font: inherit;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.aviso-filter select:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+
+.aviso-filter select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+  .avisos-filters {
+    grid-template-columns: 1fr;
+  }
 
 /* =========================================================
    TARJETA
