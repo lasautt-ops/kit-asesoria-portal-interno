@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="es">
@@ -7,10 +6,11 @@
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Avisos - Gestión Interna</title>
 
@@ -29,41 +29,41 @@
 
   <header class="portal-header">
 
-    <div class="portal-header-left">
+```
+<div class="portal-header-left">
 
-      <h1>
-        Avisos
-      </h1>
+  <h1>
+    Avisos
+  </h1>
 
-      <p id="usuarioCabecera">
-        Cargando...
-      </p>
+  <p id="usuarioCabecera">
+    Cargando...
+  </p>
 
-    </div>
+</div>
 
+<div class="portal-header-right">
 
-    <div class="portal-header-right">
+  <button
+    id="volver"
+    class="btn"
+    type="button"
+  >
+    Volver
+  </button>
 
-      <button
-        id="volver"
-        class="btn"
-        type="button"
-      >
-        Volver
-      </button>
+  <button
+    id="cerrarSesion"
+    class="btn btn-danger"
+    type="button"
+  >
+    Cerrar sesión
+  </button>
 
-      <button
-        id="cerrarSesion"
-        class="btn btn-danger"
-        type="button"
-      >
-        Cerrar sesión
-      </button>
-
-    </div>
+</div>
+```
 
   </header>
-
 
   <!-- =====================================================
        CONTENIDO
@@ -71,512 +71,508 @@
 
   <main class="portal-container avisos-page">
 
+```
+<!-- =====================================================
+     BIENVENIDA
+     ===================================================== -->
 
-    <!-- =====================================================
-         BIENVENIDA
-         ===================================================== -->
+<section class="avisos-welcome">
 
-    <section class="avisos-welcome">
+  <span class="avisos-welcome-label">
+    Gestión interna
+  </span>
 
-      <span class="avisos-welcome-label">
-        Gestión interna
-      </span>
+  <h2 id="bienvenida">
+    Gestión de avisos
+  </h2>
 
-      <h2 id="bienvenida">
-        Gestión de avisos
-      </h2>
+  <p>
+    Crea, publica y archiva avisos para los clientes.
+  </p>
 
-      <p>
-        Crea, publica y archiva avisos para los clientes.
-      </p>
-
-    </section>
-
-
-    <!-- =====================================================
-         CREAR AVISO
-         ===================================================== -->
-
-    <section class="dashboard-section">
-
-      <div class="avisos-section-header">
-
-        <span class="avisos-section-label">
-          Comunicación
-        </span>
-
-        <h2>
-          Crear aviso
-        </h2>
-
-        <p>
-          Introduce la información del aviso y selecciona sus destinatarios.
-        </p>
-
-      </div>
+</section>
 
 
-      <div class="aviso-form-card">
+<!-- =====================================================
+     CREAR AVISO
+     ===================================================== -->
 
-        <form id="formAviso">
+<section class="dashboard-section">
 
+  <div class="avisos-section-header">
 
-          <!-- =================================================
-               BLOQUE 1 · INFORMACIÓN
-               ================================================= -->
+    <span class="avisos-section-label">
+      Comunicación
+    </span>
 
-          <div class="aviso-form-block">
+    <h2>
+      Crear aviso
+    </h2>
 
-            <div class="aviso-form-block-title">
+    <p>
+      Introduce la información del aviso y selecciona sus destinatarios.
+    </p>
 
-              <span>
-                1
-              </span>
-
-              <div>
-
-                <h3>
-                  Información del aviso
-                </h3>
-
-                <p>
-                  Define el contenido y la clasificación del aviso.
-                </p>
-
-              </div>
-
-            </div>
+  </div>
 
 
-            <div class="aviso-form-grid">
+  <div class="aviso-form-card">
 
-              <div class="aviso-field aviso-field-full">
-
-                <label for="titulo">
-                  Título
-                </label>
-
-                <input
-                  type="text"
-                  id="titulo"
-                  required
-                  placeholder="Título del aviso"
-                >
-
-              </div>
+    <form id="formAviso">
 
 
-              <div class="aviso-field aviso-field-full">
+      <!-- =================================================
+           BLOQUE 1 · INFORMACIÓN
+           ================================================= -->
 
-                <label for="contenido">
-                  Contenido
-                </label>
+      <div class="aviso-form-block">
 
-                <textarea
-                  id="contenido"
-                  rows="5"
-                  required
-                  placeholder="Escribe el contenido del aviso..."
-                ></textarea>
+        <div class="aviso-form-block-title">
 
-              </div>
+          <span>
+            1
+          </span>
 
+          <div>
 
-              <div class="aviso-field">
+            <h3>
+              Información del aviso
+            </h3>
 
-                <label for="tipo">
-                  Tipo
-                </label>
-
-                <select id="tipo">
-
-                  <option value="GENERAL">
-                    General
-                  </option>
-
-                  <option value="DOCUMENTACION">
-                    Documentación
-                  </option>
-
-                  <option value="IMPORTANTE">
-                    Importante
-                  </option>
-
-                  <option value="PLAZO">
-                    Plazo
-                  </option>
-
-                  <option value="INFORMACION">
-                    Información
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div class="aviso-field">
-
-                <label for="prioridad">
-                  Prioridad
-                </label>
-
-                <select id="prioridad">
-
-                  <option value="NORMAL">
-                    Normal
-                  </option>
-
-                  <option value="ALTA">
-                    Alta
-                  </option>
-
-                  <option value="URGENTE">
-                    Urgente
-                  </option>
-
-                </select>
-
-              </div>
-
-            </div>
+            <p>
+              Define el contenido y la clasificación del aviso.
+            </p>
 
           </div>
 
+        </div>
 
-          <!-- =================================================
-               BLOQUE 2 · DESTINATARIOS
-               ================================================= -->
 
-          <div class="aviso-form-block">
+        <div class="aviso-form-grid">
 
-            <div class="aviso-form-block-title">
+          <div class="aviso-field aviso-field-full">
 
-              <span>
-                2
-              </span>
+            <label for="titulo">
+              Título
+            </label>
 
-              <div>
-
-                <h3>
-                  Destinatarios
-                </h3>
-
-                <p>
-                  Decide quién recibirá el aviso.
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="aviso-form-grid">
-
-
-              <!-- TIPO DE DESTINATARIO -->
-
-              <div class="aviso-field aviso-field-full">
-
-                <label for="tipoDestinatario">
-                  Destinatarios
-                </label>
-
-                <select id="tipoDestinatario">
-
-                  <option value="CLIENTES">
-                    Clientes concretos
-                  </option>
-
-                  <option value="TODOS">
-                    Todos los clientes
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <!-- EMPRESA -->
-
-              <div
-                id="empresaContainer"
-                class="aviso-field"
-              >
-
-                <label for="filtroEmpresa">
-                  Empresa
-                </label>
-
-                <select
-                  id="filtroEmpresa"
-                >
-
-                  <option value="">
-                    Selecciona una empresa
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <!-- OFICINA -->
-
-              <div
-                id="oficinaContainer"
-                class="aviso-field"
-              >
-
-                <label for="filtroOficina">
-                  Oficina
-                </label>
-
-                <select
-                  id="filtroOficina"
-                  disabled
-                >
-
-                  <option value="">
-                    Selecciona una oficina
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <!-- CLIENTES -->
-
-              <div
-                id="clientesContainer"
-                class="aviso-field aviso-field-full"
-              >
-
-                <label for="clienteIds">
-                  Seleccionar clientes
-                </label>
-
-                <select
-                  id="clienteIds"
-                  multiple
-                  size="6"
-                  disabled
-                ></select>
-
-                <span class="aviso-field-help">
-                  Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- =================================================
-               BLOQUE 3 · CADUCIDAD
-               ================================================= -->
-
-          <div class="aviso-form-block">
-
-            <div class="aviso-form-block-title">
-
-              <span>
-                3
-              </span>
-
-              <div>
-
-                <h3>
-                  Caducidad
-                </h3>
-
-                <p>
-                  Opcionalmente puedes establecer una fecha de caducidad.
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="aviso-form-grid">
-
-              <div class="aviso-field">
-
-                <label for="fechaCaducidad">
-                  Fecha de caducidad
-                </label>
-
-                <input
-                  type="datetime-local"
-                  id="fechaCaducidad"
-                >
-
-                <span class="aviso-field-help">
-                  Déjalo vacío si el aviso no tiene fecha de caducidad.
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- =================================================
-               ACCIONES
-               ================================================= -->
-
-          <div class="aviso-form-actions">
-
-            <button
-              type="submit"
-              class="btn aviso-create-button"
+            <input
+              type="text"
+              id="titulo"
+              required
+              placeholder="Título del aviso"
             >
-              Crear aviso
-            </button>
 
           </div>
 
 
-          <p
-            id="mensajeFormulario"
-            class="aviso-form-message"
-          ></p>
+          <div class="aviso-field aviso-field-full">
+
+            <label for="contenido">
+              Contenido
+            </label>
+
+            <textarea
+              id="contenido"
+              rows="5"
+              required
+              placeholder="Escribe el contenido del aviso..."
+            ></textarea>
+
+          </div>
 
 
-        </form>
+          <div class="aviso-field">
 
-      </div>
+            <label for="tipo">
+              Tipo
+            </label>
 
-    </section>
+            <select id="tipo">
+
+              <option value="GENERAL">
+                General
+              </option>
+
+              <option value="DOCUMENTACION">
+                Documentación
+              </option>
+
+              <option value="IMPORTANTE">
+                Importante
+              </option>
+
+              <option value="PLAZO">
+                Plazo
+              </option>
+
+              <option value="INFORMACION">
+                Información
+              </option>
+
+            </select>
+
+          </div>
 
 
-    <!-- =====================================================
-         LISTADO DE AVISOS
-         ===================================================== -->
+          <div class="aviso-field">
 
-    <section class="avisos-list-section">
+            <label for="prioridad">
+              Prioridad
+            </label>
 
-      <div class="avisos-section-header">
+            <select id="prioridad">
 
-        <span class="avisos-section-label">
-          Avisos existentes
-        </span>
+              <option value="NORMAL">
+                Normal
+              </option>
 
-        <h2>
-          Avisos
-        </h2>
+              <option value="ALTA">
+                Alta
+              </option>
 
-        <p>
-          Consulta, publica o archiva los avisos existentes.
-        </p>
+              <option value="URGENTE">
+                Urgente
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
 
       </div>
 
 
       <!-- =================================================
-           FILTROS DEL LISTADO
+           BLOQUE 2 · DESTINATARIOS
            ================================================= -->
 
-      <div class="avisos-filters">
+      <div class="aviso-form-block">
 
+        <div class="aviso-form-block-title">
 
-        <!-- EMPRESA -->
+          <span>
+            2
+          </span>
 
-        <div class="aviso-filter">
+          <div>
 
-          <label for="filtroAvisoEmpresa">
-            Empresa
-          </label>
+            <h3>
+              Destinatarios
+            </h3>
 
-          <select
-            id="filtroAvisoEmpresa"
-          >
+            <p>
+              Decide quién recibirá el aviso.
+            </p>
 
-            <option value="">
-              Todas las empresas
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- OFICINA -->
-
-        <div class="aviso-filter">
-
-          <label for="filtroAvisoOficina">
-            Oficina
-          </label>
-
-          <select
-            id="filtroAvisoOficina"
-            disabled
-          >
-
-            <option value="">
-              Todas las oficinas
-            </option>
-
-          </select>
+          </div>
 
         </div>
 
 
-        <!-- CLIENTE -->
+        <div class="aviso-form-grid">
 
-        <div class="aviso-filter">
 
-          <label for="filtroAvisoCliente">
-            Cliente
-          </label>
+          <!-- TIPO DE DESTINATARIO -->
 
-          <select
-            id="filtroAvisoCliente"
-            disabled
+          <div class="aviso-field aviso-field-full">
+
+            <label for="tipoDestinatario">
+              Destinatarios
+            </label>
+
+            <select id="tipoDestinatario">
+
+              <option value="CLIENTES">
+                Clientes concretos
+              </option>
+
+              <option value="TODOS">
+                Todos los clientes
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- EMPRESA -->
+
+          <div
+            id="empresaContainer"
+            class="aviso-field"
           >
 
-            <option value="">
-              Todos los clientes
-            </option>
+            <label for="filtroEmpresa">
+              Empresa
+            </label>
 
-          </select>
+            <select id="filtroEmpresa">
+
+              <option value="">
+                Selecciona una empresa
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- OFICINA -->
+
+          <div
+            id="oficinaContainer"
+            class="aviso-field"
+          >
+
+            <label for="filtroOficina">
+              Oficina
+            </label>
+
+            <select
+              id="filtroOficina"
+              disabled
+            >
+
+              <option value="">
+                Selecciona una oficina
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- CLIENTES -->
+
+          <div
+            id="clientesContainer"
+            class="aviso-field aviso-field-full"
+          >
+
+            <label for="clienteIds">
+              Seleccionar clientes
+            </label>
+
+            <select
+              id="clienteIds"
+              multiple
+              size="6"
+              disabled
+            ></select>
+
+            <span class="aviso-field-help">
+              Puedes seleccionar varios clientes manteniendo pulsada la tecla Ctrl.
+            </span>
+
+          </div>
+
 
         </div>
 
+      </div>
+
+
+      <!-- =================================================
+           BLOQUE 3 · CADUCIDAD
+           ================================================= -->
+
+      <div class="aviso-form-block">
+
+        <div class="aviso-form-block-title">
+
+          <span>
+            3
+          </span>
+
+          <div>
+
+            <h3>
+              Caducidad
+            </h3>
+
+            <p>
+              Opcionalmente puedes establecer una fecha de caducidad.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="aviso-form-grid">
+
+          <div class="aviso-field">
+
+            <label for="fechaCaducidad">
+              Fecha de caducidad
+            </label>
+
+            <input
+              type="datetime-local"
+              id="fechaCaducidad"
+            >
+
+            <span class="aviso-field-help">
+              Déjalo vacío si el aviso no tiene fecha de caducidad.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ACCIONES
+           ================================================= -->
+
+      <div class="aviso-form-actions">
+
+        <button
+          type="submit"
+          class="btn aviso-create-button"
+        >
+          Crear aviso
+        </button>
 
       </div>
 
 
       <p
-        id="avisosResultados"
-        class="avisos-results-info"
+        id="mensajeFormulario"
+        class="aviso-form-message"
+      ></p>
+
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     LISTADO DE AVISOS
+     ===================================================== -->
+
+<section class="avisos-list-section">
+
+  <div class="avisos-section-header">
+
+    <span class="avisos-section-label">
+      Avisos existentes
+    </span>
+
+    <h2>
+      Avisos
+    </h2>
+
+    <p>
+      Consulta, publica o archiva los avisos existentes.
+    </p>
+
+  </div>
+
+
+  <!-- =================================================
+       FILTROS DEL LISTADO
+       ================================================= -->
+
+  <div class="avisos-filters">
+
+
+    <!-- EMPRESA -->
+
+    <div class="aviso-filter">
+
+      <label for="filtroAvisoEmpresa">
+        Empresa
+      </label>
+
+      <select id="filtroAvisoEmpresa">
+
+        <option value="">
+          Todas las empresas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- OFICINA -->
+
+    <div class="aviso-filter">
+
+      <label for="filtroAvisoOficina">
+        Oficina
+      </label>
+
+      <select
+        id="filtroAvisoOficina"
+        disabled
       >
-        Todos los avisos
-      </p>
+
+        <option value="">
+          Todas las oficinas
+        </option>
+
+      </select>
+
+    </div>
 
 
-      <div
-        id="listaAvisos"
-        class="avisos-grid"
+    <!-- CLIENTE -->
+
+    <div class="aviso-filter">
+
+      <label for="filtroAvisoCliente">
+        Cliente
+      </label>
+
+      <select
+        id="filtroAvisoCliente"
+        disabled
       >
 
-        <div class="avisos-loading">
-          Cargando avisos...
-        </div>
+        <option value="">
+          Todos los clientes
+        </option>
 
-      </div>
+      </select>
 
-    </section>
+    </div>
 
+
+  </div>
+
+
+  <p
+    id="avisosResultados"
+    class="avisos-results-info"
+  >
+    Todos los avisos
+  </p>
+
+
+  <div
+    id="listaAvisos"
+    class="avisos-grid"
+  >
+
+    <div class="avisos-loading">
+      Cargando avisos...
+    </div>
+
+  </div>
+
+</section>
+```
 
   </main>
-
 
   <!-- =====================================================
        PIE
@@ -584,17 +580,17 @@
 
   <footer class="portal-footer">
 
-    Kit Gestión Asesoría · Gestión Interna
+```
+Kit Gestión Asesoría · Gestión Interna
+```
 
   </footer>
-
 
   <!-- =====================================================
        JAVASCRIPT COMÚN
        ===================================================== -->
 
   <script src="../../js/comun.js"></script>
-
 
   <!-- =====================================================
        JAVASCRIPT DEL MÓDULO
@@ -801,11 +797,9 @@
         ) {
 
           select.innerHTML =
-            `
-              <option value="">
-                No se han podido cargar las empresas
-              </option>
-            `;
+            `<option value="">
+              No se han podido cargar las empresas
+            </option>`;
 
           return;
 
@@ -813,11 +807,9 @@
 
 
         select.innerHTML =
-          `
-            <option value="">
-              Selecciona una empresa
-            </option>
-          `;
+          `<option value="">
+            Selecciona una empresa
+          </option>`;
 
 
         if (
@@ -832,7 +824,7 @@
 
 
         datos.empresas.forEach(
-          (empresa) => {
+          empresa => {
 
             const option =
               document.createElement(
@@ -865,11 +857,9 @@
 
 
         select.innerHTML =
-          `
-            <option value="">
-              Error cargando empresas
-            </option>
-          `;
+          `<option value="">
+            Error cargando empresas
+          </option>`;
 
       }
 
@@ -909,11 +899,9 @@
         ) {
 
           select.innerHTML =
-            `
-              <option value="">
-                No se han podido cargar las empresas
-              </option>
-            `;
+            `<option value="">
+              No se han podido cargar las empresas
+            </option>`;
 
           return;
 
@@ -921,11 +909,9 @@
 
 
         select.innerHTML =
-          `
-            <option value="">
-              Todas las empresas
-            </option>
-          `;
+          `<option value="">
+            Todas las empresas
+          </option>`;
 
 
         if (
@@ -940,7 +926,7 @@
 
 
         datos.empresas.forEach(
-          (empresa) => {
+          empresa => {
 
             const option =
               document.createElement(
@@ -973,11 +959,9 @@
 
 
         select.innerHTML =
-          `
-            <option value="">
-              Error cargando empresas
-            </option>
-          `;
+          `<option value="">
+            Error cargando empresas
+          </option>`;
 
       }
 
@@ -1005,11 +989,9 @@
 
 
       selectOficina.innerHTML =
-        `
-          <option value="">
-            Selecciona una oficina
-          </option>
-        `;
+        `<option value="">
+          Selecciona una oficina
+        </option>`;
 
 
       selectCliente.innerHTML =
@@ -1052,11 +1034,9 @@
         ) {
 
           selectOficina.innerHTML =
-            `
-              <option value="">
-                No se han podido cargar las oficinas
-              </option>
-            `;
+            `<option value="">
+              No se han podido cargar las oficinas
+            </option>`;
 
           return;
 
@@ -1071,11 +1051,9 @@
         ) {
 
           selectOficina.innerHTML =
-            `
-              <option value="">
-                No hay oficinas disponibles
-              </option>
-            `;
+            `<option value="">
+              No hay oficinas disponibles
+            </option>`;
 
           return;
 
@@ -1083,7 +1061,7 @@
 
 
         datos.oficinas.forEach(
-          (oficina) => {
+          oficina => {
 
             const option =
               document.createElement(
@@ -1120,11 +1098,9 @@
 
 
         selectOficina.innerHTML =
-          `
-            <option value="">
-              Error cargando oficinas
-            </option>
-          `;
+          `<option value="">
+            Error cargando oficinas
+          </option>`;
 
       }
 
@@ -1175,19 +1151,14 @@
 
       const clientesFiltrados =
         todosLosClientes.filter(
-          (cliente) => {
-
-            return (
-              cliente.empresaId === empresaId &&
-              cliente.oficinaId === oficinaId
-            );
-
-          }
+          cliente =>
+            cliente.empresaId === empresaId &&
+            cliente.oficinaId === oficinaId
         );
 
 
       clientesFiltrados.forEach(
-        (cliente) => {
+        cliente => {
 
           const option =
             document.createElement(
@@ -1224,85 +1195,13 @@
 
 
     // =====================================================
-    // CAMBIO DE EMPRESA · CREAR AVISO
-    // =====================================================
-
-    document
-      .getElementById(
-        "filtroEmpresa"
-      )
-      .addEventListener(
-        "change",
-        async (event) => {
-
-          const empresaId =
-            event.target.value;
-
-
-          const oficinaSelect =
-            document.getElementById(
-              "filtroOficina"
-            );
-
-
-          const clienteSelect =
-            document.getElementById(
-              "clienteIds"
-            );
-
-
-          oficinaSelect.innerHTML =
-            `
-              <option value="">
-                Selecciona una oficina
-              </option>
-            `;
-
-
-          clienteSelect.innerHTML =
-            "";
-
-
-          clienteSelect.disabled =
-            true;
-
-
-          await cargarOficinas(
-            empresaId
-          );
-
-        }
-      );
-
-
-    // =====================================================
-    // CAMBIO DE OFICINA · CREAR AVISO
-    // =====================================================
-
-    document
-      .getElementById(
-        "filtroOficina"
-      )
-      .addEventListener(
-        "change",
-        () => {
-
-          actualizarClientes();
-
-        }
-      );
-
-
-    // =====================================================
     // MOSTRAR / OCULTAR DESTINATARIOS
     // =====================================================
 
     function actualizarDestinatarios() {
 
       const tipo =
-        document.getElementById(
-          "tipoDestinatario"
-        ).value;
+        tipoDestinatario.value;
 
 
       const empresaContainer =
@@ -1330,10 +1229,8 @@
         empresaContainer.style.display =
           "none";
 
-
         oficinaContainer.style.display =
           "none";
-
 
         clientesContainer.style.display =
           "none";
@@ -1343,10 +1240,8 @@
         empresaContainer.style.display =
           "flex";
 
-
         oficinaContainer.style.display =
           "flex";
-
 
         clientesContainer.style.display =
           "flex";
@@ -1357,13 +1252,86 @@
 
 
     // =====================================================
+    // CAMBIO DE EMPRESA · CREAR AVISO
+    // =====================================================
+
+    document
+      .getElementById(
+        "filtroEmpresa"
+      )
+      .addEventListener(
+        "change",
+        async event => {
+
+          const empresaId =
+            event.target.value;
+
+
+          document
+            .getElementById(
+              "filtroOficina"
+            )
+            .value =
+              "";
+
+
+          document
+            .getElementById(
+              "clienteIds"
+            )
+            .innerHTML =
+              "";
+
+
+          document
+            .getElementById(
+              "clienteIds"
+            )
+            .disabled =
+              true;
+
+
+          await cargarOficinas(
+            empresaId
+          );
+
+        }
+      );
+
+
+    // =====================================================
+    // CAMBIO DE OFICINA · CREAR AVISO
+    // =====================================================
+
+    document
+      .getElementById(
+        "filtroOficina"
+      )
+      .addEventListener(
+        "change",
+        actualizarClientes
+      );
+
+
+    // =====================================================
+    // CAMBIO TIPO DESTINATARIO
+    // =====================================================
+
+    tipoDestinatario
+      .addEventListener(
+        "change",
+        actualizarDestinatarios
+      );
+
+
+    // =====================================================
     // CREAR AVISO
     // =====================================================
 
     formAviso
       .addEventListener(
         "submit",
-        async (evento) => {
+        async evento => {
 
           evento.preventDefault();
 
@@ -1412,35 +1380,27 @@
 
             titulo:
               document
-                .getElementById(
-                  "titulo"
-                )
+                .getElementById("titulo")
                 .value
                 .trim(),
 
 
             contenido:
               document
-                .getElementById(
-                  "contenido"
-                )
+                .getElementById("contenido")
                 .value
                 .trim(),
 
 
             tipo:
               document
-                .getElementById(
-                  "tipo"
-                )
+                .getElementById("tipo")
                 .value,
 
 
             prioridad:
               document
-                .getElementById(
-                  "prioridad"
-                )
+                .getElementById("prioridad")
                 .value,
 
 
@@ -1450,18 +1410,14 @@
 
             fechaCaducidad:
               document
-                .getElementById(
-                  "fechaCaducidad"
-                )
+                .getElementById("fechaCaducidad")
                 .value ||
               null,
 
 
             empresaId:
               document
-                .getElementById(
-                  "filtroEmpresa"
-                )
+                .getElementById("filtroEmpresa")
                 .value ||
               null,
 
@@ -1489,6 +1445,7 @@
                     JSON.stringify(
                       datos
                     )
+
                 }
               );
 
@@ -1517,11 +1474,36 @@
             formAviso.reset();
 
 
+            document
+              .getElementById(
+                "filtroOficina"
+              )
+              .innerHTML =
+                `<option value="">
+                  Selecciona una oficina
+                </option>`;
+
+
+            document
+              .getElementById(
+                "filtroOficina"
+              )
+              .disabled =
+                true;
+
+
+            clienteIds.innerHTML =
+              "";
+
+
+            clienteIds.disabled =
+              true;
+
+
             actualizarDestinatarios();
 
 
             await cargarAvisos();
-
 
           } catch (error) {
 
@@ -1541,7 +1523,7 @@
 
 
     // =====================================================
-    // CARGAR OFICINAS · FILTRO DE AVISOS
+    // CARGAR OFICINAS · FILTRO AVISOS
     // =====================================================
 
     async function cargarOficinasFiltroAvisos(
@@ -1561,19 +1543,15 @@
 
 
       selectOficina.innerHTML =
-        `
-          <option value="">
-            Todas las oficinas
-          </option>
-        `;
+        `<option value="">
+          Todas las oficinas
+        </option>`;
 
 
       selectCliente.innerHTML =
-        `
-          <option value="">
-            Todos los clientes
-          </option>
-        `;
+        `<option value="">
+          Todos los clientes
+        </option>`;
 
 
       selectOficina.disabled =
@@ -1612,11 +1590,9 @@
         ) {
 
           selectOficina.innerHTML =
-            `
-              <option value="">
-                No se han podido cargar las oficinas
-              </option>
-            `;
+            `<option value="">
+              No se han podido cargar las oficinas
+            </option>`;
 
           return;
 
@@ -1631,11 +1607,9 @@
         ) {
 
           selectOficina.innerHTML =
-            `
-              <option value="">
-                No hay oficinas disponibles
-              </option>
-            `;
+            `<option value="">
+              No hay oficinas disponibles
+            </option>`;
 
           return;
 
@@ -1643,7 +1617,7 @@
 
 
         datos.oficinas.forEach(
-          (oficina) => {
+          oficina => {
 
             const option =
               document.createElement(
@@ -1680,11 +1654,9 @@
 
 
         selectOficina.innerHTML =
-          `
-            <option value="">
-              Error cargando oficinas
-            </option>
-          `;
+          `<option value="">
+            Error cargando oficinas
+          </option>`;
 
       }
 
@@ -1692,35 +1664,38 @@
 
 
     // =====================================================
-    // ACTUALIZAR CLIENTES · FILTRO DE AVISOS
+    // ACTUALIZAR CLIENTES · FILTRO AVISOS
     // =====================================================
 
     function actualizarClientesFiltroAvisos() {
 
       const empresaId =
-        document.getElementById(
-          "filtroAvisoEmpresa"
-        ).value;
+        document
+          .getElementById(
+            "filtroAvisoEmpresa"
+          )
+          .value;
 
 
       const oficinaId =
-        document.getElementById(
-          "filtroAvisoOficina"
-        ).value;
+        document
+          .getElementById(
+            "filtroAvisoOficina"
+          )
+          .value;
 
 
       const selectCliente =
-        document.getElementById(
-          "filtroAvisoCliente"
-        );
+        document
+          .getElementById(
+            "filtroAvisoCliente"
+          );
 
 
       selectCliente.innerHTML =
-        `
-          <option value="">
-            Todos los clientes
-          </option>
-        `;
+        `<option value="">
+          Todos los clientes
+        </option>`;
 
 
       selectCliente.disabled =
@@ -1739,19 +1714,14 @@
 
       const clientesFiltrados =
         todosLosClientes.filter(
-          (cliente) => {
-
-            return (
-              cliente.empresaId === empresaId &&
-              cliente.oficinaId === oficinaId
-            );
-
-          }
+          cliente =>
+            cliente.empresaId === empresaId &&
+            cliente.oficinaId === oficinaId
         );
 
 
       clientesFiltrados.forEach(
-        (cliente) => {
+        cliente => {
 
           const option =
             document.createElement(
@@ -1788,32 +1758,38 @@
 
 
     // =====================================================
-    // RENDERIZAR AVISOS CON FILTROS
+    // RENDERIZAR AVISOS
     // =====================================================
 
     function renderizarAvisos() {
 
       const empresaId =
-        document.getElementById(
-          "filtroAvisoEmpresa"
-        ).value;
+        document
+          .getElementById(
+            "filtroAvisoEmpresa"
+          )
+          .value;
 
 
       const oficinaId =
-        document.getElementById(
-          "filtroAvisoOficina"
-        ).value;
+        document
+          .getElementById(
+            "filtroAvisoOficina"
+          )
+          .value;
 
 
       const clienteId =
-        document.getElementById(
-          "filtroAvisoCliente"
-        ).value;
+        document
+          .getElementById(
+            "filtroAvisoCliente"
+          )
+          .value;
 
 
       const avisosFiltrados =
         todosLosAvisos.filter(
-          (aviso) => {
+          aviso => {
 
             const destinatarios =
               Array.isArray(
@@ -1824,7 +1800,7 @@
 
 
             // =================================================
-            // AVISOS PARA TODOS
+            // AVISO PARA TODOS LOS CLIENTES
             // =================================================
 
             if (
@@ -1833,18 +1809,8 @@
             ) {
 
               /*
-               * Un aviso TODOS pertenece a una empresa.
-               *
-               * Empresa:
-               *   debe coincidir si se ha seleccionado.
-               *
-               * Oficina:
-               *   sigue visible porque afecta a toda
-               *   la empresa.
-               *
-               * Cliente:
-               *   sigue visible porque afecta a todos
-               *   los clientes de la empresa.
+               * Un aviso para TODOS pertenece
+               * a una empresa completa.
                */
 
               if (
@@ -1857,13 +1823,19 @@
               }
 
 
+              /*
+               * Si se selecciona una oficina o
+               * cliente, el aviso sigue apareciendo
+               * porque afecta a toda la empresa.
+               */
+
               return true;
 
             }
 
 
             // =================================================
-            // AVISOS PARA CLIENTES CONCRETOS
+            // AVISO PARA CLIENTES CONCRETOS
             // =================================================
 
             if (
@@ -1876,7 +1848,7 @@
 
 
             return destinatarios.some(
-              (destinatario) => {
+              destinatario => {
 
                 const cliente =
                   destinatario.cliente;
@@ -1889,8 +1861,6 @@
                 }
 
 
-                // FILTRO EMPRESA
-
                 if (
                   empresaId &&
                   cliente.empresaId !== empresaId
@@ -1901,8 +1871,6 @@
                 }
 
 
-                // FILTRO OFICINA
-
                 if (
                   oficinaId &&
                   cliente.oficinaId !== oficinaId
@@ -1912,8 +1880,6 @@
 
                 }
 
-
-                // FILTRO CLIENTE
 
                 if (
                   clienteId &&
@@ -1953,12 +1919,16 @@
 
 
       // =====================================================
-      // CONTENEDOR
+      // LIMPIAR LISTADO
       // =====================================================
 
       listaAvisos.innerHTML =
         "";
 
+
+      // =====================================================
+      // SIN RESULTADOS
+      // =====================================================
 
       if (
         avisosFiltrados.length === 0
@@ -1966,6 +1936,7 @@
 
         listaAvisos.innerHTML =
           `
+
             <div class="avisos-empty">
 
               <div class="avisos-empty-icon">
@@ -1981,6 +1952,7 @@
               </p>
 
             </div>
+
           `;
 
         return;
@@ -1993,7 +1965,7 @@
       // =====================================================
 
       avisosFiltrados.forEach(
-        (aviso) => {
+        aviso => {
 
           const tarjeta =
             document.createElement(
@@ -2005,14 +1977,32 @@
             "aviso-card";
 
 
-          const destinatarios =
+          // =================================================
+          // TEXTO DESTINATARIOS
+          // =================================================
+
+          let destinatariosTexto;
+
+
+          if (
             aviso.tipoDestinatario ===
             "TODOS"
+          ) {
 
-              ? "Todos los clientes"
+            destinatariosTexto =
+              "Todos los clientes";
 
-              : `${destinatarios.length} cliente(s)`;
+          } else {
 
+            destinatariosTexto =
+              `${aviso.destinatarios.length} cliente(s)`;
+
+          }
+
+
+          // =================================================
+          // CLASE PRIORIDAD
+          // =================================================
 
           const prioridadClase =
             aviso.prioridad ===
@@ -2027,6 +2017,10 @@
 
                   : "aviso-prioridad-normal";
 
+
+          // =================================================
+          // CONTENIDO TARJETA
+          // =================================================
 
           tarjeta.innerHTML =
             `
@@ -2089,7 +2083,7 @@
                   </span>
 
                   <strong>
-                    ${textoDestinatarios}
+                    ${destinatariosTexto}
                   </strong>
 
                 </div>
@@ -2116,6 +2110,10 @@
 
             `;
 
+
+          // =================================================
+          // ACCIONES
+          // =================================================
 
           const acciones =
             document.createElement(
@@ -2236,6 +2234,80 @@
 
 
     // =====================================================
+    // CARGAR AVISOS
+    // =====================================================
+
+    async function cargarAvisos() {
+
+      listaAvisos.innerHTML =
+        `
+
+          <div class="avisos-loading">
+            Cargando avisos...
+          </div>
+
+        `;
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/avisos"
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          throw new Error(
+            datos.message ||
+            "No se pudieron cargar los avisos"
+          );
+
+        }
+
+
+        todosLosAvisos =
+          Array.isArray(
+            datos.avisos
+          )
+            ? datos.avisos
+            : [];
+
+
+        renderizarAvisos();
+
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando avisos:",
+          error
+        );
+
+
+        listaAvisos.innerHTML =
+          `
+
+            <div class="avisos-error">
+              ${error.message}
+            </div>
+
+          `;
+
+      }
+
+    }
+
+
+    // =====================================================
     // FILTRO · EMPRESA
     // =====================================================
 
@@ -2245,7 +2317,7 @@
       )
       .addEventListener(
         "change",
-        async (event) => {
+        async event => {
 
           const empresaId =
             event.target.value;
@@ -2276,9 +2348,6 @@
           );
 
 
-          actualizarClientesFiltroAvisos();
-
-
           renderizarAvisos();
 
         }
@@ -2297,14 +2366,12 @@
         "change",
         () => {
 
-          const clienteSelect =
-            document.getElementById(
+          document
+            .getElementById(
               "filtroAvisoCliente"
-            );
-
-
-          clienteSelect.value =
-            "";
+            )
+            .value =
+              "";
 
 
           actualizarClientesFiltroAvisos();
@@ -2326,11 +2393,7 @@
       )
       .addEventListener(
         "change",
-        () => {
-
-          renderizarAvisos();
-
-        }
+        renderizarAvisos
       );
 
 
@@ -2469,88 +2532,27 @@
 
 
     // =====================================================
-    // CARGAR AVISOS
+    // INICIO
     // =====================================================
 
-    async function cargarAvisos() {
+    async function iniciarPagina() {
 
-      listaAvisos.innerHTML =
-        `
-          <div class="avisos-loading">
-            Cargando avisos...
-          </div>
-        `;
-
-
-      try {
-
-        const respuesta =
-          await peticionAPI(
-            "/api/avisos"
-          );
+      await Promise.all([
+        cargarClientes(),
+        cargarEmpresas(),
+        cargarEmpresasFiltroAvisos()
+      ]);
 
 
-        const datos =
-          await respuesta.json();
+      actualizarDestinatarios();
 
 
-        if (
-          !respuesta.ok ||
-          !datos.ok
-        ) {
-
-          throw new Error(
-            datos.message ||
-            "No se pudieron cargar los avisos"
-          );
-
-        }
-
-
-        todosLosAvisos =
-          Array.isArray(
-            datos.avisos
-          )
-            ? datos.avisos
-            : [];
-
-
-        renderizarAvisos();
-
-
-      } catch (error) {
-
-        console.error(
-          "Error cargando avisos:",
-          error
-        );
-
-
-        listaAvisos.innerHTML =
-          `
-            <div class="avisos-error">
-              ${error.message}
-            </div>
-          `;
-
-      }
+      await cargarAvisos();
 
     }
 
 
-    // =====================================================
-    // INICIO
-    // =====================================================
-
-    cargarEmpresas();
-
-    cargarClientes();
-
-    cargarEmpresasFiltroAvisos();
-
-    cargarAvisos();
-
-    actualizarDestinatarios();
+    iniciarPagina();
 
 
   </script>
@@ -2558,4 +2560,3 @@
 </body>
 
 </html>
-
