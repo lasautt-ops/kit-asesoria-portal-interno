@@ -1984,20 +1984,35 @@ Kit Gestión Asesoría · Gestión Interna
           let destinatariosTexto;
 
 
-          if (
-            aviso.tipoDestinatario ===
-            "TODOS"
-          ) {
+if (
+  aviso.tipoDestinatario ===
+  "TODOS"
+) {
 
-            destinatariosTexto =
-              "Todos los clientes";
+  destinatariosTexto =
+    "Todos los clientes";
 
-          } else {
+} else if (
+  aviso.destinatarios &&
+  aviso.destinatarios.length > 0
+) {
 
-            destinatariosTexto =
-              `${aviso.destinatarios.length} cliente(s)`;
+  destinatariosTexto =
+    aviso.destinatarios
+      .map(
+        destinatario =>
+          destinatario.cliente
+            ? `👤 ${destinatario.cliente.nombre}`
+            : "Cliente no disponible"
+      )
+      .join("<br>");
 
-          }
+} else {
+
+  destinatariosTexto =
+    "Sin destinatarios";
+
+}
 
 
           // =================================================
