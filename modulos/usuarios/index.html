@@ -335,6 +335,438 @@
     </section>
 
 
+<!-- =========================================================
+     USUARIOS EXISTENTES
+     ========================================================= -->
+
+<section class="card">
+
+  <div class="card-header">
+
+    <div>
+      <h2>
+        Usuarios existentes
+      </h2>
+
+      <p>
+        Gestiona los usuarios internos y sus accesos al sistema.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div
+    id="usuariosMessage"
+    class="message"
+  ></div>
+
+
+  <div
+    id="tablaUsuariosContainer"
+    style="
+      overflow-x: auto;
+      margin-top: 20px;
+    "
+  >
+
+    <table
+      style="
+        width: 100%;
+        border-collapse: collapse;
+      "
+    >
+
+      <thead>
+
+        <tr>
+
+          <th
+            style="
+              text-align: left;
+              padding: 12px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Nombre
+          </th>
+
+          <th
+            style="
+              text-align: left;
+              padding: 12px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Email
+          </th>
+
+          <th
+            style="
+              text-align: left;
+              padding: 12px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Rol
+          </th>
+
+          <th
+            style="
+              text-align: left;
+              padding: 12px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Empresa
+          </th>
+
+          <th
+            style="
+              text-align: left;
+              padding: 12px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Oficina
+          </th>
+
+          <th
+            style="
+              text-align: left;
+              padding: 12px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Estado
+          </th>
+
+          <th
+            style="
+              text-align: center;
+              padding: 12px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Acciones
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody id="usuariosTabla">
+
+        <tr>
+
+          <td
+            colspan="7"
+            style="
+              padding: 20px;
+              text-align: center;
+            "
+          >
+            Cargando usuarios...
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     MODAL EDITAR USUARIO
+     ========================================================= -->
+
+<div
+  id="modalEditarUsuario"
+  hidden
+  style="
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  "
+>
+
+  <div
+    style="
+      background: white;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 12px;
+      padding: 30px;
+      box-sizing: border-box;
+    "
+  >
+
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      "
+    >
+
+      <div>
+
+        <h2 style="margin: 0;">
+          Editar usuario
+        </h2>
+
+        <p
+          style="
+            margin: 6px 0 0;
+            opacity: 0.7;
+          "
+        >
+          Modifica los datos y permisos del usuario.
+        </p>
+
+      </div>
+
+      <button
+        id="cerrarModalEditar"
+        type="button"
+        style="
+          border: none;
+          background: transparent;
+          font-size: 24px;
+          cursor: pointer;
+        "
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <input
+      type="hidden"
+      id="editarUsuarioId"
+    >
+
+
+    <div class="form-group">
+
+      <label for="editarNombre">
+        Nombre
+      </label>
+
+      <input
+        type="text"
+        id="editarNombre"
+        placeholder="Nombre"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="editarEmail">
+        Email
+      </label>
+
+      <input
+        type="email"
+        id="editarEmail"
+        placeholder="Email"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="editarPassword">
+        Nueva contraseña
+      </label>
+
+      <input
+        type="password"
+        id="editarPassword"
+        placeholder="Dejar vacío para mantener la actual"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="editarRol">
+        Rol
+      </label>
+
+      <select id="editarRol">
+
+        <option value="ADMIN">
+          ADMIN
+        </option>
+
+        <option value="DIRECTOR">
+          DIRECTOR
+        </option>
+
+        <option value="TRABAJADOR">
+          TRABAJADOR
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div
+      class="form-group"
+      id="editarCampoApellidos"
+      hidden
+    >
+
+      <label for="editarApellidos">
+        Apellidos
+      </label>
+
+      <input
+        type="text"
+        id="editarApellidos"
+        placeholder="Apellidos"
+      >
+
+    </div>
+
+
+    <div
+      class="form-group"
+      id="editarCampoDni"
+      hidden
+    >
+
+      <label for="editarDni">
+        DNI
+      </label>
+
+      <input
+        type="text"
+        id="editarDni"
+        placeholder="DNI"
+      >
+
+    </div>
+
+
+    <div
+      class="form-group"
+      id="editarCampoEmpresa"
+    >
+
+      <label for="editarEmpresaSelect">
+        Empresa
+      </label>
+
+      <select id="editarEmpresaSelect">
+
+        <option value="">
+          Selecciona una empresa
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div
+      class="form-group"
+      id="editarCampoOficina"
+    >
+
+      <label for="editarOficinaSelect">
+        Oficina
+      </label>
+
+      <select id="editarOficinaSelect">
+
+        <option value="">
+          Selecciona una oficina
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label
+        style="
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+        "
+      >
+
+        <input
+          type="checkbox"
+          id="editarActivo"
+        >
+
+        Usuario activo
+
+      </label>
+
+    </div>
+
+
+    <div
+      id="editarMessage"
+      class="message"
+    ></div>
+
+
+    <div
+      style="
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        margin-top: 25px;
+      "
+    >
+
+      <button
+        id="cancelarEditar"
+        type="button"
+      >
+        Cancelar
+      </button>
+
+      <button
+        id="guardarCambiosUsuario"
+        type="button"
+      >
+        Guardar cambios
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 
     <!-- ===================================================
          INFORMACIÓN
