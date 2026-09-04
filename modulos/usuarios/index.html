@@ -1,1 +1,1210 @@
+<!DOCTYPE html>
 
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Usuarios - Gestión Interna</title>
+
+  <link
+    rel="stylesheet"
+    href="../../css/estilos.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="portal-header">
+
+
+    <div class="portal-header-left">
+
+      <h1>
+        Usuarios
+      </h1>
+
+      <p id="usuarioCabecera">
+        Cargando...
+      </p>
+
+    </div>
+
+
+    <div class="portal-header-right">
+
+      <a
+        href="../../index.html"
+        class="btn"
+      >
+        ← Volver al portal
+      </a>
+
+      <button
+        id="cerrarSesion"
+        class="btn btn-danger"
+        type="button"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+
+  </header>
+
+
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+       ===================================================== -->
+
+  <main class="portal-container">
+
+
+    <!-- ===================================================
+         CABECERA DEL MÓDULO
+         =================================================== -->
+
+    <section class="welcome-section">
+
+      <h2>
+        Gestión de usuarios
+      </h2>
+
+      <p>
+        Crea usuarios internos y asigna sus permisos dentro de la asesoría.
+      </p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         CREAR USUARIO
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+
+      <div class="trabajadores-section-header">
+
+        <div>
+
+          <h2>
+            Crear usuario
+          </h2>
+
+          <p>
+            Crea un usuario ADMIN, DIRECTOR o TRABAJADOR.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="trabajador-form-card">
+
+
+        <div class="trabajador-form-grid">
+
+
+          <!-- NOMBRE -->
+
+          <div class="trabajador-field">
+
+            <label for="nombre">
+              Nombre
+            </label>
+
+            <input
+              id="nombre"
+              type="text"
+              placeholder="Nombre completo"
+            >
+
+          </div>
+
+
+
+          <!-- APELLIDOS -->
+
+          <div
+            class="trabajador-field"
+            id="campoApellidos"
+            hidden
+          >
+
+            <label for="apellidos">
+              Apellidos
+            </label>
+
+            <input
+              id="apellidos"
+              type="text"
+              placeholder="Apellidos"
+            >
+
+          </div>
+
+
+
+          <!-- EMAIL -->
+
+          <div class="trabajador-field">
+
+            <label for="email">
+              Email
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              placeholder="correo@ejemplo.com"
+            >
+
+          </div>
+
+
+
+          <!-- CONTRASEÑA -->
+
+          <div class="trabajador-field">
+
+            <label for="password">
+              Contraseña
+            </label>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Mínimo 8 caracteres"
+            >
+
+          </div>
+
+
+
+          <!-- ROL -->
+
+          <div class="trabajador-field">
+
+            <label for="rol">
+              Rol
+            </label>
+
+            <select id="rol">
+
+              <option value="">
+                Selecciona un rol
+              </option>
+
+              <option value="ADMIN">
+                ADMIN
+              </option>
+
+              <option value="DIRECTOR">
+                DIRECTOR
+              </option>
+
+              <option value="TRABAJADOR">
+                TRABAJADOR
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- DNI -->
+
+          <div
+            class="trabajador-field"
+            id="campoDni"
+            hidden
+          >
+
+            <label for="dni">
+              DNI
+            </label>
+
+            <input
+              id="dni"
+              type="text"
+              placeholder="00000000A"
+            >
+
+          </div>
+
+
+
+          <!-- EMPRESA -->
+
+          <div
+            class="trabajador-field"
+            id="campoEmpresa"
+            hidden
+          >
+
+            <label for="empresaSelect">
+              Empresa
+            </label>
+
+            <select id="empresaSelect">
+
+              <option value="">
+                Selecciona una empresa
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- OFICINA -->
+
+          <div
+            class="trabajador-field"
+            id="campoOficina"
+            hidden
+          >
+
+            <label for="oficinaSelect">
+              Oficina
+            </label>
+
+            <select id="oficinaSelect">
+
+              <option value="">
+                Selecciona una oficina
+              </option>
+
+            </select>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ACCIONES
+             ================================================= -->
+
+        <div class="trabajador-form-actions">
+
+          <button
+            id="crearUsuario"
+            class="btn trabajador-create-button"
+            type="button"
+          >
+            Crear usuario
+          </button>
+
+        </div>
+
+
+
+        <p
+          id="crearMessage"
+          class="message trabajador-create-message"
+        ></p>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         INFORMACIÓN
+         =================================================== -->
+
+    <section class="dashboard-section">
+
+
+      <div class="trabajadores-section-header">
+
+        <div>
+
+          <h2>
+            Roles disponibles
+          </h2>
+
+          <p>
+            Cada usuario tendrá los permisos correspondientes a su rol.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="trabajador-ficha">
+
+
+        <div class="trabajador-ficha-item">
+
+          <span>
+            ADMIN
+          </span>
+
+          <strong>
+            Acceso a la empresa completa.
+          </strong>
+
+        </div>
+
+
+        <div class="trabajador-ficha-item">
+
+          <span>
+            DIRECTOR
+          </span>
+
+          <strong>
+            Acceso únicamente a su oficina.
+          </strong>
+
+        </div>
+
+
+        <div class="trabajador-ficha-item">
+
+          <span>
+            TRABAJADOR
+          </span>
+
+          <strong>
+            Acceso según los clientes que tenga asignados.
+          </strong>
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       PIE
+       ===================================================== -->
+
+  <footer class="portal-footer">
+
+    Kit Gestión Asesoría · Gestión Interna
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT COMÚN
+       ===================================================== -->
+
+  <script src="../../js/comun.js"></script>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT DEL MÓDULO
+       ===================================================== -->
+
+  <script>
+
+
+    // =====================================================
+    // SESIÓN
+    // =====================================================
+
+    if (!comprobarSesion()) {
+
+      throw new Error(
+        "Sesión no válida"
+      );
+
+    }
+
+
+    const usuario =
+      obtenerUsuario();
+
+
+
+    // =====================================================
+    // COMPROBAR SUPERADMIN
+    // =====================================================
+
+    if (
+      usuario.rol !== "SUPERADMIN"
+    ) {
+
+      window.location.href =
+        "../../index.html";
+
+      throw new Error(
+        "Acceso no permitido"
+      );
+
+    }
+
+
+
+    // =====================================================
+    // MOSTRAR USUARIO
+    // =====================================================
+
+    document
+      .getElementById(
+        "usuarioCabecera"
+      )
+      .textContent =
+        `${usuario.nombre} · ${usuario.rol}`;
+
+
+
+    // =====================================================
+    // CERRAR SESIÓN
+    // =====================================================
+
+    document
+      .getElementById(
+        "cerrarSesion"
+      )
+      .addEventListener(
+        "click",
+        cerrarSesion
+      );
+
+
+
+    // =====================================================
+    // ELEMENTOS
+    // =====================================================
+
+    const nombre =
+      document.getElementById(
+        "nombre"
+      );
+
+
+    const apellidos =
+      document.getElementById(
+        "apellidos"
+      );
+
+
+    const email =
+      document.getElementById(
+        "email"
+      );
+
+
+    const password =
+      document.getElementById(
+        "password"
+      );
+
+
+    const rol =
+      document.getElementById(
+        "rol"
+      );
+
+
+    const dni =
+      document.getElementById(
+        "dni"
+      );
+
+
+    const empresaSelect =
+      document.getElementById(
+        "empresaSelect"
+      );
+
+
+    const oficinaSelect =
+      document.getElementById(
+        "oficinaSelect"
+      );
+
+
+    const campoApellidos =
+      document.getElementById(
+        "campoApellidos"
+      );
+
+
+    const campoDni =
+      document.getElementById(
+        "campoDni"
+      );
+
+
+    const campoEmpresa =
+      document.getElementById(
+        "campoEmpresa"
+      );
+
+
+    const campoOficina =
+      document.getElementById(
+        "campoOficina"
+      );
+
+
+    const crearMessage =
+      document.getElementById(
+        "crearMessage"
+      );
+
+
+    const crearUsuarioButton =
+      document.getElementById(
+        "crearUsuario"
+      );
+
+
+
+    // =====================================================
+    // CARGAR EMPRESAS
+    // =====================================================
+
+    async function cargarEmpresas() {
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            "/api/empresas"
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          crearMessage.textContent =
+            datos.message ||
+            "No se han podido cargar las empresas.";
+
+          return;
+
+        }
+
+
+        empresaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una empresa
+            </option>
+          `;
+
+
+        datos.empresas.forEach(
+          empresa => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              empresa.id;
+
+
+            option.textContent =
+              empresa.nombre;
+
+
+            empresaSelect.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando empresas:",
+          error
+        );
+
+
+        crearMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // CARGAR OFICINAS
+    // =====================================================
+
+    async function cargarOficinas(
+      empresaId
+    ) {
+
+      oficinaSelect.innerHTML =
+        `
+          <option value="">
+            Cargando oficinas...
+          </option>
+        `;
+
+
+      if (!empresaId) {
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+        return;
+
+      }
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/empresas/${empresaId}/oficinas`
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          oficinaSelect.innerHTML =
+            `
+              <option value="">
+                No se han podido cargar las oficinas
+              </option>
+            `;
+
+          return;
+
+        }
+
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+
+        datos.oficinas
+          .filter(
+            oficina =>
+              oficina.activo
+          )
+          .forEach(
+            oficina => {
+
+              const option =
+                document.createElement(
+                  "option"
+                );
+
+
+              option.value =
+                oficina.id;
+
+
+              option.textContent =
+                oficina.nombre;
+
+
+              oficinaSelect.appendChild(
+                option
+              );
+
+            }
+          );
+
+
+      } catch (error) {
+
+        console.error(
+          "Error cargando oficinas:",
+          error
+        );
+
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Error cargando oficinas
+            </option>
+          `;
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // CAMBIO DE ROL
+    // =====================================================
+
+    rol.addEventListener(
+      "change",
+      actualizarCamposRol
+    );
+
+
+    function actualizarCamposRol() {
+
+      const rolSeleccionado =
+        rol.value;
+
+
+      const necesitaEmpresa =
+        (
+          rolSeleccionado === "ADMIN" ||
+          rolSeleccionado === "DIRECTOR" ||
+          rolSeleccionado === "TRABAJADOR"
+        );
+
+
+      const necesitaOficina =
+        (
+          rolSeleccionado === "DIRECTOR" ||
+          rolSeleccionado === "TRABAJADOR"
+        );
+
+
+      const esTrabajador =
+        rolSeleccionado === "TRABAJADOR";
+
+
+      campoEmpresa.hidden =
+        !necesitaEmpresa;
+
+
+      campoOficina.hidden =
+        !necesitaOficina;
+
+
+      campoApellidos.hidden =
+        !esTrabajador;
+
+
+      campoDni.hidden =
+        !esTrabajador;
+
+
+      if (!necesitaOficina) {
+
+        oficinaSelect.value =
+          "";
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+      }
+
+
+      if (!esTrabajador) {
+
+        apellidos.value =
+          "";
+
+        dni.value =
+          "";
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // CAMBIO DE EMPRESA
+    // =====================================================
+
+    empresaSelect.addEventListener(
+      "change",
+      () => {
+
+        const rolSeleccionado =
+          rol.value;
+
+
+        if (
+          rolSeleccionado === "DIRECTOR" ||
+          rolSeleccionado === "TRABAJADOR"
+        ) {
+
+          cargarOficinas(
+            empresaSelect.value
+          );
+
+        }
+
+      }
+    );
+
+
+
+    // =====================================================
+    // CREAR USUARIO
+    // =====================================================
+
+    crearUsuarioButton.addEventListener(
+      "click",
+      crearUsuario
+    );
+
+
+    async function crearUsuario() {
+
+      const nombreValor =
+        nombre.value.trim();
+
+
+      const apellidosValor =
+        apellidos.value.trim();
+
+
+      const emailValor =
+        email.value.trim();
+
+
+      const passwordValor =
+        password.value;
+
+
+      const rolValor =
+        rol.value;
+
+
+      const dniValor =
+        dni.value.trim();
+
+
+      const empresaId =
+        empresaSelect.value;
+
+
+      const oficinaId =
+        oficinaSelect.value;
+
+
+      crearMessage.textContent =
+        "";
+
+
+      // ===================================================
+      // VALIDACIONES GENERALES
+      // ===================================================
+
+      if (
+        !nombreValor ||
+        !emailValor ||
+        !passwordValor ||
+        !rolValor
+      ) {
+
+        crearMessage.textContent =
+          "Nombre, email, contraseña y rol son obligatorios.";
+
+        return;
+
+      }
+
+
+      if (
+        passwordValor.length < 8
+      ) {
+
+        crearMessage.textContent =
+          "La contraseña debe tener al menos 8 caracteres.";
+
+        return;
+
+      }
+
+
+      // ===================================================
+      // VALIDACIONES DE EMPRESA
+      // ===================================================
+
+      if (
+        (
+          rolValor === "ADMIN" ||
+          rolValor === "DIRECTOR" ||
+          rolValor === "TRABAJADOR"
+        ) &&
+        !empresaId
+      ) {
+
+        crearMessage.textContent =
+          "Debes seleccionar una empresa.";
+
+        return;
+
+      }
+
+
+      // ===================================================
+      // VALIDACIONES DE OFICINA
+      // ===================================================
+
+      if (
+        (
+          rolValor === "DIRECTOR" ||
+          rolValor === "TRABAJADOR"
+        ) &&
+        !oficinaId
+      ) {
+
+        crearMessage.textContent =
+          "Debes seleccionar una oficina.";
+
+        return;
+
+      }
+
+
+      // ===================================================
+      // VALIDACIONES DE TRABAJADOR
+      // ===================================================
+
+      if (
+        rolValor === "TRABAJADOR" &&
+        (
+          !apellidosValor ||
+          !dniValor
+        )
+      ) {
+
+        crearMessage.textContent =
+          "Los apellidos y el DNI son obligatorios para un trabajador.";
+
+        return;
+
+      }
+
+
+      crearUsuarioButton.disabled =
+        true;
+
+
+      crearUsuarioButton.textContent =
+        "Creando...";
+
+
+      try {
+
+        const datosUsuario = {
+
+          nombre:
+            nombreValor,
+
+          email:
+            emailValor,
+
+          password:
+            passwordValor,
+
+          rol:
+            rolValor,
+
+          empresaId:
+            empresaId || undefined,
+
+          oficinaId:
+            oficinaId || undefined
+
+        };
+
+
+        if (
+          rolValor === "TRABAJADOR"
+        ) {
+
+          datosUsuario.apellidos =
+            apellidosValor;
+
+
+          datosUsuario.dni =
+            dniValor;
+
+        }
+
+
+        const respuesta =
+          await peticionAPI(
+            "/api/usuarios",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify(
+                  datosUsuario
+                )
+
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          crearMessage.textContent =
+            datos.message ||
+            "No se ha podido crear el usuario.";
+
+          return;
+
+        }
+
+
+        // =================================================
+        // LIMPIAR FORMULARIO
+        // =================================================
+
+        nombre.value =
+          "";
+
+        apellidos.value =
+          "";
+
+        email.value =
+          "";
+
+        password.value =
+          "";
+
+        rol.value =
+          "";
+
+        dni.value =
+          "";
+
+        empresaSelect.value =
+          "";
+
+        oficinaSelect.innerHTML =
+          `
+            <option value="">
+              Selecciona una oficina
+            </option>
+          `;
+
+
+        actualizarCamposRol();
+
+
+        crearMessage.textContent =
+          "Usuario creado correctamente.";
+
+
+      } catch (error) {
+
+        console.error(
+          "Error creando usuario:",
+          error
+        );
+
+
+        crearMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      } finally {
+
+        crearUsuarioButton.disabled =
+          false;
+
+
+        crearUsuarioButton.textContent =
+          "Crear usuario";
+
+      }
+
+    }
+
+
+
+    // =====================================================
+    // INICIO
+    // =====================================================
+
+    cargarEmpresas();
+
+    actualizarCamposRol();
+
+
+  </script>
+
+
+</body>
+
+</html>
