@@ -2099,7 +2099,7 @@ editarRol.addEventListener(
 async function cargarEmpresasEdicion() {
 
   const respuesta =
-    await fetch("/api/empresas", {
+    await fetch(`${API_URL}/api/empresas`, {
       headers: {
         Authorization:
           `Bearer ${localStorage.getItem("token")}`
