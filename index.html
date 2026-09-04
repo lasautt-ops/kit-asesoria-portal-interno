@@ -401,6 +401,24 @@ class="module-card"
       .textContent =
         `Bienvenido, ${usuario.nombre}`;
 
+        // =====================================================
+    // MÓDULO USUARIOS
+    // =====================================================
+
+    const moduloUsuarios =
+      document.getElementById(
+        "moduloUsuarios"
+      );
+
+
+    if (
+      usuario.rol === "SUPERADMIN"
+    ) {
+
+      moduloUsuarios.hidden =
+        false;
+
+    }
 
     // =====================================================
     // CERRAR SESIÓN
