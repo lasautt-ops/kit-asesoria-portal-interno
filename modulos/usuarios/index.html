@@ -2180,7 +2180,7 @@ async function cargarOficinasEdicion(
 
   const respuesta =
     await fetch(
-      `/api/empresas/${empresaId}/oficinas`,
+  `${API_URL}/api/empresas/${empresaId}/oficinas`,
       {
         headers: {
           Authorization:
