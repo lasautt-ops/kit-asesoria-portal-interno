@@ -1633,6 +1633,809 @@
 
     actualizarCamposRol();
 
+   
+// =========================================================
+// GESTIÓN DE USUARIOS EXISTENTES
+// =========================================================
+
+const usuariosTabla =
+  document.getElementById("usuariosTabla");
+
+const usuariosMessage =
+  document.getElementById("usuariosMessage");
+
+const modalEditarUsuario =
+  document.getElementById("modalEditarUsuario");
+
+const cerrarModalEditar =
+  document.getElementById("cerrarModalEditar");
+
+const cancelarEditar =
+  document.getElementById("cancelarEditar");
+
+const guardarCambiosUsuario =
+  document.getElementById("guardarCambiosUsuario");
+
+const editarUsuarioId =
+  document.getElementById("editarUsuarioId");
+
+const editarNombre =
+  document.getElementById("editarNombre");
+
+const editarEmail =
+  document.getElementById("editarEmail");
+
+const editarPassword =
+  document.getElementById("editarPassword");
+
+const editarRol =
+  document.getElementById("editarRol");
+
+const editarApellidos =
+  document.getElementById("editarApellidos");
+
+const editarDni =
+  document.getElementById("editarDni");
+
+const editarEmpresaSelect =
+  document.getElementById("editarEmpresaSelect");
+
+const editarOficinaSelect =
+  document.getElementById("editarOficinaSelect");
+
+const editarActivo =
+  document.getElementById("editarActivo");
+
+const editarCampoApellidos =
+  document.getElementById("editarCampoApellidos");
+
+const editarCampoDni =
+  document.getElementById("editarCampoDni");
+
+
+// =========================================================
+// CARGAR USUARIOS
+// =========================================================
+
+async function cargarUsuarios() {
+
+  usuariosMessage.textContent = "";
+
+  try {
+
+    const respuesta =
+      await fetch("/api/usuarios", {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+
+    const datos =
+      await respuesta.json();
+
+    if (!respuesta.ok) {
+
+      throw new Error(
+        datos.message ||
+        "No se pudieron cargar los usuarios"
+      );
+
+    }
+
+    const usuarios =
+      datos.usuarios || [];
+
+    renderizarUsuarios(usuarios);
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando usuarios:",
+      error
+    );
+
+    usuariosTabla.innerHTML = `
+      <tr>
+        <td
+          colspan="7"
+          style="
+            padding: 20px;
+            text-align: center;
+          "
+        >
+          No se pudieron cargar los usuarios.
+        </td>
+      </tr>
+    `;
+
+  }
+
+}
+
+
+// =========================================================
+// MOSTRAR USUARIOS EN LA TABLA
+// =========================================================
+
+function renderizarUsuarios(usuarios) {
+
+  if (!usuarios.length) {
+
+    usuariosTabla.innerHTML = `
+      <tr>
+        <td
+          colspan="7"
+          style="
+            padding: 20px;
+            text-align: center;
+          "
+        >
+          No hay usuarios creados.
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+
+  usuariosTabla.innerHTML =
+    usuarios.map(usuario => {
+
+      const empresa =
+        usuario.empresa?.nombre ||
+        "—";
+
+      const oficina =
+        usuario.oficina?.nombre ||
+        "—";
+
+      const estado =
+        usuario.activo
+          ? "Activo"
+          : "Inactivo";
+
+
+      return `
+        <tr>
+
+          <td
+            style="
+              padding: 12px;
+              border-bottom: 1px solid #eee;
+            "
+          >
+            ${escaparHTML(
+              usuario.nombre || ""
+            )}
+          </td>
+
+
+          <td
+            style="
+              padding: 12px;
+              border-bottom: 1px solid #eee;
+            "
+          >
+            ${escaparHTML(
+              usuario.email || ""
+            )}
+          </td>
+
+
+          <td
+            style="
+              padding: 12px;
+              border-bottom: 1px solid #eee;
+            "
+          >
+            ${escaparHTML(
+              usuario.rol || ""
+            )}
+          </td>
+
+
+          <td
+            style="
+              padding: 12px;
+              border-bottom: 1px solid #eee;
+            "
+          >
+            ${escaparHTML(
+              empresa
+            )}
+          </td>
+
+
+          <td
+            style="
+              padding: 12px;
+              border-bottom: 1px solid #eee;
+            "
+          >
+            ${escaparHTML(
+              oficina
+            )}
+          </td>
+
+
+          <td
+            style="
+              padding: 12px;
+              border-bottom: 1px solid #eee;
+            "
+          >
+            ${estado}
+          </td>
+
+
+          <td
+            style="
+              padding: 12px;
+              border-bottom: 1px solid #eee;
+              text-align: center;
+            "
+          >
+
+            <button
+              type="button"
+              onclick="abrirEditarUsuario('${usuario.id}')"
+            >
+              Editar
+            </button>
+
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
+
+}
+
+
+// =========================================================
+// ESCAPAR HTML
+// =========================================================
+
+function escaparHTML(valor) {
+
+  return String(valor)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+// =========================================================
+// ABRIR EDICIÓN
+// =========================================================
+
+async function abrirEditarUsuario(id) {
+
+  try {
+
+    const respuesta =
+      await fetch("/api/usuarios", {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+
+    const datos =
+      await respuesta.json();
+
+    if (!respuesta.ok) {
+
+      throw new Error(
+        datos.message ||
+        "No se pudieron cargar los usuarios"
+      );
+
+    }
+
+    const usuario =
+      (datos.usuarios || [])
+        .find(
+          item => item.id === id
+        );
+
+
+    if (!usuario) {
+
+      throw new Error(
+        "Usuario no encontrado"
+      );
+
+    }
+
+
+    editarUsuarioId.value =
+      usuario.id;
+
+    editarNombre.value =
+      usuario.nombre || "";
+
+    editarEmail.value =
+      usuario.email || "";
+
+    editarPassword.value =
+      "";
+
+    editarRol.value =
+      usuario.rol || "";
+
+    editarActivo.checked =
+      usuario.activo === true;
+
+
+    editarApellidos.value =
+      usuario.trabajador?.apellidos || "";
+
+    editarDni.value =
+      usuario.trabajador?.dni || "";
+
+
+    await cargarEmpresasEdicion();
+
+
+    editarEmpresaSelect.value =
+      usuario.empresaId || "";
+
+
+    if (usuario.empresaId) {
+
+      await cargarOficinasEdicion(
+        usuario.empresaId
+      );
+
+    } else {
+
+      editarOficinaSelect.innerHTML = `
+        <option value="">
+          Selecciona una oficina
+        </option>
+      `;
+
+    }
+
+
+    editarOficinaSelect.value =
+      usuario.oficinaId || "";
+
+
+    actualizarCamposRolEdicion();
+
+
+    editarMessage.textContent = "";
+
+    modalEditarUsuario.hidden =
+      false;
+
+  } catch (error) {
+
+    console.error(
+      "Error abriendo usuario:",
+      error
+    );
+
+    alert(
+      error.message ||
+      "No se pudo abrir el usuario"
+    );
+
+  }
+
+}
+
+
+// =========================================================
+// CAMPOS SEGÚN ROL EN EDICIÓN
+// =========================================================
+
+function actualizarCamposRolEdicion() {
+
+  const rolSeleccionado =
+    editarRol.value;
+
+
+  const esTrabajador =
+    rolSeleccionado ===
+    "TRABAJADOR";
+
+
+  editarCampoApellidos.hidden =
+    !esTrabajador;
+
+  editarCampoDni.hidden =
+    !esTrabajador;
+
+
+  if (!esTrabajador) {
+
+    editarApellidos.value =
+      "";
+
+    editarDni.value =
+      "";
+
+  }
+
+
+  if (rolSeleccionado === "ADMIN") {
+
+    editarOficinaSelect.value =
+      "";
+
+  }
+
+}
+
+
+// =========================================================
+// CAMBIO DE ROL EN EDICIÓN
+// =========================================================
+
+editarRol.addEventListener(
+  "change",
+  actualizarCamposRolEdicion
+);
+
+
+// =========================================================
+// CARGAR EMPRESAS PARA EDICIÓN
+// =========================================================
+
+async function cargarEmpresasEdicion() {
+
+  const respuesta =
+    await fetch("/api/empresas", {
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+
+  const datos =
+    await respuesta.json();
+
+
+  if (!respuesta.ok) {
+
+    throw new Error(
+      datos.message ||
+      "No se pudieron cargar las empresas"
+    );
+
+  }
+
+
+  editarEmpresaSelect.innerHTML = `
+    <option value="">
+      Selecciona una empresa
+    </option>
+  `;
+
+
+  (datos.empresas || [])
+    .forEach(empresa => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        empresa.id;
+
+      option.textContent =
+        empresa.nombre;
+
+      editarEmpresaSelect
+        .appendChild(option);
+
+    });
+
+}
+
+
+// =========================================================
+// CARGAR OFICINAS PARA EDICIÓN
+// =========================================================
+
+async function cargarOficinasEdicion(
+  empresaId
+) {
+
+  editarOficinaSelect.innerHTML = `
+    <option value="">
+      Cargando oficinas...
+    </option>
+  `;
+
+
+  if (!empresaId) {
+
+    editarOficinaSelect.innerHTML = `
+      <option value="">
+        Selecciona una oficina
+      </option>
+    `;
+
+    return;
+
+  }
+
+
+  const respuesta =
+    await fetch(
+      `/api/empresas/${empresaId}/oficinas`,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    );
+
+
+  const datos =
+    await respuesta.json();
+
+
+  if (!respuesta.ok) {
+
+    throw new Error(
+      datos.message ||
+      "No se pudieron cargar las oficinas"
+    );
+
+  }
+
+
+  editarOficinaSelect.innerHTML = `
+    <option value="">
+      Selecciona una oficina
+    </option>
+  `;
+
+
+  (datos.oficinas || [])
+    .forEach(oficina => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        oficina.id;
+
+      option.textContent =
+        oficina.nombre;
+
+      editarOficinaSelect
+        .appendChild(option);
+
+    });
+
+}
+
+
+// =========================================================
+// CAMBIO DE EMPRESA EN EDICIÓN
+// =========================================================
+
+editarEmpresaSelect.addEventListener(
+  "change",
+  async () => {
+
+    try {
+
+      await cargarOficinasEdicion(
+        editarEmpresaSelect.value
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Error cargando oficinas:",
+        error
+      );
+
+    }
+
+  }
+);
+
+
+// =========================================================
+// CERRAR MODAL
+// =========================================================
+
+function cerrarEdicionUsuario() {
+
+  modalEditarUsuario.hidden =
+    true;
+
+  editarUsuarioId.value =
+    "";
+
+  editarPassword.value =
+    "";
+
+  editarMessage.textContent =
+    "";
+
+}
+
+
+cerrarModalEditar.addEventListener(
+  "click",
+  cerrarEdicionUsuario
+);
+
+
+cancelarEditar.addEventListener(
+  "click",
+  cerrarEdicionUsuario
+);
+
+
+// =========================================================
+// GUARDAR CAMBIOS
+// =========================================================
+
+guardarCambiosUsuario.addEventListener(
+  "click",
+  async () => {
+
+    const id =
+      editarUsuarioId.value;
+
+
+    if (!id) {
+
+      return;
+
+    }
+
+
+    editarMessage.textContent =
+      "Guardando cambios...";
+
+
+    const datos = {
+
+      nombre:
+        editarNombre.value.trim(),
+
+      email:
+        editarEmail.value.trim(),
+
+      rol:
+        editarRol.value,
+
+      empresaId:
+        editarEmpresaSelect.value || null,
+
+      oficinaId:
+        editarOficinaSelect.value || null,
+
+      activo:
+        editarActivo.checked
+
+    };
+
+
+    if (
+      editarPassword.value.trim() !== ""
+    ) {
+
+      datos.password =
+        editarPassword.value;
+
+    }
+
+
+    if (
+      editarRol.value ===
+      "TRABAJADOR"
+    ) {
+
+      datos.apellidos =
+        editarApellidos.value.trim();
+
+      datos.dni =
+        editarDni.value.trim();
+
+    }
+
+
+    try {
+
+      const respuesta =
+        await fetch(
+          `/api/usuarios/${id}`,
+          {
+            method: "PATCH",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                `Bearer ${localStorage.getItem("token")}`
+            },
+
+            body:
+              JSON.stringify(datos)
+          }
+        );
+
+
+      const resultado =
+        await respuesta.json();
+
+
+      if (!respuesta.ok) {
+
+        throw new Error(
+          resultado.message ||
+          "No se pudieron guardar los cambios"
+        );
+
+      }
+
+
+      editarMessage.textContent =
+        "Usuario actualizado correctamente.";
+
+
+      await cargarUsuarios();
+
+
+      setTimeout(
+        () => {
+
+          cerrarEdicionUsuario();
+
+        },
+        700
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Error guardando usuario:",
+        error
+      );
+
+      editarMessage.textContent =
+        error.message ||
+        "Error guardando los cambios";
+
+    }
+
+  }
+);
+
+
+// =========================================================
+// CARGAR USUARIOS AL ENTRAR
+// =========================================================
+
+cargarUsuarios();
+
+
+
 
   </script>
 
