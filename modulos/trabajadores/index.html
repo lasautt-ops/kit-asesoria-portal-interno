@@ -2522,6 +2522,164 @@ function actualizarEstadoEdicion() {
 
 
     // =====================================================
+// ACTIVAR / DESACTIVAR TRABAJADOR
+// =====================================================
+
+cambiarEstadoTrabajadorButton.addEventListener(
+  "click",
+  cambiarEstadoTrabajador
+);
+
+
+async function cambiarEstadoTrabajador() {
+
+  if (
+    !trabajadorSeleccionado
+  ) {
+
+    return;
+  }
+
+
+  const activoActual =
+    Boolean(
+      trabajadorSeleccionado.usuario?.activo
+    );
+
+
+  const nuevoEstado =
+    !activoActual;
+
+
+  const accion =
+    nuevoEstado
+      ? "activar"
+      : "desactivar";
+
+
+  const confirmado =
+    window.confirm(
+      nuevoEstado
+        ? "¿Seguro que quieres activar a este trabajador?\n\nPodrá volver a acceder al sistema."
+        : "¿Seguro que quieres desactivar a este trabajador?\n\nEl trabajador conservará sus datos, pero no podrá acceder al sistema."
+    );
+
+
+  if (!confirmado) {
+
+    return;
+  }
+
+
+  editarMessage.textContent =
+    "";
+
+
+  cambiarEstadoTrabajadorButton.disabled =
+    true;
+
+
+  cambiarEstadoTrabajadorButton.textContent =
+    nuevoEstado
+      ? "Activando..."
+      : "Desactivando...";
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        `/api/trabajadores/${trabajadorSeleccionado.id}`,
+        {
+          method: "PATCH",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            activo:
+              nuevoEstado
+          })
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      editarMessage.textContent =
+        datos.message ||
+        `No se ha podido ${accion} el trabajador.`;
+
+      return;
+    }
+
+
+    trabajadorSeleccionado.usuario =
+      trabajadorSeleccionado.usuario ||
+      {};
+
+
+    trabajadorSeleccionado.usuario.activo =
+      nuevoEstado;
+
+
+    actualizarEstadoEdicion();
+
+
+    fichaEstado.textContent =
+      nuevoEstado
+        ? "Activo"
+        : "Inactivo";
+
+
+    fichaEstado.className =
+      nuevoEstado
+        ? "trabajador-ficha-status trabajador-ficha-status-active"
+        : "trabajador-ficha-status trabajador-ficha-status-inactive";
+
+
+    editarMessage.textContent =
+      nuevoEstado
+        ? "Trabajador activado correctamente."
+        : "Trabajador desactivado correctamente.";
+
+
+    await cargarTrabajadores();
+
+  } catch (error) {
+
+    console.error(
+      `Error intentando ${accion} trabajador:`,
+      error
+    );
+
+
+    editarMessage.textContent =
+      "No se ha podido conectar con el servidor.";
+
+  } finally {
+
+    cambiarEstadoTrabajadorButton.disabled =
+      false;
+
+    actualizarEstadoEdicion();
+
+  }
+
+}
+
+    
+
+    // =====================================================
     // GUARDAR CAMBIOS
     // =====================================================
 
