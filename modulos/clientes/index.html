@@ -2977,6 +2977,25 @@ const cambiarEstadoClienteButton =
           article.className =
             "cliente-card";
 
+        const estadoCliente =
+  document.createElement(
+    "p"
+  );
+
+
+estadoCliente.className =
+  "cliente-info";
+
+
+estadoCliente.style.fontWeight =
+  "600";
+
+
+estadoCliente.textContent =
+  cliente.activo === false
+    ? "Estado: Inactivo"
+    : "Estado: Activo";
+
 
           // =================================================
           // NOMBRE
