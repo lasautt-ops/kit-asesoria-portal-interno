@@ -1392,7 +1392,7 @@ content="width=device-width, initial-scale=1.0"
         </div>
 
 
-        <!-- CLIENTE CON ACCESO -->
+                <!-- CLIENTE CON ACCESO -->
 
         <div
           id="editarConAccesoPortal"
@@ -1414,13 +1414,52 @@ content="width=device-width, initial-scale=1.0"
           <p
             id="editarEmailAccesoPortal"
             style="
-              margin: 0;
+              margin: 0 0 16px;
               color: #475569;
               font-size: 14px;
             "
           >
             Email de acceso: -
           </p>
+
+
+          <div
+            class="cliente-form-field"
+            style="margin-bottom: 14px;"
+          >
+
+            <label for="editarNuevaPasswordPortal">
+              Cambiar contraseña:
+            </label>
+
+            <input
+              id="editarNuevaPasswordPortal"
+              type="password"
+              placeholder="Nueva contraseña"
+              autocomplete="new-password"
+            >
+
+            <small
+              style="
+                display: block;
+                margin-top: 6px;
+                color: #6b7280;
+                font-size: 12px;
+              "
+            >
+              Introduce una nueva contraseña de al menos 8 caracteres.
+            </small>
+
+          </div>
+
+
+          <button
+            id="cambiarPasswordPortalEdicion"
+            class="btn"
+            type="button"
+          >
+            Cambiar contraseña
+          </button>
 
         </div>
 
