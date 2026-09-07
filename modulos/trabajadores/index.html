@@ -2450,6 +2450,17 @@ editarMessage.textContent =
       }
 
 
+      if (
+  nuevaPassword &&
+  nuevaPassword.length < 8
+) {
+
+  editarMessage.textContent =
+    "La contraseña debe tener al menos 8 caracteres.";
+
+  return;
+}
+
       guardarTrabajadorButton.disabled =
         true;
 
