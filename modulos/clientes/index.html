@@ -3980,6 +3980,133 @@ Kit Gestión Asesoría · Gestión Interna
 
     }
 
+
+    // =====================================================
+    // CAMBIAR CONTRASEÑA DEL PORTAL DESDE EDICIÓN
+    // =====================================================
+
+    cambiarPasswordPortalEdicion.addEventListener(
+      "click",
+      cambiarPasswordPortalDesdeEdicion
+    );
+
+
+    async function cambiarPasswordPortalDesdeEdicion() {
+
+      const id =
+        editarClienteId.value;
+
+
+      const nuevaPassword =
+        editarNuevaPasswordPortal.value;
+
+
+      editarMessage.textContent =
+        "";
+
+
+      if (!id) {
+
+        editarMessage.textContent =
+          "No se ha identificado el cliente.";
+
+        return;
+      }
+
+
+      if (
+        !nuevaPassword ||
+        nuevaPassword.length < 8
+      ) {
+
+        editarMessage.textContent =
+          "La contraseña debe tener al menos 8 caracteres.";
+
+        return;
+      }
+
+
+      const boton =
+        cambiarPasswordPortalEdicion;
+
+
+      boton.disabled =
+        true;
+
+
+      boton.textContent =
+        "Cambiando contraseña...";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/clientes/${id}/cambiar-password`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                password: nuevaPassword
+              })
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          editarMessage.textContent =
+            datos.message ||
+            "No se ha podido cambiar la contraseña.";
+
+          return;
+        }
+
+
+        editarNuevaPasswordPortal.value =
+          "";
+
+
+        editarMessage.textContent =
+          "Contraseña del Portal actualizada correctamente.";
+
+      } catch (error) {
+
+        console.error(
+          "Error cambiando contraseña del Portal:",
+          error
+        );
+
+
+        editarMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      } finally {
+
+        boton.disabled =
+          false;
+
+
+        boton.textContent =
+          "Cambiar contraseña";
+
+      }
+
+    }
+
+    
     // =====================================================
     // GUARDAR CAMBIOS DEL CLIENTE
     // =====================================================
