@@ -1931,6 +1931,23 @@ Kit Gestión Asesoría · Gestión Interna
           .trim();
 
 
+const apellidos =
+  document
+    .getElementById(
+      "apellidos"
+    )
+    .value
+    .trim();
+
+
+const dni =
+  document
+    .getElementById(
+      "dni"
+    )
+    .value
+    .trim();
+      
       const email =
         document
           .getElementById(
@@ -1961,12 +1978,14 @@ Kit Gestión Asesoría · Gestión Interna
 
 
       if (
-        !nombre ||
-        !email ||
-        !password ||
-        !empresaId ||
-        !oficinaId
-      ) {
+  !nombre ||
+  !apellidos ||
+  !dni ||
+  !email ||
+  !password ||
+  !empresaId ||
+  !oficinaId
+) {
 
         crearMessage.textContent =
           "Todos los campos son obligatorios.";
