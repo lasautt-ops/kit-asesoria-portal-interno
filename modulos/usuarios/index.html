@@ -2362,21 +2362,20 @@ guardarCambiosUsuario.addEventListener(
     try {
 
       const respuesta =
-        await fetch(`${API_URL}/api/usuarios/${id}`, {
-            method: "PATCH",
+  await fetch(`${API_URL}/api/usuarios/${id}`, {
+    method: "PATCH",
 
-            headers: {
-              "Content-Type":
-                "application/json",
+    headers: {
+      "Content-Type":
+        "application/json",
 
-              Authorization:
-                `Bearer ${localStorage.getItem("token")}`
-            },
+      Authorization:
+        `Bearer ${localStorage.getItem("token")}`
+    },
 
-            body:
-              JSON.stringify(datos)
-          }
-        );
+    body:
+      JSON.stringify(datos)
+  });
 
 
       const resultado =
