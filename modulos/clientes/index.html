@@ -3953,6 +3953,152 @@ function actualizarEstadoEdicion() {
       : "Activar cliente";
 
 }
+
+    // =====================================================
+// CAMBIAR ESTADO DEL CLIENTE
+// =====================================================
+
+cambiarEstadoClienteButton.addEventListener(
+  "click",
+  cambiarEstadoCliente
+);
+
+
+async function cambiarEstadoCliente() {
+
+  if (!clienteSeleccionado) {
+
+    editarMessage.textContent =
+      "No se ha identificado el cliente.";
+
+    return;
+  }
+
+
+  const activoActual =
+    clienteSeleccionado.activo !== false;
+
+
+  const nuevoEstado =
+    !activoActual;
+
+
+  const accion =
+    nuevoEstado
+      ? "activar"
+      : "desactivar";
+
+
+  const confirmarCambio =
+    confirm(
+      `¿Seguro que quieres ${accion} al cliente "${clienteSeleccionado.nombre}"?`
+    );
+
+
+  if (!confirmarCambio) {
+    return;
+  }
+
+
+  editarMessage.textContent =
+    "";
+
+
+  const boton =
+    cambiarEstadoClienteButton;
+
+
+  boton.disabled =
+    true;
+
+
+  boton.textContent =
+    nuevoEstado
+      ? "Activando..."
+      : "Desactivando...";
+
+
+  try {
+
+    const respuesta =
+      await peticionAPI(
+        `/api/clientes/${clienteSeleccionado.id}`,
+        {
+          method: "PATCH",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            activo:
+              nuevoEstado
+          })
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      !respuesta.ok ||
+      !datos.ok
+    ) {
+
+      editarMessage.textContent =
+        datos.message ||
+        "No se ha podido cambiar el estado del cliente.";
+
+      return;
+    }
+
+
+    // Actualizar cliente seleccionado
+    clienteSeleccionado.activo =
+      nuevoEstado;
+
+
+    // Actualizar interfaz
+    actualizarEstadoEdicion();
+
+
+    editarMessage.textContent =
+      nuevoEstado
+        ? "Cliente activado correctamente."
+        : "Cliente desactivado correctamente.";
+
+
+    // Recargar listado
+    await cargarClientes();
+
+  } catch (error) {
+
+    console.error(
+      "Error cambiando estado del cliente:",
+      error
+    );
+
+
+    editarMessage.textContent =
+      "No se ha podido conectar con el servidor.";
+
+  } finally {
+
+    boton.disabled =
+      false;
+
+
+    boton.textContent =
+      nuevoEstado
+        ? "Desactivar cliente"
+        : "Activar cliente";
+
+  }
+
+}
     
     // =====================================================
     // CREAR ACCESO AL PORTAL DESDE EDICIÓN
