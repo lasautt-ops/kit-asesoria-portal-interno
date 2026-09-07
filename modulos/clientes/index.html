@@ -3749,7 +3749,150 @@ Kit Gestión Asesoría · Gestión Interna
 
     }
 
+    // =====================================================
+    // CREAR ACCESO AL PORTAL DESDE EDICIÓN
+    // =====================================================
 
+    crearAccesoPortalEdicion.addEventListener(
+      "click",
+      crearAccesoPortalDesdeEdicion
+    );
+
+
+    async function crearAccesoPortalDesdeEdicion() {
+
+      const id =
+        editarClienteId.value;
+
+
+      const password =
+        editarPasswordPortal.value;
+
+
+      editarMessage.textContent =
+        "";
+
+
+      if (
+        !id
+      ) {
+
+        editarMessage.textContent =
+          "No se ha identificado el cliente.";
+
+        return;
+      }
+
+
+      if (
+        !password ||
+        password.length < 8
+      ) {
+
+        editarMessage.textContent =
+          "La contraseña debe tener al menos 8 caracteres.";
+
+        return;
+      }
+
+
+      const boton =
+        crearAccesoPortalEdicion;
+
+
+      boton.disabled =
+        true;
+
+
+      boton.textContent =
+        "Creando acceso...";
+
+
+      try {
+
+        const respuesta =
+          await peticionAPI(
+            `/api/clientes/${id}/crear-acceso`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                password
+              })
+            }
+          );
+
+
+        const datos =
+          await respuesta.json();
+
+
+        if (
+          !respuesta.ok ||
+          !datos.ok
+        ) {
+
+          editarMessage.textContent =
+            datos.message ||
+            "No se ha podido crear el acceso al Portal.";
+
+          return;
+        }
+
+
+        editarPasswordPortal.value =
+          "";
+
+
+        editarSinAccesoPortal.style.display =
+          "none";
+
+
+        editarConAccesoPortal.style.display =
+          "block";
+
+
+        editarEmailAccesoPortal.textContent =
+          `Email de acceso: ${
+            datos.cliente?.email ||
+            "-"
+          }`;
+
+
+        editarMessage.textContent =
+          "Acceso al Portal creado correctamente.";
+
+
+        await cargarClientes();
+
+      } catch (error) {
+
+        console.error(
+          "Error creando acceso desde edición:",
+          error
+        );
+
+
+        editarMessage.textContent =
+          "No se ha podido conectar con el servidor.";
+
+      } finally {
+
+        boton.disabled =
+          false;
+
+
+        boton.textContent =
+          "Crear acceso al Portal";
+
+      }
+
+    }
 
     // =====================================================
     // GUARDAR CAMBIOS DEL CLIENTE
