@@ -2325,6 +2325,44 @@ Kit Gestión Asesoría · Gestión Interna
         );
 
 
+      // =================================================
+      // ACCESO AL PORTAL
+      // =================================================
+
+      editarPasswordPortal.value =
+        "";
+
+
+      if (
+        cliente.usuarioId
+      ) {
+
+        editarSinAccesoPortal.style.display =
+          "none";
+
+
+        editarConAccesoPortal.style.display =
+          "block";
+
+
+        editarEmailAccesoPortal.textContent =
+          `Email de acceso: ${
+            cliente.usuario?.email ||
+            cliente.email ||
+            "-"
+          }`;
+
+      } else {
+
+        editarSinAccesoPortal.style.display =
+          "block";
+
+
+        editarConAccesoPortal.style.display =
+          "none";
+
+      }
+        
         clientesContainer.innerHTML =
           "";
 
