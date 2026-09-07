@@ -3918,7 +3918,7 @@ const cambiarEstadoClienteButton =
 
     }
 
-    // =====================================================
+// =====================================================
 // ACTUALIZAR ESTADO EN EDICIÓN
 // =====================================================
 
@@ -3930,9 +3930,7 @@ function actualizarEstadoEdicion() {
 
 
   const activo =
-    Boolean(
-      clienteSeleccionado.usuario?.activo
-    );
+    clienteSeleccionado.activo !== false;
 
 
   editarEstadoTexto.textContent =
@@ -3953,7 +3951,6 @@ function actualizarEstadoEdicion() {
       : "Activar cliente";
 
 }
-
     
     // =====================================================
     // CREAR ACCESO AL PORTAL DESDE EDICIÓN
