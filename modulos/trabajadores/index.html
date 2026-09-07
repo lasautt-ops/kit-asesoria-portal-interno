@@ -635,35 +635,65 @@ content="width=device-width, initial-scale=1.0"
       <div class="trabajador-edit-form">
 
 
-        <div class="trabajador-field">
+  <div class="trabajador-field">
 
-          <label for="editarNombre">
-            Nombre
-          </label>
+    <label for="editarNombre">
+      Nombre
+    </label>
 
-          <input
-            id="editarNombre"
-            type="text"
-          >
+    <input
+      id="editarNombre"
+      type="text"
+    >
 
-        </div>
-
-
-        <div class="trabajador-field">
-
-          <label for="editarEmail">
-            Email
-          </label>
-
-          <input
-            id="editarEmail"
-            type="email"
-          >
-
-        </div>
+  </div>
 
 
-      </div>
+  <div class="trabajador-field">
+
+    <label for="editarEmail">
+      Email
+    </label>
+
+    <input
+      id="editarEmail"
+      type="email"
+    >
+
+  </div>
+
+
+  <!-- CONTRASEÑA -->
+
+  <div class="trabajador-field trabajador-field-full">
+
+    <label for="editarPassword">
+      Cambiar contraseña
+    </label>
+
+    <input
+      id="editarPassword"
+      type="password"
+      placeholder="Dejar vacío para mantener la actual"
+      autocomplete="new-password"
+    >
+
+    <small
+      style="
+        display: block;
+        margin-top: 6px;
+        color: #6b7280;
+        font-size: 12px;
+      "
+    >
+      Introduce una nueva contraseña de al menos 8 caracteres.
+      Si lo dejas vacío, se mantendrá la contraseña actual.
+    </small>
+
+  </div>
+
+
+</div>
 
 
       <p
