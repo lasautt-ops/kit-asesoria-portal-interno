@@ -2487,7 +2487,12 @@ editarMessage.textContent =
                   nuevoNombre,
 
                 email:
-                  nuevoEmail
+                  nuevoEmail,
+
+                ...(nuevaPassword && {
+                  password:
+                    nuevaPassword
+                })
               })
             }
           );
