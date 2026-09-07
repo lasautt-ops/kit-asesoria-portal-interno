@@ -1320,6 +1320,113 @@ content="width=device-width, initial-scale=1.0"
       </div>
 
 
+
+            <!-- ACCESO AL PORTAL -->
+
+      <div class="cliente-form-section-title">
+        Acceso al Portal del cliente
+      </div>
+
+
+      <div
+        id="editarAccesoPortal"
+        class="cliente-acceso-portal"
+      >
+
+        <!-- CLIENTE SIN ACCESO -->
+
+        <div
+          id="editarSinAccesoPortal"
+        >
+
+          <p
+            style="
+              margin: 0 0 14px;
+              color: #475569;
+              font-size: 14px;
+            "
+          >
+            Este cliente todavía no tiene acceso al Portal.
+          </p>
+
+
+          <div
+            id="editarCampoPasswordPortal"
+            class="cliente-form-field"
+            style="margin-bottom: 14px;"
+          >
+
+            <label for="editarPasswordPortal">
+              Contraseña:
+            </label>
+
+            <input
+              id="editarPasswordPortal"
+              type="password"
+              placeholder="Mínimo 8 caracteres"
+              autocomplete="new-password"
+            >
+
+            <small
+              style="
+                display: block;
+                margin-top: 6px;
+                color: #6b7280;
+                font-size: 12px;
+              "
+            >
+              El cliente utilizará esta contraseña para acceder al Portal.
+            </small>
+
+          </div>
+
+
+          <button
+            id="crearAccesoPortalEdicion"
+            class="btn"
+            type="button"
+          >
+            Crear acceso al Portal
+          </button>
+
+        </div>
+
+
+        <!-- CLIENTE CON ACCESO -->
+
+        <div
+          id="editarConAccesoPortal"
+          style="display: none;"
+        >
+
+          <p
+            style="
+              margin: 0 0 6px;
+              color: #166534;
+              font-size: 14px;
+              font-weight: 600;
+            "
+          >
+            ✓ Acceso al Portal creado
+          </p>
+
+
+          <p
+            id="editarEmailAccesoPortal"
+            style="
+              margin: 0;
+              color: #475569;
+              font-size: 14px;
+            "
+          >
+            Email de acceso: -
+          </p>
+
+        </div>
+
+      </div>
+
+      
       <!-- ACCIONES -->
 
       <div class="cliente-form-actions">
