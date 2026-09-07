@@ -2259,6 +2259,45 @@ document
 
 
     // =====================================================
+// ACTUALIZAR ESTADO EN EDICIÓN
+// =====================================================
+
+function actualizarEstadoEdicion() {
+
+  if (
+    !trabajadorSeleccionado
+  ) {
+
+    return;
+  }
+
+
+  const activo =
+    Boolean(
+      trabajadorSeleccionado.usuario?.activo
+    );
+
+
+  editarEstadoTexto.textContent =
+    activo
+      ? "Activo"
+      : "Inactivo";
+
+
+  editarEstadoDescripcion.textContent =
+    activo
+      ? "El trabajador puede acceder al sistema."
+      : "El trabajador no puede acceder al sistema.";
+
+
+  cambiarEstadoTrabajadorButton.textContent =
+    activo
+      ? "Desactivar trabajador"
+      : "Activar trabajador";
+
+}
+    
+    // =====================================================
     // ABRIR FICHA
     // =====================================================
 
