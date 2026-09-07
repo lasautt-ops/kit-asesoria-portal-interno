@@ -3913,6 +3913,43 @@ const cambiarEstadoClienteButton =
     }
 
     // =====================================================
+// ACTUALIZAR ESTADO EN EDICIÓN
+// =====================================================
+
+function actualizarEstadoEdicion() {
+
+  if (!clienteSeleccionado) {
+    return;
+  }
+
+
+  const activo =
+    Boolean(
+      clienteSeleccionado.usuario?.activo
+    );
+
+
+  editarEstadoTexto.textContent =
+    activo
+      ? "Activo"
+      : "Inactivo";
+
+
+  editarEstadoDescripcion.textContent =
+    activo
+      ? "El cliente puede acceder al Portal."
+      : "El cliente no puede acceder al Portal.";
+
+
+  cambiarEstadoClienteButton.textContent =
+    activo
+      ? "Desactivar cliente"
+      : "Activar cliente";
+
+}
+
+    
+    // =====================================================
     // CREAR ACCESO AL PORTAL DESDE EDICIÓN
     // =====================================================
 
