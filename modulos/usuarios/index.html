@@ -2362,8 +2362,7 @@ guardarCambiosUsuario.addEventListener(
     try {
 
       const respuesta =
-        await fetch(
-          `/api/usuarios/${id}`,
+        await fetch(`${API_URL}/api/usuarios/${id}`, {
           {
             method: "PATCH",
 
