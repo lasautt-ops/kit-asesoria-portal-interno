@@ -362,6 +362,213 @@
   ></div>
 
 
+    <!-- =====================================================
+       FILTROS DE USUARIOS
+       ===================================================== -->
+
+  <div
+    style="
+      display: grid;
+      grid-template-columns:
+        minmax(240px, 2fr)
+        repeat(4, minmax(150px, 1fr))
+        auto;
+      gap: 14px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      align-items: end;
+    "
+  >
+
+    <!-- BUSCAR -->
+
+    <div>
+
+      <label
+        for="buscarUsuarios"
+        style="
+          display: block;
+          margin-bottom: 6px;
+          font-weight: 600;
+        "
+      >
+        Buscar
+      </label>
+
+      <input
+        id="buscarUsuarios"
+        type="text"
+        placeholder="Nombre o email"
+        style="
+          width: 100%;
+          box-sizing: border-box;
+        "
+      >
+
+    </div>
+
+
+    <!-- EMPRESA -->
+
+    <div>
+
+      <label
+        for="filtroEmpresaUsuarios"
+        style="
+          display: block;
+          margin-bottom: 6px;
+          font-weight: 600;
+        "
+      >
+        Empresa
+      </label>
+
+      <select
+        id="filtroEmpresaUsuarios"
+        style="
+          width: 100%;
+          box-sizing: border-box;
+        "
+      >
+
+        <option value="">
+          Todas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- OFICINA -->
+
+    <div>
+
+      <label
+        for="filtroOficinaUsuarios"
+        style="
+          display: block;
+          margin-bottom: 6px;
+          font-weight: 600;
+        "
+      >
+        Oficina
+      </label>
+
+      <select
+        id="filtroOficinaUsuarios"
+        style="
+          width: 100%;
+          box-sizing: border-box;
+        "
+      >
+
+        <option value="">
+          Todas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ROL -->
+
+    <div>
+
+      <label
+        for="filtroRolUsuarios"
+        style="
+          display: block;
+          margin-bottom: 6px;
+          font-weight: 600;
+        "
+      >
+        Rol
+      </label>
+
+      <select
+        id="filtroRolUsuarios"
+        style="
+          width: 100%;
+          box-sizing: border-box;
+        "
+      >
+
+        <option value="">
+          Todos
+        </option>
+
+        <option value="ADMIN">
+          ADMIN
+        </option>
+
+        <option value="DIRECTOR">
+          DIRECTOR
+        </option>
+
+        <option value="TRABAJADOR">
+          TRABAJADOR
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ESTADO -->
+
+    <div>
+
+      <label
+        for="filtroEstadoUsuarios"
+        style="
+          display: block;
+          margin-bottom: 6px;
+          font-weight: 600;
+        "
+      >
+        Estado
+      </label>
+
+      <select
+        id="filtroEstadoUsuarios"
+        style="
+          width: 100%;
+          box-sizing: border-box;
+        "
+      >
+
+        <option value="">
+          Todos
+        </option>
+
+        <option value="activo">
+          Activos
+        </option>
+
+        <option value="inactivo">
+          Inactivos
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- LIMPIAR -->
+
+    <button
+      id="limpiarFiltrosUsuarios"
+      type="button"
+      class="btn"
+    >
+      Limpiar filtros
+    </button>
+
+  </div>
+  
+  
   <div
     id="tablaUsuariosContainer"
     style="
