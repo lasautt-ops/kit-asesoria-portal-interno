@@ -366,198 +366,61 @@
        FILTROS DE USUARIOS
        ===================================================== -->
 
-  <div
-    style="
-      display: grid;
-      grid-template-columns:
-        minmax(240px, 2fr)
-        repeat(4, minmax(150px, 1fr))
-        auto;
-      gap: 14px;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      align-items: end;
-    "
-  >
+<!-- =================================================
+     FILTROS
+     ================================================= -->
 
-    <!-- BUSCAR -->
+<div class="usuarios-filters">
 
-    <div>
+  <!-- BUSCADOR -->
+  <div class="usuario-filter usuario-filter-search">
+    <label for="buscarUsuarios">Buscar</label>
+    <input
+      id="buscarUsuarios"
+      type="search"
+      placeholder="Nombre o email..."
+    >
+  </div>
 
-      <label
-        for="buscarUsuarios"
-        style="
-          display: block;
-          margin-bottom: 6px;
-          font-weight: 600;
-        "
-      >
-        Buscar
-      </label>
+  <!-- EMPRESA -->
+  <div class="usuario-filter">
+    <label for="filtroEmpresaUsuarios">Empresa</label>
+    <select id="filtroEmpresaUsuarios">
+      <option value="">Todas las empresas</option>
+    </select>
+  </div>
 
-      <input
-        id="buscarUsuarios"
-        type="text"
-        placeholder="Nombre o email"
-        style="
-          width: 100%;
-          box-sizing: border-box;
-        "
-      >
+  <!-- OFICINA -->
+  <div class="usuario-filter">
+    <label for="filtroOficinaUsuarios">Oficina</label>
+    <select id="filtroOficinaUsuarios">
+      <option value="">Todas las oficinas</option>
+    </select>
+  </div>
 
-    </div>
+  <!-- ROL -->
+  <div class="usuario-filter">
+    <label for="filtroRolUsuarios">Rol</label>
+    <select id="filtroRolUsuarios">
+      <option value="">Todos</option>
+      <option value="ADMIN">ADMIN</option>
+      <option value="DIRECTOR">DIRECTOR</option>
+      <option value="TRABAJADOR">TRABAJADOR</option>
+    </select>
+  </div>
 
+  <!-- ESTADO -->
+  <div class="usuario-filter">
+    <label for="filtroEstadoUsuarios">Estado</label>
+    <select id="filtroEstadoUsuarios">
+      <option value="">Todos</option>
+      <option value="activo">Activos</option>
+      <option value="inactivo">Inactivos</option>
+    </select>
+  </div>
 
-    <!-- EMPRESA -->
-
-    <div>
-
-      <label
-        for="filtroEmpresaUsuarios"
-        style="
-          display: block;
-          margin-bottom: 6px;
-          font-weight: 600;
-        "
-      >
-        Empresa
-      </label>
-
-      <select
-        id="filtroEmpresaUsuarios"
-        style="
-          width: 100%;
-          box-sizing: border-box;
-        "
-      >
-
-        <option value="">
-          Todas
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <!-- OFICINA -->
-
-    <div>
-
-      <label
-        for="filtroOficinaUsuarios"
-        style="
-          display: block;
-          margin-bottom: 6px;
-          font-weight: 600;
-        "
-      >
-        Oficina
-      </label>
-
-      <select
-        id="filtroOficinaUsuarios"
-        style="
-          width: 100%;
-          box-sizing: border-box;
-        "
-      >
-
-        <option value="">
-          Todas
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <!-- ROL -->
-
-    <div>
-
-      <label
-        for="filtroRolUsuarios"
-        style="
-          display: block;
-          margin-bottom: 6px;
-          font-weight: 600;
-        "
-      >
-        Rol
-      </label>
-
-      <select
-        id="filtroRolUsuarios"
-        style="
-          width: 100%;
-          box-sizing: border-box;
-        "
-      >
-
-        <option value="">
-          Todos
-        </option>
-
-        <option value="ADMIN">
-          ADMIN
-        </option>
-
-        <option value="DIRECTOR">
-          DIRECTOR
-        </option>
-
-        <option value="TRABAJADOR">
-          TRABAJADOR
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <!-- ESTADO -->
-
-    <div>
-
-      <label
-        for="filtroEstadoUsuarios"
-        style="
-          display: block;
-          margin-bottom: 6px;
-          font-weight: 600;
-        "
-      >
-        Estado
-      </label>
-
-      <select
-        id="filtroEstadoUsuarios"
-        style="
-          width: 100%;
-          box-sizing: border-box;
-        "
-      >
-
-        <option value="">
-          Todos
-        </option>
-
-        <option value="activo">
-          Activos
-        </option>
-
-        <option value="inactivo">
-          Inactivos
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <!-- LIMPIAR -->
-
+  <!-- LIMPIAR -->
+  <div class="usuario-filter usuario-filter-action">
     <button
       id="limpiarFiltrosUsuarios"
       type="button"
@@ -565,8 +428,9 @@
     >
       Limpiar filtros
     </button>
-
   </div>
+
+</div>
   
   
   <div
