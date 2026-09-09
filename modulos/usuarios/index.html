@@ -1986,6 +1986,8 @@ async function cargarUsuarios() {
 }
 
 
+    
+
 // =========================================================
 // CARGAR FILTROS DE USUARIOS
 // =========================================================
@@ -2127,7 +2129,221 @@ function cargarOficinasFiltroUsuarios() {
 }
 
 
+// =========================================================
+// OBTENER USUARIOS FILTRADOS
+// =========================================================
 
+function obtenerUsuariosFiltrados() {
+
+  const texto =
+    buscarUsuarios.value
+      .trim()
+      .toLowerCase();
+
+  const empresaId =
+    filtroEmpresaUsuarios.value;
+
+  const oficinaId =
+    filtroOficinaUsuarios.value;
+
+  const rol =
+    filtroRolUsuarios.value;
+
+  const estado =
+    filtroEstadoUsuarios.value;
+
+
+  return usuariosCargados.filter(
+    usuario => {
+
+      // ===================================================
+      // BUSCAR
+      // ===================================================
+
+      if (texto) {
+
+        const nombre =
+          (
+            usuario.nombre ||
+            ""
+          ).toLowerCase();
+
+        const email =
+          (
+            usuario.email ||
+            ""
+          ).toLowerCase();
+
+        if (
+          !nombre.includes(texto) &&
+          !email.includes(texto)
+        ) {
+
+          return false;
+
+        }
+
+      }
+
+
+      // ===================================================
+      // EMPRESA
+      // ===================================================
+
+      if (
+        empresaId &&
+        usuario.empresaId !== empresaId
+      ) {
+
+        return false;
+
+      }
+
+
+      // ===================================================
+      // OFICINA
+      // ===================================================
+
+      if (
+        oficinaId &&
+        usuario.oficinaId !== oficinaId
+      ) {
+
+        return false;
+
+      }
+
+
+      // ===================================================
+      // ROL
+      // ===================================================
+
+      if (
+        rol &&
+        usuario.rol !== rol
+      ) {
+
+        return false;
+
+      }
+
+
+      // ===================================================
+      // ESTADO
+      // ===================================================
+
+      if (
+        estado === "activo" &&
+        usuario.activo === false
+      ) {
+
+        return false;
+
+      }
+
+
+      if (
+        estado === "inactivo" &&
+        usuario.activo !== false
+      ) {
+
+        return false;
+
+      }
+
+
+      return true;
+
+    }
+  );
+
+}
+
+
+// =========================================================
+// RENDERIZAR USUARIOS FILTRADOS
+// =========================================================
+
+function renderizarUsuariosFiltrados() {
+
+  const usuariosFiltrados =
+    obtenerUsuariosFiltrados();
+
+  renderizarUsuarios(
+    usuariosFiltrados
+  );
+
+}
+
+
+// =========================================================
+// EVENTOS DE LOS FILTROS
+// =========================================================
+
+buscarUsuarios.addEventListener(
+  "input",
+  renderizarUsuariosFiltrados
+);
+
+
+filtroEmpresaUsuarios.addEventListener(
+  "change",
+  () => {
+
+    cargarOficinasFiltroUsuarios();
+
+    filtroOficinaUsuarios.value =
+      "";
+
+    renderizarUsuariosFiltrados();
+
+  }
+);
+
+
+filtroOficinaUsuarios.addEventListener(
+  "change",
+  renderizarUsuariosFiltrados
+);
+
+
+filtroRolUsuarios.addEventListener(
+  "change",
+  renderizarUsuariosFiltrados
+);
+
+
+filtroEstadoUsuarios.addEventListener(
+  "change",
+  renderizarUsuariosFiltrados
+);
+
+
+limpiarFiltrosUsuarios.addEventListener(
+  "click",
+  () => {
+
+    buscarUsuarios.value =
+      "";
+
+    filtroEmpresaUsuarios.value =
+      "";
+
+    filtroOficinaUsuarios.value =
+      "";
+
+    filtroRolUsuarios.value =
+      "";
+
+    filtroEstadoUsuarios.value =
+      "";
+
+    cargarOficinasFiltroUsuarios();
+
+    renderizarUsuariosFiltrados();
+
+  }
+);
     
 // =========================================================
 // MOSTRAR USUARIOS EN LA TABLA
