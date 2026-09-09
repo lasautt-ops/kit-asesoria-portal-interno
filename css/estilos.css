@@ -6056,3 +6056,220 @@ body.modal-open {
   display: none !important;
 }
 
+
+/* =========================================================
+   FILTROS - MÓDULO USUARIOS
+   ========================================================= */
+
+.usuarios-filters {
+  width: 100%;
+
+  margin: 0 0 25px;
+
+  padding: 20px 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.03);
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(240px, 2fr)
+    repeat(4, minmax(150px, 1fr))
+    auto;
+
+  gap: 16px;
+
+  align-items: end;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CAMPOS DEL FILTRO
+   ========================================================= */
+
+.usuario-filter {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  min-width: 0;
+}
+
+
+.usuario-filter label {
+  display: block;
+
+  color: #374151;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.usuario-filter input,
+.usuario-filter select {
+  width: 100%;
+
+  height: 42px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+
+.usuario-filter input::placeholder {
+  color: #9ca3af;
+}
+
+
+.usuario-filter input:hover,
+.usuario-filter select:hover {
+  border-color: #cbd5e1;
+}
+
+
+.usuario-filter input:focus,
+.usuario-filter select:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   BOTÓN LIMPIAR
+   ========================================================= */
+
+.usuario-filter-action {
+  justify-content: flex-end;
+}
+
+
+.usuario-filter-action .btn {
+  height: 42px;
+
+  padding: 10px 14px;
+
+  background: #f3f4f6;
+
+  color: #374151;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+
+.usuario-filter-action .btn:hover {
+  background: #e5e7eb;
+
+  border-color: #d1d5db;
+
+  color: #111827;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .usuarios-filters {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .usuario-filter-search {
+    grid-column: 1 / -1;
+  }
+
+
+  .usuario-filter-action {
+    align-items: stretch;
+  }
+
+
+  .usuario-filter-action .btn {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .usuarios-filters {
+    grid-template-columns: 1fr;
+
+    padding: 18px;
+
+    gap: 14px;
+  }
+
+
+  .usuario-filter-search {
+    grid-column: auto;
+  }
+
+
+  .usuario-filter input,
+  .usuario-filter select,
+  .usuario-filter-action .btn {
+    height: 44px;
+  }
+
+}
