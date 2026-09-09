@@ -1987,6 +1987,149 @@ async function cargarUsuarios() {
 
 
 // =========================================================
+// CARGAR FILTROS DE USUARIOS
+// =========================================================
+
+function cargarFiltrosUsuarios() {
+
+  const empresas = {};
+
+  usuariosCargados.forEach(usuario => {
+
+    if (
+      usuario.empresaId &&
+      usuario.empresa
+    ) {
+
+      empresas[usuario.empresaId] =
+        usuario.empresa.nombre;
+
+    }
+
+  });
+
+
+  filtroEmpresaUsuarios.innerHTML = `
+    <option value="">
+      Todas
+    </option>
+  `;
+
+
+  Object.entries(empresas)
+    .sort((a, b) =>
+      a[1].localeCompare(
+        b[1],
+        "es"
+      )
+    )
+    .forEach(
+      ([empresaId, nombreEmpresa]) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          empresaId;
+
+        option.textContent =
+          nombreEmpresa;
+
+        filtroEmpresaUsuarios
+          .appendChild(option);
+
+      }
+    );
+
+
+  cargarOficinasFiltroUsuarios();
+
+}
+
+
+// =========================================================
+// CARGAR OFICINAS DEL FILTRO
+// =========================================================
+
+function cargarOficinasFiltroUsuarios() {
+
+  const empresaId =
+    filtroEmpresaUsuarios.value;
+
+
+  filtroOficinaUsuarios.innerHTML = `
+    <option value="">
+      Todas
+    </option>
+  `;
+
+
+  const oficinas = {};
+
+
+  usuariosCargados
+    .filter(usuario => {
+
+      if (!empresaId) {
+
+        return true;
+
+      }
+
+      return usuario.empresaId ===
+        empresaId;
+
+    })
+    .forEach(usuario => {
+
+      if (
+        usuario.oficinaId &&
+        usuario.oficina
+      ) {
+
+        oficinas[usuario.oficinaId] =
+          usuario.oficina.nombre;
+
+      }
+
+    });
+
+
+  Object.entries(oficinas)
+    .sort((a, b) =>
+      a[1].localeCompare(
+        b[1],
+        "es"
+      )
+    )
+    .forEach(
+      ([oficinaId, nombreOficina]) => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          oficinaId;
+
+        option.textContent =
+          nombreOficina;
+
+        filtroOficinaUsuarios
+          .appendChild(option);
+
+      }
+    );
+
+}
+
+
+
+    
+// =========================================================
 // MOSTRAR USUARIOS EN LA TABLA
 // =========================================================
 
