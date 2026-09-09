@@ -1953,10 +1953,12 @@ async function cargarUsuarios() {
 
     }
 
-    const usuarios =
+    usuariosCargados =
       datos.usuarios || [];
 
-    renderizarUsuarios(usuarios);
+    cargarFiltrosUsuarios();
+
+    renderizarUsuariosFiltrados();
 
   } catch (error) {
 
